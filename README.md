@@ -1,6 +1,5 @@
-## IT-314 ##
-## Group-22 ## 
-## Lab_Session-2 ##
+## IT314 ##
+## Group 22 ## 
 
  ## <pre> *Needs for the Placement Cell* </pre>
 
@@ -126,6 +125,3 @@ It can be easily updated even if the developer team of the website changes after
 2. Reason for Rejection of another suitable model: 
 * Incremental Model: We don’t have to make different modules and work according to that and release that. 
 * Spiral Model: In that major focus is on risk management. 
-
-
-
