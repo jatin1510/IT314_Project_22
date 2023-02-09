@@ -1,7 +1,8 @@
-# IT-314 #
+## IT-314 ##
+## Group-22 ## 
+## Lab_Session-2 ##
 
-
- ## *Write down the need for the project solution*
+ ## <pre> *Write down the need for the project solution* </pre>
 
 * **Efficient interaction** <br>
 The system should facilitate smooth interaction between all students and companies, making the placement process more efficient and convenient.
@@ -29,7 +30,7 @@ Students should be able to see his/her performance of the interviews that (s)he 
 After filling out the registration form, students should not be able to apply for the company until the admin approves the registration.
 
 ----
-## *Write down the features of the project solution*
+## <pre> *Write down the features of the project solution* </pre>
 
 * **Student information management**<br>
 A centralized platform for storing and managing student information such as grades, courses taken, and endorsements from faculty.
