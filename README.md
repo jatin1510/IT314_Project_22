@@ -75,8 +75,8 @@ Students will be able to see all companies' details that are going to visit the 
 Students should be able to filter the companies based on their requirements like roles in the company, location of the job etc.
 ----
 FRS:
-It should be able to manage and store all the student information.
-There should be a registration system for the companies through which they register themselves and get access to students information and placement cell.
+-It should be able to manage and store all the student information.  
+-There should be a registration system for the companies through which they register themselves and get access to students information and placement cell.
 It should be able to schedule the interviews and placement process like tests etc, according to the students schedule .
 Easy access for companies to student information.
 Students should be able to register and deregister for various companies.
