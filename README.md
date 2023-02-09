@@ -74,23 +74,23 @@ Students will be able to see all companies' details that are going to visit the 
 * **Company filters**<br>
 Students should be able to filter the companies based on their requirements like roles in the company, location of the job etc.
 ----
-FRS:
--It should be able to manage and store all the student information.  
--There should be a registration system for the companies through which they register themselves and get access to students information and placement cell.
-It should be able to schedule the interviews and placement process like tests etc, according to the students schedule .
-Easy access for companies to student information.
-Students should be able to register and deregister for various companies.
-Criterias (such as CPI limit) for company registration can be set easily on the system.
-students should not be able to apply for the company until the admin approves the registration.
-Students are notified when new companies come on campus for the recruitment process.
-The registration opening time and closing time for a company can be set(time limit for registration of 24 hours can be set).
-Company can create its profile and add the information about job requirements, posting and package.
-Students who have applied to various companies receive their performance analysis based on the rounds they have successfully completed till the date.
-Resume builder helps and guides the students to properly build their resumes.
-Real time notifications/mails keeps the recruitment process easy for everyone.
-Contact details about the placement cell and their members are provided on the site. 
-Students should be able to filter the companies according to their eligibility and interest.
-There should be a feedback system for students to know user requirements.
+FRS:  
+- It should be able to manage and store all the student information.  
+- There should be a registration system for the companies through which they register themselves and get access to students information and placement cell.
+- It should be able to schedule the interviews and placement process like tests etc, according to the students schedule .
+- Easy access for companies to student information.
+- Students should be able to register and deregister for various companies.
+- Criterias (such as CPI limit) for company registration can be set easily on the system.
+- students should not be able to apply for the company until the admin approves the registration.
+- Students are notified when new companies come on campus for the recruitment process.
+- The registration opening time and closing time for a company can be set(time limit for registration of 24 hours can be set).
+- Company can create its profile and add the information about job requirements, posting and package.
+- Students who have applied to various companies receive their performance analysis based on the rounds they have successfully completed till the date.
+- Resume builder helps and guides the students to properly build their resumes.
+- Real time notifications/mails keeps the recruitment process easy for everyone.
+- Contact details about the placement cell and their members are provided on the site. 
+- Students should be able to filter the companies according to their eligibility and interest.
+- There should be a feedback system for students to know user requirements.
 
 NFRS:
 
