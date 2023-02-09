@@ -1,5 +1,4 @@
-## IT314 ##
-## Group 22 ## 
+## IT314 - Group 22 ## 
 
  ## <pre> *Needs for the Placement Cell* </pre>
 
