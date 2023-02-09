@@ -1,6 +1,6 @@
 # IT314_Project_22
 
-**1. Write down the need for the project solution**
+ ## *1. Write down the need for the project solution*
 
 Efficient interaction: The system should facilitate smooth interaction between all students and companies, making the placement process more efficient and convenient.
 
