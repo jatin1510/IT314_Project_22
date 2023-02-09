@@ -74,3 +74,45 @@ Students will be able to see all companies' details that are going to visit the 
 * **Company filters**<br>
 Students should be able to filter the companies based on their requirements like roles in the company, location of the job etc.
 ----
+FRS:
+It should be able to manage and store all the student information.
+There should be a registration system for the companies through which they register themselves and get access to students information and placement cell.
+It should be able to schedule the interviews and placement process like tests etc, according to the students schedule .
+Easy access for companies to student information.
+Students should be able to register and deregister for various companies.
+Criterias (such as CPI limit) for company registration can be set easily on the system.
+students should not be able to apply for the company until the admin approves the registration.
+Students are notified when new companies come on campus for the recruitment process.
+The registration opening time and closing time for a company can be set(time limit for registration of 24 hours can be set).
+Company can create its profile and add the information about job requirements, posting and package.
+Students who have applied to various companies receive their performance analysis based on the rounds they have successfully completed till the date.
+Resume builder helps and guides the students to properly build their resumes.
+Real time notifications/mails keeps the recruitment process easy for everyone.
+Contact details about the placement cell and their members are provided on the site. 
+Students should be able to filter the companies according to their eligibility and interest.
+There should be a feedback system for students to know user requirements.
+
+NFRS:
+
+1. Authentication - While registering for the company the system/admin must authorize and validate the student credentials.
+
+2. Scalability - The system will be used by a huge number of student as well as companies, so it must adapt to handle such a high number of users
+
+3. Reliability
+ - The database must be kept up to date so that it doesn't display companies which are not currently recruiting.
+ - This will ensure that the students can only apply for the companies that are currently recruiting and those for which the students are eligible .
+    
+4. Maintainability 
+The web application should have the capability of modifications and updates so that the technology used does not get outdated too quickly
+It can be easily updated even if the developer team of the website changes after the deployment of final product
+
+5. Compatibility - The website should be able to run on latest versions of browsers and some older ones. Also it should be accessible through different devices such as mobile,laptop,tablet,etc.
+
+6. Usability - The UI/UX of the website should be simple yet elegant so that students can filter companies according to the choice and perform other actions easily, without any special training.User comfort and easy interaction with the website should be ensured.
+
+7. Accuracy - The information that is recorded about the companies and the students that are registered for particular companies must be accurate, reliable, and consistent.
+
+8. Credentials of the user should not leak in data breach anyway as it is a privacy concern.
+
+
+
