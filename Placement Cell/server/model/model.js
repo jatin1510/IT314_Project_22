@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const validator = require('validator');
 
 const studentSchema = new Schema({
     // verify all negative numbers
@@ -43,6 +44,7 @@ const adminSchema = new Schema({
 
 const jobSchema = new Schema({
     comp: { type: mongoose.Schema.Types.ObjectId, ref: 'company' },
+    jobName: { type: String, require: true },
     postingLocation: { type: String, require: true },
     ugCriteria: [{ type: String, require: true }],
     cpiCriteria: { type: Number, require: true },

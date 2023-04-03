@@ -5,17 +5,26 @@ const saltRounds = 10;
 const jwt = require('jsonwebtoken');
 require('dotenv').config({ path: 'config.env' });
 
-const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET;
-const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET;
+const generateToken = (id, email, role) =>
+{
+    return jwt.sign(
+        { id, email, role },
+        process.env.JWT_SECRET, {
+        expiresIn: process.env.JWT_EXPIRES_IN,
+    });
+};
 
-exports.findPerson = (req, res) =>
+/**
+  * @description Login Utility Function
+  */
+exports.findPerson = async (req, res) =>
 {
     const email = req.body.email;
     const role = req.body.role;
     const password = req.body.password;
 
     if (role == "Student") {
-        student.find({ email: email, password: password })
+        await student.find({ email: email })
             .then((data) =>
             {
                 if (!data) {
@@ -23,19 +32,18 @@ exports.findPerson = (req, res) =>
                         .status(404)
                         .send({ message: `Not found user with email: ${email} ` });
                 } else {
-                    // initialize cookie with role student and email
-                    const accessToken = jwt.sign(
-                        { "email": email },
-                        ACCESS_TOKEN_SECRET,
-                        { expiresIn: '30s' },
-                    );
-                    const refreshToken = jwt.sign(
-                        { "email": email },
-                        REFRESH_TOKEN_SECRET,
-                        { expiresIn: '1d' },
-                    );
-                    
-                    res.render('studentProfile', { student: data[0] });
+                    if (!bcrypt.compareSync(password, data[0].password)) {
+                        res
+                            .status(500)
+                            .send({ message: `Password Invalid` });
+                        return;
+                    }
+                    // create token
+                    const token = generateToken(data[0]._id, email, role);
+                    console.log(token);
+                    res.cookie("jwt", token);
+                    res.send(data);
+                    // res.render('studentProfile', { student: data[0] });
                 }
             })
             .catch((err) =>
@@ -46,7 +54,7 @@ exports.findPerson = (req, res) =>
             });
     }
     else if (role == "Company") {
-        company.find({ email: email, password: password })
+        await company.find({ email: email })
             .then((data) =>
             {
                 if (!data) {
@@ -55,8 +63,18 @@ exports.findPerson = (req, res) =>
                         .status(404)
                         .send({ message: `Not found Company with email: ${email} ` });
                 } else {
-                    // initialize cookie with role student and email
-                    res.render('companyProfile', { company: data[0] });
+                    if (!bcrypt.compareSync(password, data[0].password)) {
+                        res
+                            .status(500)
+                            .send({ message: `Password Invalid` });
+                        return;
+                    }
+                    // create token
+                    const token = generateToken(data[0]._id, email, role);
+                    console.log(token);
+                    res.cookie("jwt", token);
+                    res.send(data);
+                    // res.render('companyProfile', { company: data[0] });
                 }
             })
             .catch((err) =>
@@ -67,7 +85,7 @@ exports.findPerson = (req, res) =>
             });
     }
     else {
-        admin.find({ email: email, password: password })
+        await admin.find({ email: email })
             .then((data) =>
             {
                 if (!data) {
@@ -77,11 +95,48 @@ exports.findPerson = (req, res) =>
                         .send({ message: `Not found admin with email: ${email} ` });
                 } else {
                     // initialize cookie with role student and email
-                    if (data[0].role == 1)
-                        res.render('superAdminProfile', { admin: data[0] });
-                    else
-                        res.render('adminProfile', { admin: data[0] });
-
+                    if (data[0].role == 1) {
+                        if (role === "Placement Manager") {
+                            if (!bcrypt.compareSync(password, data[0].password)) {
+                                res
+                                    .status(500)
+                                    .send({ message: `Password Invalid` });
+                                return;
+                            }
+                            // create token
+                            const token = generateToken(data[0]._id, email, role);
+                            console.log(token);
+                            res.cookie("jwt", token);
+                            // res.render('superAdminProfile', { admin: data[0] });
+                            res.send(data);
+                        }
+                        else {
+                            res
+                                .status(500)
+                                .send({ message: `Error retrieving user with role ${role}` });
+                        }
+                    }
+                    else {
+                        if (role === "Admin") {
+                            if (!bcrypt.compareSync(password, data[0].password)) {
+                                res
+                                    .status(500)
+                                    .send({ message: `Password Invalid` });
+                                return;
+                            }
+                            // create token
+                            const token = generateToken(data[0]._id, email, role);
+                            console.log(token);
+                            res.cookie("jwt", token);
+                            // res.render('adminProfile', { admin: data[0] });
+                            res.send(data);
+                        }
+                        else {
+                            res
+                                .status(500)
+                                .send({ message: `Error retrieving user with role ${role}` });
+                        }
+                    }
                 }
             })
             .catch((err) =>
@@ -93,8 +148,11 @@ exports.findPerson = (req, res) =>
     }
 };
 
+/**
+  * @description Register Utility Functions
+  */
 // Register student
-exports.registerStudent = (req, res) =>
+exports.registerStudent = async (req, res) =>
 {
     // validate request
     if (!req.body) {
@@ -102,7 +160,12 @@ exports.registerStudent = (req, res) =>
         return;
     }
 
-    bcrypt.hash(req.body.password, saltRounds)
+    if (req.body.confirmPassword !== req.body.password) {
+        // make new webpage for any type for error
+        res.send("Password doesn't matched");
+    }
+
+    await bcrypt.hash(req.body.password, saltRounds)
         .then((hashedPassword) =>
         {
             // new student
@@ -130,7 +193,9 @@ exports.registerStudent = (req, res) =>
                 .save(user)
                 .then(data =>
                 {
-                    res.send(user);
+                    const token = generateToken(data[0]._id, user.email, "Student");
+                    res.cookie("jwt", token);
+                    res.send(data);
                 })
                 .catch(err =>
                 {
@@ -146,7 +211,7 @@ exports.registerStudent = (req, res) =>
 }
 
 // Register company
-exports.registerCompany = (req, res) =>
+exports.registerCompany = async (req, res) =>
 {
     // validate request
     if (!req.body) {
@@ -154,7 +219,7 @@ exports.registerCompany = (req, res) =>
         return;
     }
 
-    bcrypt.hash(req.body.password, saltRounds)
+    await bcrypt.hash(req.body.password, saltRounds)
         .then((hashedPassword) =>
         {
             // new company
@@ -172,7 +237,9 @@ exports.registerCompany = (req, res) =>
                 .save(user)
                 .then(data =>
                 {
-                    res.send(user);
+                    const token = generateToken(data[0]._id, user.email, "Company");
+                    res.cookie("jwt", token);
+                    res.send(data);
                 })
                 .catch(err =>
                 {
@@ -188,7 +255,7 @@ exports.registerCompany = (req, res) =>
 }
 
 // Register company
-exports.registerAdmin = (req, res) =>
+exports.registerAdmin = async (req, res) =>
 {
     // validate request
     if (!req.body) {
@@ -196,7 +263,7 @@ exports.registerAdmin = (req, res) =>
         return;
     }
 
-    bcrypt.hash(req.body.password, saltRounds)
+    await bcrypt.hash(req.body.password, saltRounds)
         .then((hashedPassword) =>
         {
             // new company
@@ -212,7 +279,9 @@ exports.registerAdmin = (req, res) =>
                 .save(user)
                 .then(data =>
                 {
-                    res.send(user);
+                    const token = generateToken(data[0]._id, user.email, "Admin");
+                    res.cookie("jwt", token);
+                    res.send(data);
                 })
                 .catch(err =>
                 {
@@ -225,4 +294,13 @@ exports.registerAdmin = (req, res) =>
         {
             console.log('Error:', err);
         })
+}
+
+/**
+  * @description Modify Utility Functions
+  */
+
+exports.updateUser = async (req, res) =>
+{
+
 }
