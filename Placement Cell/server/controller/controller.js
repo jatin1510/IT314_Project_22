@@ -1,12 +1,12 @@
 const axios = require('axios');
 const bcrypt = require('bcrypt');
-const { student, company, admin, job } = require('../model/model');
+const { student, company, admin, job, studentJob } = require('../model/model');
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
+const { syncIndexes } = require('mongoose');
 require('dotenv').config({ path: 'config.env' });
 
-const generateToken = (id, email, role) =>
-{
+const generateToken = (id, email, role) => {
     return jwt.sign(
         { id, email, role },
         process.env.JWT_SECRET, {
@@ -17,16 +17,14 @@ const generateToken = (id, email, role) =>
 /**
   * @description Login Utility Function
   */
-exports.findPerson = async (req, res) =>
-{
+exports.findPerson = async (req, res) => {
     const email = req.body.email;
     const role = req.body.role;
     const password = req.body.password;
 
     if (role == "Student") {
         await student.find({ email: email })
-            .then((data) =>
-            {
+            .then((data) => {
                 if (!data) {
                     res
                         .status(404)
@@ -54,8 +52,7 @@ exports.findPerson = async (req, res) =>
     }
     else if (role == "Company") {
         await company.find({ email: email })
-            .then((data) =>
-            {
+            .then((data) => {
                 if (!data) {
                     // Make new webpage for all not found errors
                     res
@@ -84,8 +81,7 @@ exports.findPerson = async (req, res) =>
     }
     else {
         await admin.find({ email: email })
-            .then((data) =>
-            {
+            .then((data) => {
                 if (!data) {
                     // Make new webpage for all not found errors
                     res
@@ -149,8 +145,7 @@ exports.findPerson = async (req, res) =>
   * @description Register Utility Functions
   */
 // Register student
-exports.registerStudent = async (req, res) =>
-{
+exports.registerStudent = async (req, res) => {
     // validate request
     if (!req.body) {
         res.status(400).send({ message: 'Content can not be empty!' });
@@ -163,8 +158,7 @@ exports.registerStudent = async (req, res) =>
     }
 
     await bcrypt.hash(req.body.password, saltRounds)
-        .then((hashedPassword) =>
-        {
+        .then((hashedPassword) => {
             // new student
             const user = new student({
                 email: req.body.email,
@@ -188,28 +182,24 @@ exports.registerStudent = async (req, res) =>
             // save student in the database
             user
                 .save(user)
-                .then(data =>
-                {
+                .then(data => {
                     const token = generateToken(data[0]._id, user.email, "Student");
                     res.cookie("jwt", token);
                     res.send(data);
                 })
-                .catch(err =>
-                {
+                .catch(err => {
                     res.status(500).send({
                         message: err.message || 'Some error occured  while creating a create operation',
                     });
                 });
         })
-        .catch(err =>
-        {
+        .catch(err => {
             console.log('Error:', err);
         })
 }
 
 // Register company
-exports.registerCompany = async (req, res) =>
-{
+exports.registerCompany = async (req, res) => {
     // validate request
     if (!req.body) {
         res.status(400).send({ message: 'Content can not be empty!' });
@@ -217,8 +207,7 @@ exports.registerCompany = async (req, res) =>
     }
 
     await bcrypt.hash(req.body.password, saltRounds)
-        .then((hashedPassword) =>
-        {
+        .then((hashedPassword) => {
             // new company
             const user = new company({
                 email: req.body.email,
@@ -232,28 +221,24 @@ exports.registerCompany = async (req, res) =>
             // save company in the database
             user
                 .save(user)
-                .then(data =>
-                {
+                .then(data => {
                     const token = generateToken(data[0]._id, user.email, "Company");
                     res.cookie("jwt", token);
                     res.send(data);
                 })
-                .catch(err =>
-                {
+                .catch(err => {
                     res.status(500).send({
                         message: err.message || 'Some error occured  while creating a create operation',
                     });
                 });
         })
-        .catch(err =>
-        {
+        .catch(err => {
             console.log('Error:', err);
         })
 }
 
 // Register company
-exports.registerAdmin = async (req, res) =>
-{
+exports.registerAdmin = async (req, res) => {
     // validate request
     if (!req.body) {
         res.status(400).send({ message: 'Content can not be empty!' });
@@ -261,8 +246,7 @@ exports.registerAdmin = async (req, res) =>
     }
 
     await bcrypt.hash(req.body.password, saltRounds)
-        .then((hashedPassword) =>
-        {
+        .then((hashedPassword) => {
             // new company
             const user = new admin({
                 email: req.body.email,
@@ -274,21 +258,18 @@ exports.registerAdmin = async (req, res) =>
             // save company in the database
             user
                 .save(user)
-                .then(data =>
-                {
+                .then(data => {
                     const token = generateToken(data[0]._id, user.email, "Admin");
                     res.cookie("jwt", token);
                     res.send(data);
                 })
-                .catch(err =>
-                {
+                .catch(err => {
                     res.status(500).send({
                         message: err.message || 'Some error occured  while creating a create operation',
                     });
                 });
         })
-        .catch(err =>
-        {
+        .catch(err => {
             console.log('Error:', err);
         })
 }
@@ -297,12 +278,11 @@ exports.registerAdmin = async (req, res) =>
   * @description Modify Utility Functions
   */
 
-exports.updateUser = async (req, res) =>
-{
+exports.updateUser = async (req, res) => {
 
 }
 
-//company home  by Jaimin
+//company home by Jaimin
 exports.showJob = (req, res) => {
     const companyID = null;
     job.find({ comp: companyID })
@@ -320,7 +300,7 @@ exports.showJob = (req, res) => {
 
 exports.postJob = (req, res) => {
     // add job to jobSchema
-    const companyID = null;
+    const companyID = "642c112c7a0fdd91ee4100bb";
     if (!req.body) {
         res.status(400).send({ message: 'Content can not be empty!' });
         return;
@@ -328,7 +308,8 @@ exports.postJob = (req, res) => {
 
     // new student
     const user = new job({
-        comp: req.body.comp,
+        comp: companyID,
+        jobName: req.body.jobName,
         postingLocation: req.body.postingLocation,
         ugCriteria: req.body.ugCriteria,
         cpiCriateria: req.body.cpiCriateria,
@@ -351,62 +332,106 @@ exports.postJob = (req, res) => {
         });
 };
 
-exports.registredStudentsInJob = (req, res) => {
-    const jobID = null;
+exports.registredStudentsInJob = async (req, res) => {
+    const jobID = req.query.jobID;
     studentJob.find({ job: jobID })
         .then(data => {
             if (!data) {
-                res.status(404).send({ message: "Not found Job with id " + id })
+                res.status(404).send({ message: "Not found Job with id " + jobID })
             } else {
-                // dbo.collection('orders').aggregate([
-                //     { $lookup:
-                //       {
-                //         from: 'products',
-                //         localField: 'product_id',
-                //         foreignField: '_id',
-                //         as: 'orderdetails'
-                //       }
-                //     }
-                //   ]).toArray(function(err, res)
-                // // res.send(data)
-                // code Join job, student and studentJob
-                job.aggregate([
+                // console.log(jobID);
+                studentJob.aggregate([
                     {
                         $lookup:
                         {
-                            from: 'studentjobs',
-                            localField: '_id',
-                            foreignField: 'job',
+                            from: 'job',
+                            localField: 'job',
+                            foreignField: '_id',
                             as: 'studentjobsjoinjob'
                         }
                     }
-                ]).toArray(function (err, res) {console.log(res)});
+                ])
+                    .then(async (result) => {
+                        const arrayOfStudents = [];
+                        for (let index = 0; index < result.length; index++) {
+                            await student.find({ _id: result[index].student })
+                                .then((result1) => {
+                                    if (!result1) {
+                                        res.status(404).send({ message: "Not found Student with id " + result[index].student })
+                                    }
+                                    else {
+                                        arrayOfStudents.push(result1[0]);
+                                    }
+                                })
+                                .catch((error) => {
+                                    console.log(error);
+                                });
+                        }
+                        // console.log(arrayOfStudents);
+                        res.send(arrayOfStudents);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
             }
         })
         .catch(err => {
-            res.status(500).send({ message: "Error retrieving Job with id " + id })
+            res.status(500).send({ message: "Error retrieving Job with id " + jobID });
         })
 };
 
 exports.jobsRegistredbyStudent = (req, res) => {
-    const jobID = null;
-    studentJob.find({ job: jobID })
+    const studentID = req.query.studentID;
+    studentJob.find({ student: studentID })
         .then(data => {
             if (!data) {
-                res.status(404).send({ message: "Not found Job with id " + id })
+                res.status(404).send({ message: "Not found Student with id " + studentID })
             } else {
-                res.send(data)
+                // console.log(jobID);
+                studentJob.aggregate([
+                    {
+                        $lookup:
+                        {
+                            from: 'stuent',
+                            localField: 'student',
+                            foreignField: '_id',
+                            as: 'studentjobsjoinstudent'
+                        }
+                    }
+                ])
+                    .then(async (result) => {
+                        const arrayOfJobs = [];
+                        for (let index = 0; index < result.length; index++) {
+                            await job.find({ _id: result[index].job })
+                                .then((result1) => {
+                                    if (!result1) {
+                                        res.status(404).send({ message: "Not found job with id " + result[index].job })
+                                    }
+                                    else {
+                                        arrayOfJobs.push(result1[0]);
+                                    }
+                                })
+                                .catch((error) => {
+                                    console.log(error);
+                                });
+                        }
+                        // console.log(arrayOfJobs);
+                        res.send(arrayOfJobs);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
             }
         })
         .catch(err => {
-            res.status(500).send({ message: "Error retrieving Job with id " + id })
+            res.status(500).send({ message: "Error retrieving Student with id " + studentID });
         })
 };
 
 // Help student to register in Job
 exports.registerStudentInJob = (req, res) => {
-    const jobID = req.params._id;
-    const studentID = req.id;
+    const jobID = "642c1273520e78f528916627";
+    const studentID = "642c10217a0fdd91ee4100b5";
     if (!req.body) {
         res.status(400).send({ message: 'Content can not be empty!' });
         return;

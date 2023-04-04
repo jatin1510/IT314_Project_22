@@ -16,6 +16,7 @@ route.get('/', services.home);
 route.post('/registerStudent', controller.registerStudent);
 route.post('/registerCompany', controller.registerCompany);
 route.post('/registerAdmin', controller.registerAdmin);
+route.post('/postJob', controller.postJob);
 
 /**
   * @description Login Route
@@ -28,5 +29,7 @@ route.get('/login', controller.findPerson);
   * @method GET /
   */
 route.get('/update', controller.updateUser);
+
+route.get('/sjr', controller.registredStudentsInJob);
 
 module.exports = route;
