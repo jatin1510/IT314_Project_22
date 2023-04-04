@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const validator = require('validator');
 
 const studentSchema = new Schema({
     // verify all negative numbers
@@ -36,11 +37,14 @@ const companySchema = new Schema({
 const adminSchema = new Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
     role: { type: Number, default: 2 },
 });
 
 const jobSchema = new Schema({
     comp: { type: mongoose.Schema.Types.ObjectId, ref: 'company' },
+    jobName: { type: String, require: true },
     postingLocation: { type: String, require: true },
     ugCriteria: [{ type: String, require: true }],
     cpiCriteria: { type: Number, require: true },
@@ -48,6 +52,7 @@ const jobSchema = new Schema({
     description: { type: String, require: true },
     startDate: { type: Date, default: new Date() },
     endDate: { type: Date, default: new Date() },
+    isVerified: { type: Boolean, default: false },
 });
 
 const studentsRegistredSchema = new Schema({

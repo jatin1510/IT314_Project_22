@@ -3,13 +3,30 @@ const route = express.Router();
 const services = require('../service/render');
 const controller = require('../controller/controller');
 
+/**
+  * @description Root Route
+  * @method GET /
+  */
+route.get('/', services.home);
 
-route.get('/', services.home)
+/**
+  * @description Register Routes
+  * @method POST /
+  */
+route.post('/registerStudent', controller.registerStudent);
+route.post('/registerCompany', controller.registerCompany);
+route.post('/registerAdmin', controller.registerAdmin);
 
-route.get('/studentProfile', services.home)
+/**
+  * @description Login Route
+  * @method GET /
+  */
+route.get('/login', controller.findPerson);
 
-route.get('/companyProfile', services.companyProfile)
-
-route.get('/postJob', controller.postJob)
+/**
+  * @description Update Routes
+  * @method GET /
+  */
+route.get('/update', controller.updateUser);
 
 module.exports = route;
