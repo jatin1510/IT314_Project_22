@@ -172,8 +172,8 @@ exports.jobsRegistredbyStudent = (req, res) => {
 
 // Help student to register in Job
 exports.registerStudentInJob = (req, res) => {
-    const jobID = null;
-    const studentID = null;
+    const jobID = req.params._id;
+    const studentID = req.id;
     if (!req.body) {
         res.status(400).send({ message: 'Content can not be empty!' });
         return;
@@ -181,8 +181,8 @@ exports.registerStudentInJob = (req, res) => {
 
     // new student
     const user = new studentJob({
-        job: req.body.job,
-        student: req.body.student,
+        job: jobID,
+        student: studentID,
     });
 
     // save student in the database
