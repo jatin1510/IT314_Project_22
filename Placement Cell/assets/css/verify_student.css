@@ -51,11 +51,11 @@
 
     font-size: 2em;
 }
-
 .fa-sharp:hover{
     font-size: 2.1em;
    
 }
+
 
 .text-dark {
     font-size: 1.5em;
@@ -69,7 +69,7 @@
 .header-group input[type="text"] {
     width: 10em;
     height: 1.8em;
-  
+    margin: 0.4em;
     font-family: 'Open Sans', sans-serif;
     text-align: center;
     border: 1px solid var(--border);
@@ -115,7 +115,7 @@
 }
 
 .form_group {
-    margin-top: 2em;
+    margin-top: 1em;
 
 }
 
@@ -127,8 +127,9 @@
 }
 
 .new_user label {
-
     padding-left: 10em;
+
+
 
 }
 
