@@ -51,6 +51,11 @@
 
     font-size: 2em;
 }
+.fa-sharp:hover{
+    font-size: 2.1em;
+   
+}
+
 
 .text-dark {
     font-size: 1.5em;
