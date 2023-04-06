@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Filter</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Filter_style.css">
 </head>
 <body>
     <section class="left-section">
@@ -13,7 +13,14 @@
             <h4 class="sub-header">Apply Filters</h4>
             <form action="/searchJobs" method="post">
                 <br>
-                <p>Job location</p>
+                <p>Job Name</p>
+                <select name="jobname" id="jobname">
+                    <option value="Any" selected="">Any</option>
+                    <option value="summer"> Summer Internship </option>
+                    <option value="jobb"> Job </option>
+                </select>
+                <br>
+                <p>Posting Location</p>
                 <select name="locations" id="location">
                     <option value="Any" selected="">Any</option>
                     <option value="Banglore"> Banglore </option>
@@ -25,7 +32,16 @@
                     <option value="Gurgaon"> Gurgaon </option>
                 </select>
                 <br>
-                <p>CPI</p>
+                <p>UG Criteria</p>
+                <select name="ug" id="ug">
+                    <option value="Any" selected="">Any</option>
+                    <option value="ict"> BTech ICT </option>
+                    <option value="cs"> BTech ICT with CS </option>
+                    <option value="mnc"> BTech MNC </option>
+                    <option value="mtech"> MTech </option>
+                </select>
+                <br>
+                <p>CPI Criteria</p>
                 <select name="cpi" id="cpi">
                     <option value="Any" selected="">Any</option>
                     <option value=">6"> &gt; 6 </option>
@@ -44,13 +60,6 @@
                     <option value="<5"> &lt; 5 </option>
                 </select>
                 <br>
-                <p>Job type</p>
-                <select name="jobtype" id="jobtype">
-                    <option value="Any" selected="">Any</option>
-                    <option value="summer"> Summer Internship </option>
-                    <option value="jobb"> Job </option>
-                </select>
-                <br>
                 <button type="submit">Search</button>
             </form>
         </div>
@@ -60,35 +69,39 @@
             <div class="header">
 
                  
-                <h1>You are eligible for the following jobs</h1>
+                <h1 style="text-align: center;">You are eligible for the following jobs</h1>
                 <br>
-                <h3>Jobs found: 1 </h3>
+                <!-- <h3>Jobs found: 1 </h3> -->
                  
             </div>
             <div class="job-card">
-
-                 
-
-                 
-                    <br>
-                    <p> <b>  Company name: </b>63e4ed4c71de831c2c49128b </p>
-                    <br>
-                    <p> <b>Position:</b> SDE </p> 
-                    <br>
-                    <p> <b> Degrees:</b> BTech </p> 
-                    <br>
-                    <p> <b> Passout years:</b>  2024 </p> 
-                    <br>
-                    <p> <b> Required CPI out of 10: </b> 7 </p> 
-                    <br>
-                    <p> <b>CTC: </b> 25 </p> 
-                    <br>
-                    <p> <b> Locations:</b> Banglore,Mumbai </p> 
-                    <br>
-                    <p> <b> Job apply URL: </b> <a id="link" href="https://jobs.giriraj.com">Click here </a>  </p>
-                    <br>
-                    <br>
-                     
+                <table>
+                <!-- <th>Jobs</th> -->
+                    <tr>
+                        <td> Company Name </td>  
+                        <td> Job Name </td>
+                        <td> Posting Location </td>
+                        <td> UG Criteria </td>
+                        <td> CPI Criteria </td>
+                        <td> CTC (in lpa) </td>
+                        <td> Description </td>
+                        <td> Start Date </td>
+                        <td> End Date </td>
+                        <td> Variefied </td>
+                    </tr>
+                    <tr>
+                        <td>Random</td>  
+                        <td> Summer Internship </td>
+                        <td> Banglore, Mumbai </td>
+                        <td> BTech ICT </td>
+                        <td> 7 </td>
+                        <td> 25 </td>
+                        <td> Not Now </td>
+                        <td> 25/05/22 </td>
+                        <td> 27/05/22 </td>
+                        <td> Yes </td>
+                    </tr>
+                </table>    
                     <br>
                      
             </div>
