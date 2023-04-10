@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt');
 const { student, company, admin, job } = require('../model/model');
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
+
 require('dotenv').config({ path: 'config.env' });
 
 const cookie_expires_in = 24 * 60 * 60 * 1000;
@@ -165,6 +167,7 @@ exports.registerStudent = async (req, res) =>
     if (req.body.confirmPassword !== req.body.password) {
         // make new webpage for any type for error
         res.send("Password doesn't matched");
+        return;
     }
 
     await bcrypt.hash(req.body.password, saltRounds)
@@ -304,9 +307,10 @@ exports.updateUser = async (req, res) =>
 {
     const email = req.email;
     const role = req.role;
+    const id = req.id;
 
     if (role == "Student") {
-        await student.find({ email: email })
+        await student.find({ id: id })
             .then((data) =>
             {
                 // render to update student page ex. {/updateStudent/:id}
@@ -320,7 +324,7 @@ exports.updateUser = async (req, res) =>
             });
     }
     else if (role == "Company") {
-        await company.find({ email: email })
+        await company.find({ id: id })
             .then((data) =>
             {
                 // render to update company page ex. {/updateCompany/:id}
@@ -334,7 +338,7 @@ exports.updateUser = async (req, res) =>
             });
     }
     else {
-        await admin.find({ email: email })
+        await admin.find({ id: id })
             .then((data) =>
             {
                 // initialize cookie with role student and email
@@ -402,13 +406,20 @@ exports.updateStudent = async (req, res) =>
                 console.log('Error:', err);
             })
     }
-    student.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
-        .then(data =>
+    const stored = req.body;
+    await student.findByIdAndUpdate(id, stored, { useFindAndModify: false })
+        .then((data) =>
         {
             if (!data) {
                 res.status(400).send({ message: `Cannot update student with ${id}. May be user not found!` })
             } else {
-                res.send(data);
+                if (req.body.email) {
+                    // updating email in cookie
+                    res.clearCookie("jwt");
+                    const token = generateToken(data._id, req.body.email, role);
+                    res.cookie("jwt", token, { maxAge: cookie_expires_in, httpOnly: true });
+                }
+                res.send(stored);
             }
         })
         .catch(err =>
@@ -416,6 +427,7 @@ exports.updateStudent = async (req, res) =>
             res.status(500).send({ message: 'Error update student information' });
         })
 }
+
 exports.updateCompany = async (req, res) =>
 {
     if (!req.body) {
@@ -424,6 +436,7 @@ exports.updateCompany = async (req, res) =>
             .send({ message: 'Data to update can not be empty' });
     }
 
+    const email = req.email;
     const id = req.id;
     const role = req.role;
 
@@ -444,13 +457,20 @@ exports.updateCompany = async (req, res) =>
                 console.log('Error:', err);
             })
     }
-    company.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
-        .then(data =>
+    const stored = req.body;
+    await company.findByIdAndUpdate(id, stored, { useFindAndModify: false })
+        .then((data) =>
         {
             if (!data) {
                 res.status(400).send({ message: `Cannot update company with ${id}. May be user not found!` })
             } else {
-                res.send(data);
+                if (req.body.email) {
+                    // updating email in cookie
+                    res.clearCookie("jwt");
+                    const token = generateToken(data._id, req.body.email, role);
+                    res.cookie("jwt", token, { maxAge: cookie_expires_in, httpOnly: true });
+                }
+                res.send(stored);
             }
         })
         .catch(err =>
@@ -470,7 +490,7 @@ exports.updateAdmin = async (req, res) =>
     const id = req.id;
     const role = req.role;
 
-    if (role !== "Placement Manager" || role !== "Admin") {
+    if (role !== "Placement Manager" && role !== "Admin") {
         res
             .status(500)
             .send({ message: 'Role not matched' });
@@ -487,13 +507,20 @@ exports.updateAdmin = async (req, res) =>
                 console.log('Error:', err);
             })
     }
-    admin.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
-        .then(data =>
+    const stored = req.body;
+    await admin.findByIdAndUpdate(id, stored, { useFindAndModify: false })
+        .then((data) =>
         {
             if (!data) {
                 res.status(400).send({ message: `Cannot update admin with ${id}. May be user not found!` })
             } else {
-                res.send(data);
+                if (req.body.email) {
+                    // updating email in cookie
+                    res.clearCookie("jwt");
+                    const token = generateToken(data._id, req.body.email, role);
+                    res.cookie("jwt", token, { maxAge: cookie_expires_in, httpOnly: true });
+                }
+                res.send(stored);
             }
         })
         .catch(err =>
@@ -581,4 +608,102 @@ exports.deleteUser = async (req, res) =>
                 });
             });
     }
+}
+
+// Auto Mail
+/**
+  * @description Automate Mail
+  */
+exports.sendMail = async (req, res) =>
+{
+    const transporter = nodemailer.createTransport({
+        service: "hotmail",
+        auth: {
+            user: "placementdaiict@outlook.com",
+            pass: process.env.MAIL_PASS,
+        },
+    });
+
+    const students = await student.find({ isPlaced: false }).exec();
+    const emails = [];
+    for (let i = 0; i < students.length; i++) {
+        emails.push(students[i].email);
+    }
+
+    if (!students) {
+        res.status(200).send({
+            message: `All registered students are placed.`,
+        });
+        return;
+    }
+
+    const id = req.params.id;
+    job.findById(id)
+        .then((data) =>
+        {
+            res.send(data);
+            const companyId = data.comp;
+            company.findById(companyId)
+                .then((companyData) =>
+                {
+                    const CompanyName = companyData.companyName;
+
+                    const JobName = data.jobName;
+                    const locations = data.postingLocation;
+                    const openfor = data.ugCriteria;
+                    const CpiCriteria = data.cpiCriteria;
+                    const ctc = data.ctc;
+                    const description = data.description;
+
+                    const start_date = new Date();
+                    const end_date = new Date();
+                    end_date.setDate(end_date.getDate() + 1);
+
+                    const options = {
+                        from: `placementdaiict@outlook.com`,
+                        to: emails,
+                        subject: `Registration is open for ${CompanyName}`,
+                        text: ``,
+                        html: `<p>Dear students, Upcoming placement drive of the company <b>${CompanyName}</b> is scheduled on ${start_date}</p>
+                                <div><h4>Company Profile Details:<h4> </div>
+                                <div><b>Registration Starts on:</b> ${start_date} </div>
+                                <div><b>Registration Ends on:</b> ${end_date} </div>
+                                <div><b>Open for:</b> ${openfor} </div>
+                                <div><b>Posting Location(s):</b> ${locations} </div>
+                                <div><b>Job Role:</b> ${JobName}</div>
+                                <div><b>CPI Criteria:</b> ${CpiCriteria}</div>
+                                <div><b>CTC(LPA):</b> ${ctc}</div>
+                                <div><b>Description:</b> ${description} </div>
+                                <br>
+                                <div><b>Note:</b> All the students who are registering for a company are required to attend the company process and cannot back out from the same, for any reason. Anyone violating this norm will be strictly banned from the next eligible company.</div>
+                                <br>
+                                <div><b>Strict notice to all the students:</b> no late registrations will be entertained (no matter the reason). So, do keep in mind the registration deadline. Research about the company and the job profile before registering.</div> 
+                                <br>
+                                <div><i>Wish you luck!</i></div>
+                                <br>
+                                <div>Please Do Not Respond back to this E-mail as this is Auto Generated E-mail, contact us at <b>jatinranpariya1510@gmail.com</b> in case of any doubt.</div>
+                                <br>
+                                <div>Regards,</div>
+                                <div>Placement Cell</div>`,
+                    };
+
+                    transporter.sendMail(options, function (err, info)
+                    {
+                        if (err) {
+                            console.log("Error occured", err);
+                            return;
+                        }
+                        console.log("Sent: ", info.response);
+                    });
+                })
+                .catch(err =>
+                {
+                    res.status(500).send({ message: 'Company not found' });
+                })
+
+        })
+        .catch(err =>
+        {
+            res.status(500).send({ message: 'Job not found' });
+        })
 }

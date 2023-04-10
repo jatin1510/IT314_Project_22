@@ -2,7 +2,7 @@ const express = require('express');
 const route = express.Router();
 const services = require('../service/render');
 const controller = require('../controller/controller');
-const { authorization } = require('../middleware/middleware');
+const { authorization, authorizationAdmin } = require('../middleware/middleware');
 
 /**
   * @description Root Route
@@ -50,6 +50,12 @@ route.get('/logout', authorization, controller.logoutUser);
   * @method DELETE /
   */
 route.delete('/delete', authorization, controller.deleteUser);
+
+/**
+  * @description Delete Routes
+  * @method GET /
+  */
+route.get('/mail/:id', authorizationAdmin, controller.sendMail);
 
 
 module.exports = route;
