@@ -61,3 +61,36 @@ exports.authorizationAdmin = (req, res, next) =>
             .send('Invalid Token');
     }
 }
+
+exports.authorizationSuperAdmin = (req, res, next) =>
+{
+    const token = req.cookies.jwt;
+    if (!token) {
+        // simply return to login page
+        return res
+            .status(500)
+            .send({
+                message: 'Access denied, You need to login or sign up.',
+            });;
+    }
+
+    try {
+        const data = jwt.verify(token, process.env.JWT_SECRET);
+        req.id = data.id;
+        req.email = data.email;
+        req.role = data.role;
+
+        if (req.role !== "Placement Manager") {
+            return res
+                .status(500)
+                .send({
+                    message: `Access denied, You don't have permission.`,
+                });;
+        }
+        next();
+    } catch {
+        return res
+            .sendStatus(403)
+            .send('Invalid Token');
+    }
+}

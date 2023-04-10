@@ -90,7 +90,7 @@ exports.findPerson = async (req, res) =>
     }
     else {
         await admin.find({ email: email })
-            .then((data) =>
+            .then(async (data) =>
             {
                 if (!data) {
                     // Make new webpage for all not found errors
@@ -610,7 +610,6 @@ exports.deleteUser = async (req, res) =>
     }
 }
 
-// Auto Mail
 /**
   * @description Automate Mail
   */
@@ -693,7 +692,7 @@ exports.sendMail = async (req, res) =>
                             console.log("Error occured", err);
                             return;
                         }
-                        console.log("Sent: ", info.response);
+                        console.log("Mail Sent: ", info.response);
                     });
                 })
                 .catch(err =>
@@ -706,4 +705,91 @@ exports.sendMail = async (req, res) =>
         {
             res.status(500).send({ message: 'Job not found' });
         })
+}
+
+/**
+  * @description Verification Functions
+  */
+exports.verifyStudent = async (req, res) =>
+{
+    const id = req.params.id;
+    if (id) {
+        await student.findByIdAndUpdate(id, { isVerified: true }, { useFindAndModify: false })
+            .then((data) =>
+            {
+                res.send(`Verified student with object id ${id}`);
+            })
+            .catch(err =>
+            {
+                res.status(500).send({ message: 'Student not found' });
+            })
+    }
+    else {
+        const students = await student.find({ isVerified: false }).exec();
+        if (!students) {
+            res.status(200).send({ message: 'All students are verified' });
+            return;
+        }
+
+        // render verifyStudent page with students object
+        // res.rend('verifyStudent', {students: students});
+        res.send(students);
+        // console.log(students.length);
+    }
+}
+
+exports.verifyJob = async (req, res) =>
+{
+    const id = req.params.id;
+    if (id) {
+        await job.findByIdAndUpdate(id, { isVerified: true }, { useFindAndModify: false })
+            .then((data) =>
+            {
+                res.send(`Verified job with object id ${id}`);
+            })
+            .catch(err =>
+            {
+                res.status(500).send({ message: 'Job not found' });
+            })
+    }
+    else {
+        const jobs = await job.find({ isVerified: false }).exec();
+        if (!jobs) {
+            res.status(200).send({ message: 'All jobs are verified' });
+            return;
+        }
+
+        // render verifyJob page with students object
+        // res.rend('verifyJob', {jobs: jobs});
+        res.send(jobs);
+        console.log(jobs.length);
+    }
+}
+
+exports.verifyCompany = async (req, res) =>
+{
+    const id = req.params.id;
+    if (id) {
+        await company.findByIdAndUpdate(id, { isVerified: true }, { useFindAndModify: false })
+            .then((data) =>
+            {
+                res.send(`Verified company with object id ${id}`);
+            })
+            .catch(err =>
+            {
+                res.status(500).send({ message: 'Company not found' });
+            })
+    }
+    else {
+        const companies = await company.find({ isVerified: false }).exec();
+        if (!companies) {
+            res.status(200).send({ message: 'All companies are verified' });
+            return;
+        }
+
+        // render verifyCompany with companies object
+        // res.render('verifyCompany', {companies: companies});
+        res.send(companies);
+        console.log(companies.length);
+    }
 }

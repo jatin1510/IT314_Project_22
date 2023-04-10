@@ -2,7 +2,7 @@ const express = require('express');
 const route = express.Router();
 const services = require('../service/render');
 const controller = require('../controller/controller');
-const { authorization, authorizationAdmin } = require('../middleware/middleware');
+const { authorization, authorizationAdmin, authorizationSuperAdmin } = require('../middleware/middleware');
 
 /**
   * @description Root Route
@@ -56,6 +56,22 @@ route.delete('/delete', authorization, controller.deleteUser);
   * @method GET /
   */
 route.get('/mail/:id', authorizationAdmin, controller.sendMail);
+
+/**
+  * @description Verify Routes (serving pages)
+  * @method GET /
+  */
+route.get('/verifyStudent', authorizationAdmin, controller.verifyStudent);
+route.get('/verifyJob', authorizationAdmin, controller.verifyJob);
+route.get('/verifyCompany', authorizationSuperAdmin, controller.verifyCompany);
+
+/**
+  * @description Verify Routes (serving pages)
+  * @method GET /
+  */
+route.get('/verifyStudent/:id', authorizationAdmin, controller.verifyStudent);
+route.get('/verifyJob/:id', authorizationAdmin, controller.verifyJob);
+route.get('/verifyCompany/:id', authorizationSuperAdmin, controller.verifyCompany);
 
 
 module.exports = route;
