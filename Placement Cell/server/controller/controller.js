@@ -24,3 +24,21 @@ exports.filter = (req , res ) => {
             res.status(500).send({message:"Error while fetching data of requested query"})
         })
 };
+
+
+
+exports.datasheet = (req , res) =>{
+    const isPlaced = false;
+    student.find({ip:isPlaced})
+        .then(data=>{
+            if(!data){
+                res.status(404).send({ message: "Not found Unplaced Student" + id })
+            }
+            else {
+                res.send(data) // change here for create excel file that user can download. 
+            }
+        })
+        .catch(err => {
+            res.status(500).send({ message: "Error retrieving Unpaced Students " + id })
+        })
+};
