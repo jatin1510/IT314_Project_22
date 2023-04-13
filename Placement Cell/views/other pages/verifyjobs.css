@@ -1,0 +1,46 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th, td {
+    text-align: center;
+    padding: 8px;
+    border-bottom: 1px solid #08335c;
+    margin:5px;
+  }
+  h2{
+    text-align: center;
+  }
+  th {
+    background-color: #badafa;
+  }
+  .btn {
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 15px;
+  }
+  tr:hover{
+    background-color: #dfedff;
+  }
+  .accept {
+    background-color: #4CAF50;
+    color: white;
+  }
+  .reject {
+    background-color: #f44336;
+    color: white;
+  }
+  .accept:hover{
+    color:#4CAF50;
+    background-color: white;
+    border-top: 3px solid #4CAF50;
+    border-bottom: 3px solid #4CAF50;
+  }
+  .reject:hover {
+   color: #f44336;
+    background-color: white;
+    border-top: 3px solid #f44336;
+    border-bottom: 3px solid #f44336;
+  }
