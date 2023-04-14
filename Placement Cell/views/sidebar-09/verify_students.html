@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Sidebar 09</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="ver_student_style.css">
+
+    <script type="text/javascript">
+      function showHidden(row) {
+          $('#' + row).toggle()
+      }
+    </script>
+
+  </head>
+  <body>
+		
+		<div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar">
+				<div class="custom-menu">
+					<button type="button" id="sidebarCollapse" class="btn btn-primary">
+	        </button>
+        </div>
+	  		<div class="img bg-wrap text-center py-4" style="background-image: url(images/bg_1.jpg);">
+	  			<div class="user-logo">
+	  				<div class="img" style="background-image: url(images/logo.jpg);"></div>
+	  				<h3>Catriona Henderson</h3>
+	  			</div>
+	  		</div>
+        <ul class="list-unstyled components mb-5">
+          <li class="active">
+            <a href="#"><span class="fa fa-home mr-3"></span> Home</a>
+          </li>
+          <li>
+              <a href="#"><span class="fa fa-download mr-3 notif"></span> Verify Students</a>
+          </li>
+          <li>
+            <a href="#"><span class="fa fa-gift mr-3"></span> Edit Jobs</a>
+          </li>
+          <li>
+            <a href="#"><span class="fa fa-trophy mr-3"></span> Verify Jobs</a>
+          </li>
+          <li>
+            <a href="#"><span class="fa fa-cog mr-3"></span> Verify Company</a>
+          </li>
+          <li>
+            <a href="#"><span class="fa fa-sign-out mr-3"></span> Logout</a>
+          </li>
+        </ul>
+
+    	</nav>
+
+        <!-- Page Content  -->
+      <div id="content" class="p-4 p-md-5 pt-5">
+        <h2 class="mb-4">Registered Students</h2>
+        <table class="maintable">
+          <!-- <th>Students Information</th> -->
+          <tr class="trow">
+              <td>ID</td>
+              <td>Name</td>
+              <td>Branch</td>
+              <td>CPI</td>
+              <td>Current Backlog(s)</td>
+              <td>Total Backlog(s)</td>
+              <td>Profile</td>
+              <td>Verify</td>
+          </tr>
+          <tr class="tdata">
+              <td>1</td>
+              <td>xyz</td>
+              <td>B.Tech ICT</td>
+              <td>8</td>
+              <td>0</td>
+              <td>0</td>
+              <td><button class="prof" onclick="showHidden('hiddenRow1');">View Profile</button></td>
+              <td><button class="accept">Accept</button><button class="reject">Reject</button></td>
+          </tr>
+
+          <tr id="hiddenRow1" class="hiddenRow">
+            <td colspan="4" class="hdata">
+              <p class="email">Email: 1@gmail.com</p>
+              <p class="fname">First Name: fjhsd</p>
+              <p class="mname">Middle Name: dfjsab</p>
+              <p class="lname">Last Name: sdjasd</p>
+              <p class="dob">DOB: 10/10/1010</p>
+              <p class="gender">Gender: Male</p>
+              <p class="mobile">Mobile No.: 1234567890</p>
+              <p class="tenth">10th Percentage: 10%</p>
+              <p class="twelth">12th Percentage: 12%</p>
+            </td>
+          </tr>
+
+          <tr class="tdata">
+              <td>2</td>
+              <td>adsad</td>
+              <td>B.Tech MNC</td>
+              <td>6</td>
+              <td>2</td>
+              <td>1</td>
+              <td><button class="prof" onclick="showHidden('hiddenRow2');">View Profile</button></td>
+              <td><button class="accept">Accept</button><button class="reject">Reject</button></td>
+          </tr>
+
+          <tr id="hiddenRow2" class="hiddenRow">
+            <td colspan="4">
+              <p class="email">Email:</p>
+              <p class="fname">First Name:</p>
+              <p class="mname">Middle Name:</p>
+              <p class="lname">Last Name:</p>
+              <p class="dob">DOB:</p>
+              <p class="gender">Gender:</p>
+              <p class="mobile">Mobile No.:</p>
+              <p class="tenth">10th Percentage:</p>
+              <p class="twelth">12th Percentage:</p>
+            </td>
+          </tr>
+
+          <tr class="tdata">
+              <td>3</td>
+              <td>sdfdsf</td>
+              <td>B.Tech with CS</td>
+              <td>8</td>
+              <td>0</td>
+              <td>0</td>
+              <td><button class="prof">View Profile</button></td>
+              <td><button class="accept">Accept</button><button class="reject">Reject</button></td>
+          </tr>
+          <tr class="tdata">
+              <td>4</td>
+              <td>asdfd</td>
+              <td>B.Tech ICT</td>
+              <td>8</td>
+              <td>0</td>
+              <td>0</td>
+              <td><button class="prof">View Profile</button></td>
+              <td><button class="accept">Accept</button><button class="reject">Reject</button></td>
+          </tr>
+          <tr class="tdata">
+              <td>5</td>
+              <td>xyz</td>
+              <td>B.Tech ICT</td>
+              <td>8</td>
+              <td>0</td>
+              <td>0</td>
+              <td><button class="prof">View Profile</button></td>
+              <td><button class="accept">Accept</button><button class="reject">Reject</button></td>
+          </tr>
+        </table>
+      </div>
+		</div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
