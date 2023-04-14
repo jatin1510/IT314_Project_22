@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#content {
+    margin: 15px;
+    margin-top: 25px;
+    background-color: antiquewhite;
+    background-color:lightcyan;
+}
+
+#navbar {
+    /* margin: auto; */
+    /* width: 50%; */
+    border: 3px solid green;
+    padding: 10px;
+    text-align: end;
+}
+
+.userimage {
+    /* background-color: aqua; */
+    display: flex;
+    justify-content: space-between;
+}
+
+#photo {
+    width: 150px;
+    height: 150px;
+    padding: 10px;
+}
+
+.table>tbody>tr>td {
+    font-size:15px;
+}
+.table>tbody>tr>td>span {
+    margin-right: 15px;
+}
