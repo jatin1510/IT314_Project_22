@@ -1,12 +1,13 @@
 <!doctype html>
 <html lang="en">
   <head>
-  	<title>Sidebar 09</title>
+  	<title>Admin Home</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-		
+		<link rel="stylesheet" href="adminhome.css">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="css/style.css">
   </head>
@@ -21,7 +22,7 @@
 	  		<div class="img bg-wrap text-center py-4" style="background-image: url(images/bg_1.jpg);">
 	  			<div class="user-logo">
 	  				<div class="img" style="background-image: url(images/logo.jpg);"></div>
-	  				<h3>Catriona Henderson</h3>
+	  				<h3>Admin</h3>
 	  			</div>
 	  		</div>
         <ul class="list-unstyled components mb-5">
@@ -29,16 +30,16 @@
             <a href="#"><span class="fa fa-home mr-3"></span> Home</a>
           </li>
           <li>
-              <a href="#"><span class="fa fa-download mr-3 notif"></span> Verify Students</a>
+              <a href="#"><i class="fa fa-check mr-3" aria-hidden="true"></i> Verify Students</a>
           </li>
           <li>
-            <a href="#"><span class="fa fa-gift mr-3"></span> Edit Jobs</a>
+            <a href="#"><i class="fa fa-pencil-square-o mr-3" aria-hidden="true"></i> Edit Jobs</a>
           </li>
           <li>
-            <a href="#"><span class="fa fa-trophy mr-3"></span> Verify Jobs</a>
+            <a href="#"><i class="fa fa-briefcase mr-3" aria-hidden="true"></i> Verify Jobs</a>
           </li>
           <li>
-            <a href="#"><span class="fa fa-cog mr-3"></span> Verify Company</a>
+            <a href="#"><i class="fa fa-building-o mr-3" aria-hidden="true"></i> Verify Company</a>
           </li>
           <li>
             <a href="#"><span class="fa fa-sign-out mr-3"></span> Logout</a>
@@ -50,10 +51,19 @@
         <!-- Page Content  -->
       <div id="content" class="p-4 p-md-5 pt-5">
         <h2 class="mb-4">Admin Home</h2>
-        
+        <div class="cover"></div>
+        <h2 class="headline">Placement Statistics for current year:</h2>
+        <div class="main">
+          <div id="myChart" class="chart"></div>
+          <div id="myChart1" class="chart"></div>
+          <div class="box box1">Highest Package Offered : 50 LPA</div>
+          <div class="box box2">Average Placement Package : 20 LPA</div>
+
+        </div>
       </div>
 		</div>
 
+    <script src="adminhome.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.js"></script>
     <script src="js/bootstrap.min.js"></script>
