@@ -35,12 +35,11 @@ table {
   .accept:hover{
     color:#4CAF50;
     background-color: white;
-    border-top: 3px solid #4CAF50;
-    border-bottom: 3px solid #4CAF50;
+    border: 3px solid #4CAF50;
+ 
   }
   .reject:hover {
    color: #f44336;
     background-color: white;
-    border-top: 3px solid #f44336;
-    border-bottom: 3px solid #f44336;
+    border: 3px solid #f44336;
   }
