@@ -12,7 +12,7 @@
     margin:0px;
 }
 body{
-    background-color:aliceblue;
+    background-color:rgb(255, 255, 255);
 }
 .home,a{
     box-sizing:border-box;
@@ -50,20 +50,20 @@ header{
 }
 .Welcome{
     display:flex;
-    background-image: url("home_cover.jpg");
+    background-image: url("homecover.jpg");
     justify-content: center;
     text-align: center;
     align-items: center;
     height:400px;
     background-size: cover;
     background-position:center;
-    color:white;
+    color:rgb(0, 0, 0);
     font-style: Montserrat, serif;
-    font-size: 30px;
+    font-size: 40px;
     margin:15px;
     border-radius: 25px;
-    box-shadow: 5px 10px 10px #878388;
-    text-shadow: 3px 3px 8px #ae9f9f;
+    box-shadow: 2px 5px 5px #878388;
+    text-shadow: 3px 3px 8px #bdbdbd;
 }
 #placementstats {
   padding: 50px;
@@ -73,7 +73,7 @@ header{
 }
 .kn{
     font-size: 40px;
-    color: rgb(0, 36, 94);
+    color: rgb(0, 0, 0);
     margin:30px;
     animation:slideinleft 1s ease-in 0s 1 normal ;
 }
@@ -148,7 +148,7 @@ header{
   footer{
     background-color: rgba(3, 31, 144, 0.19);
     border:2px solid white;
-    margin:80px 0px 20px 0px;
+    margin:20px 0px 20px 0px;
     padding:20px;
     text-align: center;
     font-size: 20px;
@@ -167,4 +167,24 @@ header{
   }
   .front1{
     background-image: url("da2.jpg");
+  }
+  .img{
+    display:flex;
+    justify-content:center;
+    background-image: url("Recruiters.png");
+    background-position: center;
+    background-size: cover;
+    width:90%;
+    height:680px;
+    margin-top:50px;
+    margin-left:100px;
+  }
+  .pr{
+    margin-top:60px;  
+  }
+  .contact{
+    background-color: rgba(3, 31, 144, 0.104);
+    padding:10px;
+    margin-top:20px;
+    padding-left:50px;
   }
