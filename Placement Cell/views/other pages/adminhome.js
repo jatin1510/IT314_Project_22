@@ -4,8 +4,8 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
 
 const data = google.visualization.arrayToDataTable([
-  ['Category', 'percentage'],
-  ['Placed',54.8],
+  ['Category', 'average'],
+  ['Placed',51.4],
   ['Not - Placed',48.6],
 ]);
 const options = {
