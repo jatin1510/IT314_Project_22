@@ -3,156 +3,45 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Login</title>
+    <title>Classic Login Form Example</title>
+    <link href="https://fonts.googleapis.com/css?family=Assistant:400,700" rel="stylesheet">
     <link rel="stylesheet" href="login.css">
+
 </head>
 
 <body>
+    <section class='login' id='login'>
+        <div class='head'>
+            <h1 class='company'>Login</h1>
+        </div>
+        <div class='form'>
+            <form action="" method="">
+                <input type="text" placeholder='Username' class='text' id='username' required><br>
+                <input type="password" placeholder='Enter password' class='password' required><br>
 
-
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Login / Register</a></li>
-                <li><a href="#">About Us</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <div class="container">
-
-        <form action="" method="" id="form-container">
-            <h1>Student Login</h1>
-
-            <div>
-                <input type="number" id="name" placeholder="Id" required>
-            </div>
-            <div>
-                <input type="password" id="password" placeholder="Password" required>
-            </div>
-            <div>
-                <select name="" id="select" required>
-                    <option value="student">student</option>
-                    <option value="Admin">Admin</option>
-                    <option value="Admin">Placement Manager</option>
-                </select>
-            </div>
-            <div>
-                <input type="submit" value="Login">
-            </div>
-            <br>
+                <input type="radio" id="Student" name="fav_language" value="Student" required>
+                <label for="html">Student</label><br>
+                <input type="radio" id="Admin" name="fav_language" value="Admin" required>
+                <label for="css">Admin</label><br>
+                <input type="radio" id="Placement-Manager" name="fav_language" value="Placement-Manager" required>
+                <label for="css">Placement Manager</label><br>
+                <br>
+                <a href="#" class='btn-login' id='do-login'>Login</a>
+                <!-- <a href="#" class='forgot'>Forgot?</a> -->
+            </form>
             <hr>
-            <br>
-            <div>
-                <select name="" id="select" required>
-                    <option value="student">student</option>
-                    <option value="Admin">Admin</option>
-                    <option value="Admin">Placement Manager</option>
-                </select>
-            </div>
-            <div id="f-pass"><a href="#">Forgot password?</a></div>
 
-            <div id="register">Haven't registered yet?
-                <a href="#"> Register now</a>
-            </div>
+            <form action="" method="" id="register">
+                <input type="radio" id="Student" name="fav_language" value="Student" required>
+                <label for="html">Student</label><br>
+                <input type="radio" id="Admin" name="fav_language" value="Admin" required>
+                <label for="css">Admin</label><br>
+                <br>
+                <a href="#" class='btn-login' id='do-login'>Register</a>
+            </form>
+        </div>
+    </section>
 
-        </form>
-    </div>
-
-    <footer>
-        <h3>You can contact us at:</h3>
-        <p>Mail : placement@daiict.ac.in
-            <br>(M) : +91 9999976896
-        </p>
-        <p>&copy; 2023 Placement Website. All Rights Reserved.</p>
-    </footer>
 </body>
 
 </html>
-
-
-
-
-
-<!-- <div class="container">
-
-      <form action="" method="" id="form-container">
-        <h1>Registration Form</h1>
-
-        <div>
-            <label for="name">Student ID :</label>
-            <input type="number" id="name" placeholder="Id">
-        </div>
-
-        <div>
-            <label for="Firstname">First Name :</label>
-            <input type="text" id="Firstname" placeholder="First Name">
-        </div>
-        <div>
-            <label for="Middlename">Middle Name :</label>
-            <input type="text" id="Middlename" placeholder="Middle Name">
-        </div>
-        <div>
-            <label for="Lastname">Last name :</label>
-            <input type="text" id="Lastname" placeholder="Last Name">
-        </div>
-
-        <div>
-            <label for="DOB">DOB :</label>
-            <input type="date" id="DOB">
-        </div>
-        <div>
-            Gender: Male <input type="radio" name="myGender"> Female <input type="radio" name="myGender">
-        </div>
-
-        <div>
-            <label for="number">Mobile Number :</label>
-            <input type="number" id="number" placeholder="Mobile Number">
-        </div>
-
-        <div>
-            <label for="number">Alternative Mobile Number :</label>
-            <input type="number" id="number" placeholder="Mobile Number">
-        </div>
-
-        <div>
-            <label for="10th">10th percentage :</label>
-            <input type="number" id="10th" placeholder="10th Percentage">
-        </div>
-        <div>
-            <label for="12th">12th percentage :</label>
-            <input type="number" id="12th" placeholder="12th Percentage">
-        </div>
-        <div>
-            <label for="CPI">CPI :</label>
-            <input type="number" id="CPI" placeholder="CPI">
-        </div>
-
-        <div>
-            <label for="backlog">Active Backlog :</label>
-            <input type="number" id="backlog" placeholder="">
-        </div>
-
-        <div>
-            <label for="backlog">Total Backlog :</label>
-            <input type="number" id="backlog" placeholder="">
-        </div>
-
-        <div>
-            <label for="password">Password :</label>
-            <input type="password" id="password" placeholder="Password">
-        </div>
-
-        <div>
-            <label for="Confirm_password">Confirm Password :</label>
-            <input type="password" id="Confirm_password" placeholder="Confirm Password">
-        </div>
-
-        <div>
-            <input type="button" id="btn" value="Register">
-        </div>
-    </form>
-</div> -->
