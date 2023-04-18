@@ -1,235 +1,274 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>Sidebar 09</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
-<head>
-  <title>Sidebar 09</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="registration.css" />
+  </head>
 
-  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-  crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="registration.css">
-</head>
-
-<body>
-
-  <div class="wrapper d-flex align-items-stretch">
-    <nav id="sidebar">
-      
-      <div class="img bg-wrap text-center py-4" style="background-image: url(images/bg_1.jpg);">
-        <div class="user-logo">
-          <div class="img" style="background-image: url(images/logo.jpg);"></div>
-          <h3>Catriona Henderson</h3>
+  <body>
+    <div class="wrapper d-flex align-items-stretch">
+      <nav id="sidebar">
+        <div
+          class="img bg-wrap text-center py-4"
+          style="background-image: url(images/bg_1.jpg)"
+        >
+          <div class="user-logo">
+            <div
+              class="img"
+              style="background-image: url(images/logo.jpg)"
+            ></div>
+            <h3>Catriona Henderson</h3>
+          </div>
         </div>
-      </div>
-      <ul class="list-unstyled components mb-5">
-        <li class="active">
-          <a href="#"><span class="fa fa-home mr-3"></span> Home</a>
-        </li>
-        <!-- <li>
-          <a href="#"><span class="fa fa-download mr-3 notif"><small
-                class="d-flex align-items-center justify-content-center">5</small></span> Download</a>
-        </li> -->
-        <li>
-            <a href="#"><span class="fa fa-user mr-3"></span> Profile</a>
-        </li>
-        <li>
-            <a href="#"><span class="fa fa-cloud-upload mr-3 "></span> Update Resume</a>
-        </li>
-        <li>
-            <a href="#"><span class="fa fa-list mr-3 "></span> Companies</a>
-        </li>
-        <li>
-          <a href="#"><span class="fa fa-sign-out mr-3"></span> Sign Out</a>
-        </li>
-      </ul>
-
-    </nav>
-
-    <!-- Page Content  -->
-    <div id="content" class="p-4 p-md-5 pt-5">
-      <div class="box">
-
-        <form action="#add_company_submit" method="POST">
-
-          <div class="title1">
-
-            <a> Registration Company: </a>
-
-          </div>
-
-          <label for="id" class="label-1">Student ID</label>
-
-          <div class="form-group">
-            
-            <input type="text" name="id" id="browser" autocomplete="off">
-
-
-          </div>
-
-          <label for="first-name" class="label-1">First Name </label>
-
-          <div class="form-group">
-            
-            <input type="text" name="first-name" id="browser" autocomplete="off">
-
-
-          </div>
-
-
-          <label for="Middle-Name" class="label-1">Middle Name </label>
-
-          <div class="form-group">
-            <input type="text" name="Middle-Name" id="browser" autocomplete="off">
-
-
-          </div>
-
-          <label for="Last-Name" class="label-1">Last Name </label>
-
-          <div class="form-group">
-            <input type="text" name="Last-Name" id="browser" autocomplete="off">
-
-
-          </div>
-
-
-
-          <label for="email" class="label-1"> Email</label>
-
-          <div class="form-group">
-            <input type="text" name="email" id="browser" autocomplete="off">
-
-          </div>
-
-
-          <label for="percentage" class="label-1"> 10th percentage</label>
-
-          <div class="form-group">
-            <input type="text" name="percentage" id="browser" autocomplete="off">
-
-          </div>
-
-          <label for="percentage" class="label-1"> 12th percentage</label>
-
-          <div class="form-group">
-            <input type="text" name="percentage" id="browser" autocomplete="off">
-
-          </div>
-
-
-          <label for="contact" class="label-1"> Mobile No. </label>
-
-          <div class="form-group">
-
-            <input type="text" name="salary" id="browser" autocomplete="off">
-
-
-          </div>
-
-          <label for="Mobile" class="label-1">Alternative Mobile No. </label>
-
-          <div class="form-group">
-
-            <input type="text" name="Mobile" id="browser" autocomplete="off">
-
-
-          </div>
-
-          <label for="Father-Name" class="label-1">Father-Name </label>
-
-          <div class="form-group">
-            <input type="text" name="Father-Name" id="browser" autocomplete="off">
-
-
-          </div>
-
-          <label for="contact" class="label-1"> Father Mobile No. </label>
-
-          <div class="form-group">
-
-            <input type="text" name="salary" id="browser" autocomplete="off">
-
-
-          </div>
-
-          <label for="password" class="label-1"> Password </label>
-
-          <div class="form-group">
-            <input type="password" name="password" id="browser" autocomplete="off">
-
-          </div>
-
-          <div class="form-group2" class="label-1">
-
-            <ul>
-
-              <li>
-                Your password must contain at least 8 characters.
-              </li>
-
-
-
-              <li>
-                Your password can’t be entirely numeric.
-
-              </li>
-
-              <li>
-
-                Your password must use special characters.
-              </li>
-
-
-
-
-            </ul>
-
-
-          </div>
-
-          <label for="password" class="label-1"> Password confirmation </label>
-
-          <div class="form-group">
-            <input type="password" name="password" id="browser" autocomplete="off">
-
-          </div>
-
-          
-          <!-- <input type="file" id="myFile" name="filename">
-            <input type="submit"> -->
-            
-            <label for="file" class="label-1"> Upload Resume </label>
-            
-            <div class="form-group ">
-              <input type="file" id="myFile" class="btn btn-primary"name="filename">
-              
+        <ul class="list-unstyled components mb-5">
+          <li class="active">
+            <a href="#"><span class="fa fa-home mr-3"></span> Home</a>
+          </li>
+          <li>
+            <a href="#"
+              ><span class="fa fa-download mr-3 notif"
+                ><small class="d-flex align-items-center justify-content-center"
+                  >5</small
+                ></span
+              >
+              Download</a
+            >
+          </li>
+          <li>
+            <a href="#"><span class="fa fa-gift mr-3"></span> Gift Code</a>
+          </li>
+          <li>
+            <a href="#"><span class="fa fa-trophy mr-3"></span> Top Review</a>
+          </li>
+          <li>
+            <a href="#"><span class="fa fa-cog mr-3"></span> Settings</a>
+          </li>
+          <li>
+            <a href="#"><span class="fa fa-support mr-3"></span> Support</a>
+          </li>
+          <li>
+            <a href="#"><span class="fa fa-sign-out mr-3"></span> Sign Out</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Page Content  -->
+      <div id="content" class="p-4 p-md-5 pt-5">
+        <div class="box">
+          <form action="#add_company_submit" method="POST">
+            <div class="title1">
+              <a> Registration Company: </a>
             </div>
 
-            <!-- <div class="file-upload-wrapper" data-text="Select your file!">
-              <input name="file-upload-field" type="file" class="file-upload-field" value="">
-            </div> -->
+            <label for="id" class="label-1">Student ID</label>
+
+            <div class="form-group">
+              <input type="text" name="id" id="browser" autocomplete="off" />
+            </div>
+
+            <label for="first-name" class="label-1">First Name </label>
+
+            <div class="form-group">
+              <input
+                type="text"
+                name="first-name"
+                id="browser"
+                autocomplete="off"
+              />
+            </div>
+
+            <label for="Middle-Name" class="label-1">Middle Name </label>
+
+            <div class="form-group">
+              <input
+                type="text"
+                name="Middle-Name"
+                id="browser"
+                autocomplete="off"
+              />
+            </div>
+
+            <label for="Last-Name" class="label-1">Last Name </label>
+
+            <div class="form-group">
+              <input
+                type="text"
+                name="Last-Name"
+                id="browser"
+                autocomplete="off"
+              />
+            </div>
+
+            <label for="email" class="label-1"> Email</label>
+
+            <div class="form-group">
+              <input type="text" name="email" id="browser" autocomplete="off" />
+            </div>
+
+            <label for="percentage" class="label-1"> 10th percentage</label>
+
+            <div class="form-group">
+              <input
+                type="text"
+                name="percentage"
+                id="browser"
+                autocomplete="off"
+              />
+            </div>
+
+            
+            <label for="percentage" class="label-1"> 12th percentage</label>
+
+
+            <div class="form-group">
+              <input
+                type="text"
+                name="percentage"
+                id="browser"
+                autocomplete="off"
+              />
+            </div>
+
+
+            <label for="contact" class="label-1"> Mobile No. </label>
+
+            <div class="form-group">
+              <input
+                type="text"
+                name="salary"
+                id="browser"
+                autocomplete="off"
+              />
+            </div>
+
+
+            <label for="Mobile" class="label-1">Alternative Mobile No. </label>
+
+
+            <div class="form-group">
+              <input
+                type="text"
+                name="Mobile"
+                id="browser"
+                autocomplete="off"
+              />
+            </div>
+
+
+            <label for="Father-Name" class="label-1">Father-Name </label>
+
+
+            <div class="form-group">
+              <input
+                type="text"
+                name="Father-Name"
+                id="browser"
+                autocomplete="off"
+              />
+            </div>
+
+
+            <label for="contact" class="label-1"> Father Mobile No. </label>
+
+
+            <div class="form-group">
+              <input
+                type="text"
+                name="salary"
+                id="browser"
+                autocomplete="off"
+              />
+            </div>
+
+
+            <label for="hrname" class="label-1">Upload Resume </label>
+            <div class="form-group">
+              <input
+                type="file"
+                name="resume"
+                id="browser"
+                autocomplete="off"
+                required
+              />
+            </div>
+
+
+            <label for="password" class="label-1"> Password </label>
+
+
+            <div class="form-group">
+              <input
+                type="password"
+                name="password"
+                id="browser"
+                autocomplete="off"
+              />
+            </div>
+
+
+            <div class="form-group2" class="label-1">
+              <ul>
+                <li>Your password must contain at least 8 characters.</li>
+
+                <li>Your password can’t be entirely numeric.</li>
+
+                <li>Your password must use special characters.</li>
+              </ul>
+            </div>
+
+            <label for="password" class="label-1">
+              Password confirmation
+            </label>
+
+
+            <div class="form-group">
+              <input
+                type="password"
+                name="password"
+                id="browser"
+                autocomplete="off"
+              />
+            </div>
 
 
             <div class="btns">
-              <button type="submit" class="strong"> Register</button>
+              <button type="submit" class="strong">Register</button>
             </div>
-        </form>
+          </form>
+        </div>
       </div>
-
-
     </div>
-  </div>
 
-  <script src="js/jquery.min.js"></script>
-  <script src="js/popper.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/main.js"></script>
-</body>
 
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
 </html>
