@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title> registered Student list </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/brands.min.css"
+    integrity="sha512-9YHSK59/rjvhtDcY/b+4rdnl0V4LPDWdkKceBl8ZLF5TB6745ml1AfluEU6dFWqwDw9lPvnauxFgpKvJqp7jiQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/student_list.css">
+ 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+  <!-- <div id="navbar">
+
+      <nav>
+        <span>frnk</span>
+        <span>frnk</span>
+        <span>frnk</span>
+        <span>frnk</span>
+      </nav>
+    </div> -->
+
+  <div class="wrapper d-flex align-items-stretch">
+    <nav id="sidebar">
+      <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+        </button>
+      </div>
+      <div class="img bg-wrap text-center py-4" style="background-image: url(../assets/images/bg_1.jpg);">
+        <div class="user-logo">
+          <div class="img" style="background-image: url(../assets/images/download.png);"></div>
+          <h3>HR NAME</h3>
+        </div>
+      </div>
+      <ul class="list-unstyled components mb-5">
+        <li>
+          <a href="homescreen.html"><span class="fa fa-home mr-3"></span> Home</a>
+        </li>
+        <li >
+          <a href="companyProfile.html"><span class="fa-solid fa-user mr-3"></span> Profile</a>
+        </li>
+        <li>
+          <a href="editProfile.html"><span class="fa-solid fa-user-pen mr-3 notif"></span> Edit Profile</a>
+        </li>
+        <li>
+          <a href="job_post.html"><span class="fa-solid fa-plus mr-3"></span> Add Job</a>
+        </li>
+        <li>
+          <a href="edit_job.html"><span class="fa-solid fa-pen-to-square mr-3"></span> Edit Job</a>
+        </li>
+        <li class="active">
+          <a href="#"><span class="fa-solid fa-list mr-3"></span> Student list</a>
+        </li>
+   
+        <li>
+          <a href="#"><span class="fa fa-sign-out mr-3"></span> Logout</a>
+        </li>
+      </ul>
+
+    </nav>
+
+
+    <div id="content" class="p-4 p-md-5 pt-5">
+
+      <!-- <div class="userimage">
+        <div><img src="images/logo.jpg " alt="Student-image" id="photo"> </div>
+      </div> -->
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+           
+            <div class="header"> 
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                     <div class="header">  NAME : HITEN MISTRY </div>
+                    </button>
+                  </h2>
+            </div>
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                  <table class="table"> 
+                      <tr> 
+                          <td>
+                              Email
+                          </td>
+                          <td>
+                              hitenmistry@gmail.com
+                          </td>
+                      </tr>
+                      <tr> 
+                          <td>
+                              CPI
+                          </td>
+                          <td>
+                              7.8
+                          </td>
+                      </tr>
+  
+                      <tr>
+                          <td> Backlogs</td>
+                          <td> 0 </td>
+                      </tr>
+  
+                      <tr>
+                          <td>
+                              Address
+                          </td>
+  
+                          <td>
+                             Vadodara
+                          </td>
+                      </tr>
+                      
+                  </table>
+              </div>
+            </div>
+          </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+             <div class="header">  NAME : KULDEEP PRAJAPATI  </div>
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <table class="table"> 
+                    <tr> 
+                        <td>
+                            Email
+                        </td>
+                        <td>
+                            hitenmistry@gmail.com
+                        </td>
+                    </tr>
+                    <tr> 
+                        <td>
+                            CPI
+                        </td>
+                        <td>
+                            7.8
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td> Backlogs</td>
+                        <td> 0 </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Address
+                        </td>
+
+                        <td>
+                           Vadodara
+                        </td>
+                    </tr>
+                    
+                </table>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+           <div class="header">  NAME : KENIL KOSIYA</div>
+            </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <table class="table"> 
+                    <tr> 
+                        <td>
+                            Email
+                        </td>
+                    
+                        <td>
+                            hitenmistry@gmail.com
+                        </td>
+                    </tr>
+                    <tr> 
+                        <td>
+                            CPI
+                        </td>
+                        <td>
+                            7.8
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td> Backlogs</td>
+                        <td> 0 </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Address
+                        </td>
+
+                        <td>
+                           Vadodara
+                        </td>
+                    </tr>
+                    
+                </table>
+            </div>
+          </div>
+        </div>
+      
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/js/jquery.min.js"></script>
+  <script src="../assets/js/popper.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/bootstrap.min.js"></script>
+</body>
+
+</html>

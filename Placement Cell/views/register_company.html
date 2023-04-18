@@ -1,8 +1,9 @@
 <!doctype html>
 <html lang="en">
 
+<!-- Major Change in CSS required -->
 <head>
-  <title>Edit Profile</title>
+  <title>Register Company</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -13,7 +14,7 @@
   crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/editProfile.css">
+  <link rel="stylesheet" href="../assets/css/register_company.css">
 </head>
 
 <body>
@@ -31,26 +32,26 @@
         </div>
       </div>
       <ul class="list-unstyled components mb-5">
-        <li>
-          <a href="homescreen.html"><span class="fa fa-home mr-3"></span> Home</a>
-        </li>
-        <li>
-          <a href="companyProfile.html"><span class="fa-solid fa-user mr-3"></span> Profile</a>
-        </li>
         <li class="active">
+          <a href="#"><span class="fa fa-home mr-3"></span> Home</a>
+        </li>
+        <li>
+          <a href="#"><span class="fa-solid fa-user mr-3"></span> Profile</a>
+        </li>
+        <li>
           <a href="#"><span class="fa-solid fa-user-pen mr-3 notif"></span> Edit Profile</a>
         </li>
         <li>
-          <a href="job_post.html"><span class="fa-solid fa-plus mr-3"></span> Add Job</a>
+          <a href="#"><span class="fa-solid fa-plus mr-3"></span> Add Job</a>
         </li>
         <li>
-          <a href="edit_job.html"><span class="fa-solid fa-pen-to-square mr-3"></span> Edit Job</a>
+          <a href="#"><span class="fa-solid fa-pen-to-square mr-3"></span> Edit Job</a>
         </li>
         <li>
-          <a href="student_list.html"><span class="fa-solid fa-list mr-3"></span> Student list</a>
+          <a href="#"><span class="fa-solid fa-list mr-3"></span> Student list</a>
         </li>
         <li>
-          <a href="#"><span class="fa fa-sign-out mr-3"></span> Logout</a>
+          <a href="#"><span class="fa fa-sign-out mr-3"></span> Sign Out</a>
         </li>
       </ul>
 
@@ -58,72 +59,133 @@
 
     <!-- Page Content  -->
     <div id="content" class="p-4 p-md-5 pt-5">
+     
       <div class="box">
+
         <form action="#add_company_submit" method="POST">
+
           <div class="title1">
-            <a> Edit Profile :  </a>
+
+            <a> Registration Company: </a>
+
           </div>
+
 
           <label for="hrname" class="label-1"> Name </label>
+
           <div class="form-group">
+            
             <input type="text" name="hrname" id="browser" autocomplete="off" required>
+
+
           </div>
+
 
           <label for="Company" class="label-1"> Company Name </label>
+
           <div class="form-group">
             <input type="text" name="company" id="browser" autocomplete="off" required>
+
+
           </div>
+
+
 
           <label for="email" class="label-1"> Email</label>
+
           <div class="form-group">
             <input type="text" name="email" id="browser" autocomplete="off" required>
+
           </div>
+
 
           <label for="website" class="label-1"> Website </label>
+
           <div class="form-group">
             <input type="text" name="website" id="browser" autocomplete="off" required>
-          </div>
-          
-          <label for="contact" class="label-1"> Contact No. </label>
-          <div class="form-group">
-            <input type="text" name="salary" id="browser" autocomplete="off" required>
+
+
           </div>
 
+
+          <label for="contact" class="label-1"> Contact No. </label>
+
+          <div class="form-group">
+
+            <input type="text" name="salary" id="browser" autocomplete="off" required>
+
+
+          </div>
+
+
           <label for="password" class="label-1"> Password </label>
+
           <div class="form-group">
             <input type="password" name="password" id="browser" autocomplete="off" required>
+
           </div>
+
           <div class="form-group2" class="label-1">
+
             <ul>
+
               <li>
                 Your password must contain at least 8 characters.
               </li>
+
+
+
               <li>
                 Your password can’t be entirely numeric.
+
               </li>
+
               <li>
+
                 Your password must use special characters.
               </li>
+
+
+
+
             </ul>
+
+
+
+
+
           </div>
-          
+
           <label for="password" class="label-1"> Password confirmation </label>
+
           <div class="form-group">
             <input type="password" name="password" id="browser" autocomplete="off" required>
+
           </div>
-          
+
+
+
+
+
           <div class="btns">
-            <button type="submit" class="strong"> Update </button>
+            <button type="submit" class="strong"> Add Company</button>
           </div>
+
+
+
+
+
         </form>
+     
+
       </div>
     </div>
   </div>
 
-  <script src="../assets/js/jquery.min.js"></script>
-    <script src="../assets/js/popper.js"></script>
-    <script src="../assets/js/main.js"></script>
-    <script src="../assets/js/bootstrap.min.js"></script>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/popper.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
 </body>
 
 </html>
