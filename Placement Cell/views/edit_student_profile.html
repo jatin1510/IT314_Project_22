@@ -15,24 +15,18 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="edit_profile.css">
+  <link rel="stylesheet" href="edit_student_profile.css">
 
 </head>
 
 <body>
 
-  <!-- <div id="navbar">
-
-      <nav>
-        <span>frnk</span>
-        <span>frnk</span>
-        <span>frnk</span>
-        <span>frnk</span>
-      </nav>
-    </div> -->
-
   <div class="wrapper d-flex align-items-stretch">
     <nav id="sidebar">
+      <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+        </button>
+      </div>
 
       <div class="img bg-wrap text-center py-4" style="background-image: url(images/bg_1.jpg);">
         <div class="user-logo">
@@ -166,7 +160,6 @@
           <tr>
             <td>Resume</td>
             <td>:</td>
-            <!-- <td><a href="#"><button type="button" class="button">Download</button></a></td> -->
             <td><input type="file"></td>
           </tr>
           <tr>
@@ -188,5 +181,10 @@
     </div>
   </div>
 </body>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/popper.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
 
 </html>
