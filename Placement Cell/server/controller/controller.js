@@ -5,6 +5,8 @@ const saltRounds = 10;
 const jwt = require('jsonwebtoken');
 const { syncIndexes } = require('mongoose');
 const nodemailer = require('nodemailer');
+const CsvParser = require('json2csv').Parser; 
+const excelJS = require('exceljs')
 
 require('dotenv').config({ path: 'config.env' });
 
@@ -956,3 +958,78 @@ exports.registerStudentInJob = (req, res) => {
             });
         });
 };
+
+exports.filter = (req , res ) => {
+
+    
+    var query = {jobName:req.body.jobName}; 
+    job.find(query)
+        .then(data => {
+            if(!data){
+                res.status(404).send({message:"Not Found"});
+            }
+            else{
+                res.send(data); 
+            }
+            })
+        .catch(err=>{
+            res.status(500).send({message:"Error while fetching data of requested query"})
+        })
+};
+
+// generate datasheet for admin 
+
+exports.datasheet = async(req , res) =>{
+   try{
+    const workbook = new excelJS.Workbook(); 
+    const worksheet = workbook.addWorksheet("Students"); 
+
+    worksheet.columns = [
+        {header:"firstName" , key:"firstName"},
+        {header:"lastName" , key:"lastName"} ,
+        {header:"email" , key:"email"} , 
+        {header:"gender" , key:"gender"},
+        {header:"mobileNumber" , key:"mobileNumber"}
+    ]
+
+
+    let counter = 1; 
+
+    var userdata = await student.find({isPlaced:false}); 
+    //res.send(userdata);
+
+    let users = []; 
+
+    userdata.forEach((user)=>{
+         worksheet.addRow(user); 
+
+    });
+    
+    worksheet.getRow(1).eachCell((cell)=>{
+        cell.font = {bold:true}; 
+    });
+    res.setHeader(
+        "Content-Type" , 
+        "application/vnd.openxmlformats-officedocument.spreadsheatml.sheet"
+    );
+    
+    res.setHeader("Content-Disposition", `attachment; filename=studentData.xlsx`); 
+
+    return workbook.xlsx.write(res).then(()=>{
+        res.status(200); 
+    });
+
+
+
+   
+   
+
+
+   }
+   catch(error){
+    res.send({status:400 , success:false , msg:error.message});
+   }
+};
+
+ 
+ 

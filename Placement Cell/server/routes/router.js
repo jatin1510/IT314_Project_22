@@ -25,6 +25,9 @@ route.post('/postJob', controller.postJob);
   */
 route.get('/login', controller.findPerson);
 
+
+route.get('/datasheet', controller.datasheet);
+
 /**
   * @description get update Routes
   * @method GET /
@@ -45,6 +48,8 @@ route.post('/updateAdmin', authorization, controller.updateAdmin);
   * @method GET /
   */
 route.get('/logout', authorization, controller.logoutUser);
+
+
 
 /**
   * @description Delete Routes
