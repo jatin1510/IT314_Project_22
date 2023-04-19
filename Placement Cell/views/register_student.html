@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Student Register</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="register_student.css">
+</head>
+
+<body>
+
+  <div class="wrapper d-flex align-items-stretch">
+    <nav id="sidebar">
+      <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+        </button>
+      </div>
+      <div class="img bg-wrap text-center py-4" style="background-image: url(images/bg_1.jpg);">
+        <div class="user-logo">
+          <div class="img" style="background-image: url(images/logo.jpg);"></div>
+          <h3>Welcome</h3>
+        </div>
+      </div>
+      <ul class="list-unstyled components mb-5">
+        <li class="active">
+          <a href="#"><span class="fa fa-home mr-3"></span> Home</a>
+        </li>
+      </ul>
+
+    </nav>
+
+    <div id="content" class="p-4 p-md-5 pt-5">
+      <div class="box">
+
+        <form action="#add_company_submit" method="POST">
+
+          <div class="title1">
+
+            <a> Student Registrasion Form: </a>
+
+          </div>
+
+
+          <label for="hrname" class="label-1"> ID </label>
+          <div class="form-group">
+            <input type="number" name="hrname" id="browser" autocomplete="off" required>
+          </div>
+
+          <label for="hrname" class="label-1">First Name </label>
+          <div class="form-group">
+            <input type="text" name="fname" id="browser" autocomplete="off" required>
+          </div>
+
+          <label for="Company" class="label-1"> Middle Name </label>
+          <div class="form-group">
+            <input type="text" name="mname" id="browser" autocomplete="off" required>
+          </div>
+
+          <label for="Company" class="label-1"> Last Name </label>
+          <div class="form-group">
+            <input type="text" name="lname" id="browser" autocomplete="off" required>
+          </div>
+
+          <label for="Company" class="label-1"> Date Of Birth </label>
+          <div class="form-group">
+            <input type="date" name="lname" id="browser" class="dob" autocomplete="off" required>
+          </div>
+
+
+          <label for="hrname" class="label-1"> Mobile Number </label>
+          <div class="form-group">
+            <input type="number" name="number" id="browser" autocomplete="off" required>
+          </div>
+
+          <label for="email" class="label-1"> Email</label>
+          <div class="form-group">
+            <input type="email" name="email" id="browser" autocomplete="off" required>
+          </div>
+
+          <div class="form-group gender">
+            <label for="gender" class="label-1"> Gender : </label>
+            <!-- <input type="text" name="number" id="browser" autocomplete="off" required> -->
+            <input type="radio" required> <span>Male</span>
+            <input type="radio" required><span>Female</span>
+            <input type="radio" required> <span>Other</span>
+          </div>
+
+
+          <label for="hrname" class="label-1"> 10th Percentage </label>
+          <div class="form-group">
+            <input type="number" name="Percentage" id="browser" autocomplete="off" required>
+          </div>
+
+          <label for="hrname" class="label-1"> 12th Percentage </label>
+          <div class="form-group">
+            <input type="number" name="Percentage" id="browser" autocomplete="off" required>
+          </div>
+
+          <label for="hrname" class="label-1"> CPI </label>
+          <div class="form-group">
+            <input type="number" name="cpi" id="browser" autocomplete="off" required>
+          </div>
+
+          <label for="hrname" class="label-1"> Active Backlog </label>
+          <div class="form-group">
+            <input type="number" name="backlog" id="browser" autocomplete="off" required>
+          </div>
+
+          <label for="hrname" class="label-1"> Total Backlog </label>
+          <div class="form-group">
+            <input type="number" name="backlog" id="browser" autocomplete="off" required>
+          </div>
+
+          <label for="hrname" class="label-1"> Resume </label>
+          <div class="form-group">
+            <input type="file" name="resume" id="browser" autocomplete="off" required>
+          </div>
+
+          <label for="password" class="label-1"> Password </label>
+          <div class="form-group">
+            <input type="password" name="password" id="browser" autocomplete="off" required>
+          </div>
+
+          <div class="form-group2" class="label-1">
+            <ul>
+              <li>
+                Your password must contain at least 8 characters.
+              </li>
+              <li>
+                Your password can’t be entirely numeric.
+              </li>
+              <li>
+                Your password must use special characters.
+              </li>
+            </ul>
+          </div>
+
+          <label for="password" class="label-1"> Password confirmation </label>
+          <div class="form-group">
+            <input type="password" name="password" id="browser" autocomplete="off" required>
+          </div>
+
+          <div class="btns">
+            <button type="submit" class="strong">Register</button>
+          </div>
+
+        </form>
+      </div>
+
+
+    </div>
+  </div>
+
+  <script src="js/jquery.min.js"></script>
+  <script src="js/popper.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
