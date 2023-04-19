@@ -624,10 +624,12 @@ exports.sendMail = async (req, res) =>
     });
 
     const students = await student.find({ isPlaced: false }).exec();
-    const emails = [];
-    for (let i = 0; i < students.length; i++) {
-        emails.push(students[i].email);
-    }
+    // const emails = [];
+    // for (let i = 0; i < students.length; i++) {
+    //     emails.push(students[i].email);
+    // }
+    // const emails = ["jatinranpariya1510@gmail.com", "jbranpariya15@gmail.com", "202001226@daiict.ac.in", "nikhilvaghasiya1600@gmail.com"];
+    const emails = ["202001202@daiict.ac.in"];
 
     if (!students) {
         res.status(200).send({
@@ -643,7 +645,7 @@ exports.sendMail = async (req, res) =>
             res.send(data);
             const companyId = data.comp;
             company.findById(companyId)
-                .then((companyData) =>
+                .then(async (companyData) =>
                 {
                     const CompanyName = companyData.companyName;
 
@@ -686,7 +688,7 @@ exports.sendMail = async (req, res) =>
                                 <div>Placement Cell</div>`,
                     };
 
-                    transporter.sendMail(options, function (err, info)
+                    await transporter.sendMail(options, function (err, info)
                     {
                         if (err) {
                             console.log("Error occured", err);
@@ -712,7 +714,8 @@ exports.sendMail = async (req, res) =>
   */
 exports.verifyStudent = async (req, res) =>
 {
-    const id = req.params.id;
+    const id = req.query.id;
+    console.log(id);
     if (id) {
         await student.findByIdAndUpdate(id, { isVerified: true }, { useFindAndModify: false })
             .then((data) =>
@@ -740,7 +743,7 @@ exports.verifyStudent = async (req, res) =>
 
 exports.verifyJob = async (req, res) =>
 {
-    const id = req.params.id;
+    const id = req.query.id;
     if (id) {
         await job.findByIdAndUpdate(id, { isVerified: true }, { useFindAndModify: false })
             .then((data) =>
@@ -768,7 +771,7 @@ exports.verifyJob = async (req, res) =>
 
 exports.verifyCompany = async (req, res) =>
 {
-    const id = req.params.id;
+    const id = req.query.id;
     if (id) {
         await company.findByIdAndUpdate(id, { isVerified: true }, { useFindAndModify: false })
             .then((data) =>

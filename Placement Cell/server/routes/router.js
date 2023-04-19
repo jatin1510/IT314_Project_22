@@ -52,7 +52,7 @@ route.get('/logout', authorization, controller.logoutUser);
 route.delete('/delete', authorization, controller.deleteUser);
 
 /**
-  * @description Delete Routes
+  * @description mail for specific job to students
   * @method GET /
   */
 route.get('/mail/:id', authorizationAdmin, controller.sendMail);
@@ -64,14 +64,5 @@ route.get('/mail/:id', authorizationAdmin, controller.sendMail);
 route.get('/verifyStudent', authorizationAdmin, controller.verifyStudent);
 route.get('/verifyJob', authorizationAdmin, controller.verifyJob);
 route.get('/verifyCompany', authorizationSuperAdmin, controller.verifyCompany);
-
-/**
-  * @description Verify Routes (serving pages)
-  * @method GET /
-  */
-route.get('/verifyStudent/:id', authorizationAdmin, controller.verifyStudent);
-route.get('/verifyJob/:id', authorizationAdmin, controller.verifyJob);
-route.get('/verifyCompany/:id', authorizationSuperAdmin, controller.verifyCompany);
-
 
 module.exports = route;
