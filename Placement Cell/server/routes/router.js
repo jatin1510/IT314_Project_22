@@ -17,6 +17,7 @@ route.get('/', services.home);
 route.post('/registerStudent', controller.registerStudent);
 route.post('/registerCompany', controller.registerCompany);
 route.post('/registerAdmin', controller.registerAdmin);
+route.post('/postJob', controller.postJob);
 
 /**
   * @description Login Route
@@ -64,5 +65,7 @@ route.get('/mail/:id', authorizationAdmin, controller.sendMail);
 route.get('/verifyStudent', authorizationAdmin, controller.verifyStudent);
 route.get('/verifyJob', authorizationAdmin, controller.verifyJob);
 route.get('/verifyCompany', authorizationSuperAdmin, controller.verifyCompany);
+
+route.get('/sjr', controller.registredStudentsInJob);
 
 module.exports = route;

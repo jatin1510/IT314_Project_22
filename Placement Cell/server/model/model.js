@@ -55,9 +55,15 @@ const jobSchema = new Schema({
     isVerified: { type: Boolean, default: false },
 });
 
+const studentsRegistredSchema = new Schema({
+    job: { type: mongoose.Schema.Types.ObjectId, ref: 'job' },
+    student: { type: mongoose.Schema.Types.ObjectId, ref: 'student' },
+});
+
 const student = mongoose.model('Student', studentSchema);
 const company = mongoose.model('Company', companySchema);
 const admin = mongoose.model('Admin', adminSchema);
 const job = mongoose.model('Job', jobSchema);
+const studentJob = mongoose.model('StudentJob', studentsRegistredSchema);
 
-module.exports = { student, company, admin, job };
+module.exports = { student, company, admin, job, studentJob };
