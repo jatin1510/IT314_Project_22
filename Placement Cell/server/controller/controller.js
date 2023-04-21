@@ -243,6 +243,7 @@ exports.registerCompany = async (req, res) => {
                     });
                 });
         })
+
         .catch(err => {
             console.log('Error:', err);
         })
@@ -997,7 +998,6 @@ exports.datasheet = async(req , res) =>{
 
     var userdata = await student.find({isPlaced:false}); 
     //res.send(userdata);
-
     let users = []; 
 
     userdata.forEach((user)=>{
@@ -1018,13 +1018,6 @@ exports.datasheet = async(req , res) =>{
     return workbook.xlsx.write(res).then(()=>{
         res.status(200); 
     });
-
-
-
-   
-   
-
-
    }
    catch(error){
     res.send({status:400 , success:false , msg:error.message});
