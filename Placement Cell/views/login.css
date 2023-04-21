@@ -49,6 +49,7 @@ a:active:hover {
   padding: 0 60px;
 }
 
+#role,
 input {
   display: block;
   box-sizing: border-box;
@@ -59,6 +60,7 @@ input {
   border-radius: 4px;
 }
 
+#role,
 input[type="text"],
 input[type="email"],
 input[type="password"] {
@@ -81,7 +83,7 @@ hr {
   width: 80%;
 }
 
-#gender,
+#role,
 #Register {
   display: flex;
   align-items: center;
