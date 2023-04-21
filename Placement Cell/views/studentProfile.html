@@ -15,25 +15,18 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/profile.css">
+  <link rel="stylesheet" href="../assets/css/studentProfile.css">
 
 </head>
 
 <body>
 
-  <!-- <div id="navbar">
-
-      <nav>
-        <span>frnk</span>
-        <span>frnk</span>
-        <span>frnk</span>
-        <span>frnk</span>
-      </nav>
-    </div> -->
-
   <div class="wrapper d-flex align-items-stretch">
     <nav id="sidebar">
-
+      <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+        </button>
+      </div>
       <div class="img bg-wrap text-center py-4" style="background-image: url(../assets/images/bg_1.jpg);">
         <div class="user-logo">
           <div class="img" style="background-image: url(../assets/images/logo.jpg);"></div>
@@ -51,13 +44,16 @@
           <a href="studentEditProfile.html"><span class="fa fa-pencil-square-o mr-3"></span>Edit Profile</a>
         </li>
         <li>
-          <a href="#"><span class="fa fa-cloud-upload mr-3 "></span> Update Resume</a>
+          <a href="#"><span class="fa fa-cloud-upload mr-3"></span>Update Resume</a>
         </li>
         <li>
-          <a href="studentCompanyDetails.html"><span class="fa fa-list mr-3 "></span> Companies</a>
+          <a href="studentCompanyDetails.html"><span class="fa fa-list mr-3"></span>Companies</a>
         </li>
+        <!-- <li class="active">
+          <a href="AboutUS.html"><span class="fa fa-info mr-3"></span> About Us</a>
+        </li> -->
         <li>
-          <a href="#"><span class="fa fa-sign-out mr-3"></span> Logout</a>
+          <a href="#"><span class="fa fa-sign-out mr-3"></span>Logout</a>
         </li>
       </ul>
 
@@ -68,7 +64,7 @@
 
       <div class="userimage">
         <h2 class="mb-4">Welcome, Mr. XYZ </h2>
-        <div><img src="../assets/images/logo.jpg" alt="Student-image" id="photo"> </div>
+        <div><img src="../assets/images/logo.jpg " alt="Student-image" id="photo"> </div>
       </div>
 
       <table class="table">
@@ -169,8 +165,8 @@
 
   <script src="../assets/js/jquery.min.js"></script>
   <script src="../assets/js/popper.js"></script>
-  <script src="../assets/js/main.js"></script>
   <script src="../assets/js/bootstrap.min.js"></script>
+  <script src="../assets/js/main.js"></script>
 </body>
 
 </html>
