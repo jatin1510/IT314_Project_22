@@ -35,10 +35,11 @@
           <a href="#"><span class="fa fa-info mr-3"></span> About Us</a>
         </li>
       </ul>
+
     </nav>
 
+    <!-- Page Content  -->
     <div id="login-form-wrap" class="login">
-      
       <h2>Login</h2>
       <form id="login-form" method="">
         <p>
@@ -49,7 +50,7 @@
           <input type="password" id="password" name="password" placeholder='Enter password' required>
           <i class="validation"><span></span><span></span></i>
         </p>
-        <p id="gender">
+        <!-- <p id="role">
           <input type="radio" id="Student" name="fav_language" value="Student" required>
           <label for="html">Student</label>
 
@@ -58,18 +59,26 @@
 
           <input type="radio" id="Placement-Manager" name="fav_language" value="Placement-Manager" required>
           <label for="css">Placement Manager</label>
+        </p> -->
+        <p>
+          <select name="role" id="role">
+            <option value="select" selected>Select Type </option>
+            <option value="select">Student</option>
+            <option value="select">Company </option>
+            <option value="select">Admin</option>
+            <option value="select">Placement Manager</option>
+          </select>
         </p>
         <p>
           <input type="submit" id="login" value="Login">
         </p>
+
       </form>
-      
       <br>
       <hr>
-      
       <h2>Register</h2>
       <form id="login-form" method="">
-        <p id="Register">
+        <!-- <p id="role">
           <input type="radio" id="Student" name="fav_language" value="Student" required>
           <label for="html">Student</label>
 
@@ -78,21 +87,27 @@
 
           <input type="radio" id="Placement-Manager" name="fav_language" value="Placement-Manager" required>
           <label for="css">Placement Manager</label>
+        </p> -->
+        <p>
+          <select name="role" id="role">
+            <option value="select" selected>Select Type</option>
+            <option value="select">Student</option>
+            <option value="select">Company </option>
+            <option value="select">Admin</option>
+            <option value="select">Placement Manager</option>
+          </select>
         </p>
         <p>
           <input type="submit" id="login" value="Register">
         </p>
       </form>
-      
     </div>
   </div>
-  
-</body>
 
-  
   <script src="js/jquery.min.js"></script>
   <script src="js/popper.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/main.js"></script>
-  
+</body>
+
 </html>
