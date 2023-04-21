@@ -10,7 +10,8 @@ require('dotenv').config({ path: 'config.env' });
 
 const cookie_expires_in = 24 * 60 * 60 * 1000;
 
-const generateToken = (id, email, role) => {
+const generateToken = (id, email, role) =>
+{
     return jwt.sign(
         { id, email, role },
         process.env.JWT_SECRET, {
@@ -21,14 +22,17 @@ const generateToken = (id, email, role) => {
 /**
   * @description Login Utility Function
   */
-exports.findPerson = async (req, res) => {
+exports.findPerson = async (req, res) =>
+{
     const email = req.body.email;
     const role = req.body.role;
     const password = req.body.password;
 
+    console.log(email, role, password);
     if (role == "Student") {
         await student.find({ email: email })
-            .then((data) => {
+            .then((data) =>
+            {
                 if (!data) {
                     res
                         .status(404)
@@ -44,11 +48,12 @@ exports.findPerson = async (req, res) => {
                     const token = generateToken(data[0]._id, email, role);
                     console.log(token);
                     res.cookie("jwt", token, { maxAge: cookie_expires_in, httpOnly: true });
-                    res.send(data);
-                    // res.render('studentProfile', { student: data[0] });
+                    // res.send(data);
+                    res.render('studentProfile', { student: data[0] });
                 }
             })
-            .catch((err) => {
+            .catch((err) =>
+            {
                 res
                     .status(500)
                     .send({ message: `Error retrieving user with email ${email}` });
@@ -56,7 +61,8 @@ exports.findPerson = async (req, res) => {
     }
     else if (role == "Company") {
         await company.find({ email: email })
-            .then((data) => {
+            .then((data) =>
+            {
                 if (!data) {
                     // Make new webpage for all not found errors
                     res
@@ -73,11 +79,11 @@ exports.findPerson = async (req, res) => {
                     const token = generateToken(data[0]._id, email, role);
                     console.log(token);
                     res.cookie("jwt", token, { maxAge: cookie_expires_in, httpOnly: true });
-                    res.send(data);
-                    // res.render('companyProfile', { company: data[0] });
+                    res.render('companyProfile', { company: data[0] });
                 }
             })
-            .catch((err) => {
+            .catch((err) =>
+            {
                 res
                     .status(500)
                     .send({ message: `Error retrieving user with email ${email}` });
@@ -106,8 +112,7 @@ exports.findPerson = async (req, res) => {
                             const token = generateToken(data[0]._id, email, role);
                             console.log(token);
                             res.cookie("jwt", token, { maxAge: cookie_expires_in, httpOnly: true });
-                            // res.render('superAdminProfile', { admin: data[0] });
-                            res.send(data);
+                            res.render('adminHome', { admin: data[0], placed: 30, male: 80 });
                         }
                         else {
                             res
@@ -124,11 +129,12 @@ exports.findPerson = async (req, res) => {
                                 return;
                             }
                             // create token
-                            const token = generateToken(data[0]._id, email, role);
+                            const token = await generateToken(data[0]._id, email, role);
                             console.log(token);
                             res.cookie("jwt", token, { maxAge: cookie_expires_in, httpOnly: true });
-                            // res.render('adminProfile', { admin: data[0] });
-                            res.send(data);
+                            // calculate percentage for placed and male
+                            res.render('adminHome', { admin: data[0], placed: 30, male: 80 });
+                            return;
                         }
                         else {
                             res
@@ -138,7 +144,8 @@ exports.findPerson = async (req, res) => {
                     }
                 }
             })
-            .catch((err) => {
+            .catch((err) =>
+            {
                 res
                     .status(500)
                     .send({ message: `Error retrieving user with email ${email}` });
@@ -150,7 +157,8 @@ exports.findPerson = async (req, res) => {
   * @description Register Utility Functions
   */
 // Register student
-exports.registerStudent = async (req, res) => {
+exports.registerStudent = async (req, res) =>
+{
     // validate request
     if (!req.body) {
         res.status(400).send({ message: 'Content can not be empty!' });
@@ -164,7 +172,8 @@ exports.registerStudent = async (req, res) => {
     }
 
     await bcrypt.hash(req.body.password, saltRounds)
-        .then((hashedPassword) => {
+        .then((hashedPassword) =>
+        {
             // new student
             const user = new student({
                 email: req.body.email,
@@ -194,19 +203,22 @@ exports.registerStudent = async (req, res) => {
                     res.cookie("jwt", token, { maxAge: cookie_expires_in, httpOnly: true });
                     res.send(data);
                 })
-                .catch(err => {
+                .catch(err =>
+                {
                     res.status(500).send({
                         message: err.message || 'Some error occured  while creating a create operation',
                     });
                 });
         })
-        .catch(err => {
+        .catch(err =>
+        {
             console.log('Error:', err);
         })
 }
 
 // Register company
-exports.registerCompany = async (req, res) => {
+exports.registerCompany = async (req, res) =>
+{
     // validate request
     if (!req.body) {
         res.status(400).send({ message: 'Content can not be empty!' });
@@ -215,7 +227,8 @@ exports.registerCompany = async (req, res) => {
 
     console.log(req.body);
     await bcrypt.hash(req.body.password, saltRounds)
-        .then((hashedPassword) => {
+        .then((hashedPassword) =>
+        {
             // new company
             const user = new company({
                 email: req.body.email,
@@ -235,19 +248,22 @@ exports.registerCompany = async (req, res) => {
                     res.cookie("jwt", token, { maxAge: cookie_expires_in, httpOnly: true });
                     res.send(data);
                 })
-                .catch(err => {
+                .catch(err =>
+                {
                     res.status(500).send({
                         message: err.message || 'Some error occured  while creating a create operation',
                     });
                 });
         })
-        .catch(err => {
+        .catch(err =>
+        {
             console.log('Error:', err);
         })
 }
 
 // Register company
-exports.registerAdmin = async (req, res) => {
+exports.registerAdmin = async (req, res) =>
+{
     // validate request
     if (!req.body) {
         res.status(400).send({ message: 'Content can not be empty!' });
@@ -255,7 +271,8 @@ exports.registerAdmin = async (req, res) => {
     }
 
     await bcrypt.hash(req.body.password, saltRounds)
-        .then((hashedPassword) => {
+        .then((hashedPassword) =>
+        {
             // new company
             const user = new admin({
                 email: req.body.email,
@@ -273,13 +290,15 @@ exports.registerAdmin = async (req, res) => {
                     res.cookie("jwt", token, { maxAge: cookie_expires_in, httpOnly: true });
                     res.send(data);
                 })
-                .catch(err => {
+                .catch(err =>
+                {
                     res.status(500).send({
                         message: err.message || 'Some error occured  while creating a create operation',
                     });
                 });
         })
-        .catch(err => {
+        .catch(err =>
+        {
             console.log('Error:', err);
         })
 }
@@ -293,12 +312,15 @@ exports.updateUser = async (req, res) =>
     const role = req.role;
     const id = req.id;
 
+    console.log("inside update router");
+    console.log(email, role, id);
+
     if (role == "Student") {
-        await student.find({ id: id })
+        await student.find({ _id: id })
             .then((data) =>
             {
                 // render to update student page ex. {/updateStudent/:id}
-                res.send(data);
+                res.render('studentEditProfile', {student: data[0]});
             })
             .catch((err) =>
             {
@@ -308,7 +330,7 @@ exports.updateUser = async (req, res) =>
             });
     }
     else if (role == "Company") {
-        await company.find({ id: id })
+        await company.find({ _id: id })
             .then((data) =>
             {
                 // render to update company page ex. {/updateCompany/:id}
@@ -322,7 +344,7 @@ exports.updateUser = async (req, res) =>
             });
     }
     else {
-        await admin.find({ id: id })
+        await admin.find({ _id: id })
             .then((data) =>
             {
                 // initialize cookie with role student and email
@@ -371,6 +393,7 @@ exports.updateStudent = async (req, res) =>
 
     const id = req.id;
     const role = req.role;
+    console.log("called", id, role);
 
     if (role !== "Student") {
         res
@@ -391,6 +414,8 @@ exports.updateStudent = async (req, res) =>
             })
     }
     const stored = req.body;
+    console.log(req);
+    console.log(stored);
     await student.findByIdAndUpdate(id, stored, { useFindAndModify: false })
         .then((data) =>
         {
@@ -521,7 +546,7 @@ exports.logoutUser = async (req, res) =>
     res
         .clearCookie("jwt")
         .status(200)
-        .send({ message: "Successfully logged out!!" });
+        .redirect('/');
 
     // render the home page here
 }
@@ -782,22 +807,26 @@ exports.verifyCompany = async (req, res) =>
 }
 
 //company home by Jaimin
-exports.showJob = (req, res) => {
+exports.showJob = (req, res) =>
+{
     const companyID = null;
     job.find({ comp: companyID })
-        .then(data => {
+        .then(data =>
+        {
             if (!data) {
                 res.status(404).send({ message: "Not found company with id " + id })
             } else {
                 res.send(data)
             }
         })
-        .catch(err => {
+        .catch(err =>
+        {
             res.status(500).send({ message: "Error retrieving company with id " + id })
         })
 };
 
-exports.postJob = (req, res) => {
+exports.postJob = (req, res) =>
+{
     // add job to jobSchema
     const companyID = "642c112c7a0fdd91ee4100bb";
     if (!req.body) {
@@ -819,22 +848,26 @@ exports.postJob = (req, res) => {
     // save student in the database
     user
         .save(user)
-        .then(data => {
+        .then(data =>
+        {
             // redirect to company home page
             // res.redirect('/');
             res.send(user);
         })
-        .catch(err => {
+        .catch(err =>
+        {
             res.status(500).send({
                 message: err.message || 'Some error occured  while creating a create operation',
             });
         });
 };
 
-exports.registredStudentsInJob = async (req, res) => {
+exports.registredStudentsInJob = async (req, res) =>
+{
     const jobID = req.query.jobID;
     studentJob.find({ job: jobID })
-        .then(data => {
+        .then(data =>
+        {
             if (!data) {
                 res.status(404).send({ message: "Not found Job with id " + jobID })
             } else {
@@ -850,11 +883,13 @@ exports.registredStudentsInJob = async (req, res) => {
                         }
                     }
                 ])
-                    .then(async (result) => {
+                    .then(async (result) =>
+                    {
                         const arrayOfStudents = [];
                         for (let index = 0; index < result.length; index++) {
                             await student.find({ _id: result[index].student })
-                                .then((result1) => {
+                                .then((result1) =>
+                                {
                                     if (!result1) {
                                         res.status(404).send({ message: "Not found Student with id " + result[index].student })
                                     }
@@ -862,27 +897,32 @@ exports.registredStudentsInJob = async (req, res) => {
                                         arrayOfStudents.push(result1[0]);
                                     }
                                 })
-                                .catch((error) => {
+                                .catch((error) =>
+                                {
                                     console.log(error);
                                 });
                         }
                         // console.log(arrayOfStudents);
                         res.send(arrayOfStudents);
                     })
-                    .catch((error) => {
+                    .catch((error) =>
+                    {
                         console.log(error);
                     });
             }
         })
-        .catch(err => {
+        .catch(err =>
+        {
             res.status(500).send({ message: "Error retrieving Job with id " + jobID });
         })
 };
 
-exports.jobsRegistredbyStudent = (req, res) => {
+exports.jobsRegistredbyStudent = (req, res) =>
+{
     const studentID = req.query.studentID;
     studentJob.find({ student: studentID })
-        .then(data => {
+        .then(data =>
+        {
             if (!data) {
                 res.status(404).send({ message: "Not found Student with id " + studentID })
             } else {
@@ -898,11 +938,13 @@ exports.jobsRegistredbyStudent = (req, res) => {
                         }
                     }
                 ])
-                    .then(async (result) => {
+                    .then(async (result) =>
+                    {
                         const arrayOfJobs = [];
                         for (let index = 0; index < result.length; index++) {
                             await job.find({ _id: result[index].job })
-                                .then((result1) => {
+                                .then((result1) =>
+                                {
                                     if (!result1) {
                                         res.status(404).send({ message: "Not found job with id " + result[index].job })
                                     }
@@ -910,25 +952,29 @@ exports.jobsRegistredbyStudent = (req, res) => {
                                         arrayOfJobs.push(result1[0]);
                                     }
                                 })
-                                .catch((error) => {
+                                .catch((error) =>
+                                {
                                     console.log(error);
                                 });
                         }
                         // console.log(arrayOfJobs);
                         res.send(arrayOfJobs);
                     })
-                    .catch((error) => {
+                    .catch((error) =>
+                    {
                         console.log(error);
                     });
             }
         })
-        .catch(err => {
+        .catch(err =>
+        {
             res.status(500).send({ message: "Error retrieving Student with id " + studentID });
         })
 };
 
 // Help student to register in Job
-exports.registerStudentInJob = (req, res) => {
+exports.registerStudentInJob = (req, res) =>
+{
     const jobID = "642c1273520e78f528916627";
     const studentID = "642c10217a0fdd91ee4100b5";
     if (!req.body) {
@@ -945,12 +991,14 @@ exports.registerStudentInJob = (req, res) => {
     // save student in the database
     user
         .save(user)
-        .then(data => {
+        .then(data =>
+        {
             // redirect to company home page
             // res.redirect('/');
             res.send(user);
         })
-        .catch(err => {
+        .catch(err =>
+        {
             res.status(500).send({
                 message: err.message || 'Some error occured  while creating a create operation',
             });

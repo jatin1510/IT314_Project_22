@@ -14,41 +14,30 @@
     integrity="sha512-9YHSK59/rjvhtDcY/b+4rdnl0V4LPDWdkKceBl8ZLF5TB6745ml1AfluEU6dFWqwDw9lPvnauxFgpKvJqp7jiQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/profile.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/profile.css">
 
 </head>
 
 <body>
-
-  <!-- <div id="navbar">
-
-      <nav>
-        <span>frnk</span>
-        <span>frnk</span>
-        <span>frnk</span>
-        <span>frnk</span>
-      </nav>
-    </div> -->
-
   <div class="wrapper d-flex align-items-stretch">
     <nav id="sidebar">
 
       <div class="img bg-wrap text-center py-4" style="background-image: url(../assets/images/bg_1.jpg);">
         <div class="user-logo">
-          <div class="img" style="background-image: url(../assets/images/logo.jpg);"></div>
-          <h3>Catriona Henderson</h3>
+          <div class="img" style="background-image: url(/images/logo.jpg);"></div>
+          <h3><%= student.firstName %> <%= student.lastName %></h3>
         </div>
       </div>
       <ul class="list-unstyled components mb-5">
         <li>
-          <a href="Home.html"><span class="fa fa-home mr-3"></span> Home</a>
+          <a href="/"><span class="fa fa-home mr-3"></span> Home</a>
         </li>
         <li class="active">
           <a href="#"><span class="fa fa-user mr-3"></span> Profile</a>
         </li>
         <li>
-          <a href="studentEditProfile.html"><span class="fa fa-pencil-square-o mr-3"></span>Edit Profile</a>
+          <a href="/update"><span class="fa fa-pencil-square-o mr-3"></span>Edit Profile</a>
         </li>
         <li>
           <a href="#"><span class="fa fa-cloud-upload mr-3 "></span> Update Resume</a>
@@ -57,7 +46,7 @@
           <a href="studentCompanyDetails.html"><span class="fa fa-list mr-3 "></span> Companies</a>
         </li>
         <li>
-          <a href="#"><span class="fa fa-sign-out mr-3"></span> Logout</a>
+          <a href="/logout"><span class="fa fa-sign-out mr-3"></span> Logout</a>
         </li>
       </ul>
 
@@ -67,110 +56,100 @@
     <div id="Profile" class="p-4 p-md-5 pt-5">
 
       <div class="userimage">
-        <h2 class="mb-4">Welcome, Mr. XYZ </h2>
-        <div><img src="../assets/images/logo.jpg" alt="Student-image" id="photo"> </div>
+        <h2 class="mb-4">Welcome, <%= student.firstName %> <%= student.lastName %> </h2>
+        <div><img src="/images/logo.jpg" alt="Student-image" id="photo"> </div>
       </div>
-
+      <% if (student.isVerified) { %>
+        <h5 style="text-align:center; color: green;">Your profile is verified </h5>
+        <%} else { %>
+          <h5 style="text-align:center; color: red;">Your profile is not verified </h5>
+          <% } %>
       <table class="table">
         <tr>
-          <td> Student ID </td>
+          <td>Email Address </td>
           <td>:</td>
-          <td> 202009999 </td>
+          <td> <%= student.email %> </td>
         </tr>
         <tr>
           <td>First Name </td>
           <td>:</td>
-          <td> Name </td>
+          <td> <%= student.firstName %> </td>
         </tr>
         <tr>
           <td>Middle Name</td>
           <td>:</td>
-          <td>Name </td>
+          <td><%= student.middleName %> </td>
         </tr>
         <tr>
           <td>Last Name </td>
           <td>:</td>
-          <td>Name </td>
-        </tr>
-        <tr>
-          <td>Email Address</td>
-          <td>:</td>
-          <td>202009999@institute.com</td>
-        </tr>
-        <tr>
-          <td>Alternative Email Address</td>
-          <td>:</td>
-          <td>202009999@abcd.com</td>
+          <td><%= student.lastName %> </td>
         </tr>
         <tr>
           <td>Date Of Birth</td>
           <td>:</td>
-          <td>01-01-2002</td>
+          
+          <td><%= new Date(student.dob).toDateString() %></td>
         </tr>
         <tr>
           <td>Gender</td>
           <td>:</td>
-          <td>Male</td>
+          <td><%= student.gender %></td>
         </tr>
         <tr>
           <td>Mobile Nnumber</td>
           <td>:</td>
-          <td>1234567890</td>
+          <td><%= student.mobileNumber %></td>
         </tr>
         <tr>
           <td>Alternative Mobile Nnumber</td>
           <td>:</td>
-          <td>1234567890</td>
-        </tr>
-        <tr>
-          <td>Father Name </td>
-          <td>:</td>
-          <td> Name </td>
-        </tr>
-        <tr>
-          <td>Father Mobile Nnumber</td>
-          <td>:</td>
-          <td>1234567890</td>
+          <td><%= student.alternateMobileNumber %></td>
         </tr>
         <tr>
           <td>10th Percentage</td>
           <td>:</td>
-          <td>90%</td>
+          <td><%= student.tenthPercentage %>%</td>
         </tr>
         <tr>
           <td>12th Percentage</td>
           <td>:</td>
-          <td>90%</td>
+          <td><%= student.twelfthPercentage %>%</td>
         </tr>
         <tr>
-          <td>CGPA</td>
+          <td>CPI</td>
           <td>:</td>
-          <td>8.54</td>
+          <td><%= student.cpi %></td>
         </tr>
         <tr>
-          <td>Current Backlogs</td>
+          <td>Active Backlogs</td>
           <td>:</td>
-          <td>0</td>
+          <td><%= student.activeBacklog %></td>
         </tr>
         <tr>
           <td>Total Backlogs</td>
           <td>:</td>
-          <td>0</td>
+          <td><%= student.totalBacklog %></td>
+        </tr>
+        <tr>
+          <td>Branch</td>
+          <td>:</td>
+          <td><%= student.branch %></td>
         </tr>
         <tr>
           <td>Resume</td>
           <td>:</td>
-          <td><span>"name"</span><a href="#"><button type="button" class="button">Download</button></a></td>
+          <td><a href="<%= student.resume %>" target="_blank"><button type="button" class="button">View Your Resume</button></a></td>
         </tr>
       </table>
 
     </div>
   </div>
 
-  <script src="../assets/js/jquery.min.js"></script>
-  <script src="../assets/js/popper.js"></script>
-  <script src="../assets/js/main.js"></script>
-  <script src="../assets/js/bootstrap.min.js"></script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/popper.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
 </body>
 
 </html>

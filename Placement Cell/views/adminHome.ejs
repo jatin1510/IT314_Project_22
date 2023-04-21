@@ -7,9 +7,9 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-		<link rel="stylesheet" href="../assets/css/adminhome.css">
+		<link rel="stylesheet" href="/css/adminhome.css">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="../assets/css/style.css">
+		<link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
 		
@@ -19,15 +19,15 @@
 					<button type="button" id="sidebarCollapse" class="btn btn-primary">
 	        </button>
         </div>
-	  		<div class="img bg-wrap text-center py-4" style="background-image: url(../assets/images/bg_1.jpg);">
+	  		<div class="img bg-wrap text-center py-4" style="background-image: url(/images/bg_1.jpg);">
 	  			<div class="user-logo">
-	  				<div class="img" style="background-image: url(../assets/images/logo.jpg);"></div>
+	  				<div class="img" style="background-image: url(/images/logo.jpg);"></div>
 	  				<h3>Admin</h3>
 	  			</div>
 	  		</div>
         <ul class="list-unstyled components mb-5">
           <li>
-            <a href="Home.html"><span class="fa fa-home mr-3"></span> Home</a>
+            <a href="/"><span class="fa fa-home mr-3"></span> Home</a>
           </li>
           <li class="active">
             <a href="#"><i class="fa fa-line-chart mr-3" aria-hidden="true"></i> Admin Statistics</a>
@@ -41,16 +41,19 @@
           <li>
             <a href="adminVerifyJobs.html"><i class="fa fa-briefcase mr-3" aria-hidden="true"></i> Verify Jobs</a>
           </li>
+          <% if(admin.role == 1) {%>
+            <li>
+              <a href="adminVerifyCompany.html"><i class="fa fa-building-o mr-3" aria-hidden="true"></i> Verify Company</a>
+            </li>
+          <% } %>
           <li>
-            <a href="adminVerifyCompany.html"><i class="fa fa-building-o mr-3" aria-hidden="true"></i> Verify Company</a>
-          </li>
-          <li>
-            <a href="#"><span class="fa fa-sign-out mr-3"></span> Logout</a>
+            <a href="/logout"><span class="fa fa-sign-out mr-3"></span> Logout</a>
           </li>
         </ul>
-
     	</nav>
-
+      
+      <div style="display: none;" id="placed"> <%= placed %> </div>
+      <div style="display: none;" id="male"> <%= male %> </div>
         <!-- Page Content  -->
       <div id="content" class="p-4 p-md-5 pt-5">
         <h2 class="mb-4">Admin Home</h2>
@@ -66,10 +69,10 @@
       </div>
 		</div>
 
-    <script src="../assets/js/adminhome.js"></script>
-    <script src="../assets/js/jquery.min.js"></script>
-    <script src="../assets/js/popper.js"></script>
-    <script src="../assets/js/main.js"></script>
-    <script src="../assets/js/bootstrap.min.js"></script>
+    <script src="/js/adminhome.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/popper.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
   </body>
 </html>

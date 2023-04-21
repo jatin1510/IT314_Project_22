@@ -14,22 +14,12 @@
     integrity="sha512-9YHSK59/rjvhtDcY/b+4rdnl0V4LPDWdkKceBl8ZLF5TB6745ml1AfluEU6dFWqwDw9lPvnauxFgpKvJqp7jiQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/companyProfile.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/companyProfile.css">
 
 </head>
 
 <body>
-
-  <!-- <div id="navbar">
-
-      <nav>
-        <span>frnk</span>
-        <span>frnk</span>
-        <span>frnk</span>
-        <span>frnk</span>
-      </nav>
-    </div> -->
 
   <div class="wrapper d-flex align-items-stretch">
     <nav id="sidebar">
@@ -37,10 +27,10 @@
         <button type="button" id="sidebarCollapse" class="btn btn-primary">
         </button>
       </div>
-      <div class="img bg-wrap text-center py-4" style="background-image: url(../assets/images/bg_1.jpg);">
+      <div class="img bg-wrap text-center py-4" style="background-image: url(/images/bg_1.jpg);">
         <div class="user-logo">
-          <div class="img" style="background-image: url(../assets/images/logo.jpg);"></div>
-          <h3>HR NAME</h3>
+          <div class="img" style="background-image: url(/images/logo.jpg);"></div>
+          <h3><%= company.hrName %></h3>
         </div>
       </div>
       <ul class="list-unstyled components mb-5">
@@ -64,7 +54,7 @@
         </li>
    
         <li>
-          <a href="#"><span class="fa fa-sign-out mr-3"></span> Logout</a>
+          <a href="/logout"><span class="fa fa-sign-out mr-3"></span> Logout</a>
         </li>
       </ul>
 
@@ -74,35 +64,39 @@
     <div id="content" class="p-4 p-md-5 pt-5">
 
       <div class="userimage">
-        <h2 class="mb-4">Welcome, HR NAME </h2>
-        <div><img src="../assets/images/logo.jpg " alt="Student-image" id="photo"> </div>
+        <h2 class="mb-4">Welcome, <%= company.hrName %> </h2>
+        <div><img src="/images/logo.jpg " alt="Student-image" id="photo"> </div>
       </div>
 
       <table class="table">
         <tr>
           <td> Email </td>
           <td>:</td>
-          <td> google123@email.com </td>
+          <td> <%= company.email %> </td>
         </tr>
         <tr>
           <td>Website </td>
           <td>:</td>
-          <td> google.co.in </td>
+          <td> <%= company.website %> </td>
         </tr>
         <tr>
           <td>Company Name</td>
           <td>:</td>
-          <td>Google </td>
+          <td><%= company.companyName %> </td>
         </tr>
         <tr>
           <td>Contact Number </td>
           <td>:</td>
-          <td>6598934969 </td>
+          <td><%= company.contactNumber %> </td>
         </tr>
         <tr>
           <td> Is Verified  </td>
           <td>:</td>
-          <td> Verified </td>
+           <% if (company.isVerified) { %>
+            <td style="color: green;"> Verified </td>
+            <%} else { %>
+              <td style="color: red;"> Not Verified </td>
+              <% } %>
         </tr>
 
         
@@ -111,10 +105,10 @@
     </div>
   </div>
 
-  <script src="../assets/js/jquery.min.js"></script>
-    <script src="../assets/js/popper.js"></script>
-    <script src="../assets/js/main.js"></script>
-    <script src="../assets/js/bootstrap.min.js"></script>
+  <script src="/js/jquery.min.js"></script>
+    <script src="/js/popper.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 </body>
 
 </html>

@@ -2,12 +2,20 @@ const axios = require('axios');
 
 exports.home = (req, res) =>
 {
-    // res.render('home');
-    res.send("We are at home");
+    res.render('Home');
 };
 
-exports.companyProfile = (req, res) =>
+exports.aboutus = (req, res) =>
 {
-    res.send("We are at companyProfile");
-    res.render('companyProfile');
+    res.render('AboutUS');
+};
+
+exports.loginPage = (req, res) =>
+{
+    res.render('Login');
+};
+
+exports.registerPage = (req, res) =>
+{
+    res.render('registerStudent');
 };

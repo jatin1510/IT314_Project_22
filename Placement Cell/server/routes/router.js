@@ -9,6 +9,9 @@ const { authorization, authorizationAdmin, authorizationSuperAdmin } = require('
   * @method GET /
   */
 route.get('/', services.home);
+route.get('/aboutus', services.aboutus);
+route.get('/loginPage', services.loginPage);
+route.get('/registerPage', services.registerPage);
 
 /**
   * @description Register Routes
@@ -21,9 +24,9 @@ route.post('/postJob', controller.postJob);
 
 /**
   * @description Login Route
-  * @method GET /
+  * @method POST /
   */
-route.get('/login', controller.findPerson);
+route.post('/profile', controller.findPerson);
 
 /**
   * @description get update Routes
@@ -65,7 +68,5 @@ route.get('/mail/:id', authorizationAdmin, controller.sendMail);
 route.get('/verifyStudent', authorizationAdmin, controller.verifyStudent);
 route.get('/verifyJob', authorizationAdmin, controller.verifyJob);
 route.get('/verifyCompany', authorizationSuperAdmin, controller.verifyCompany);
-
-route.get('/sjr', controller.registredStudentsInJob);
 
 module.exports = route;

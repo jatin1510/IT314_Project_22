@@ -14,8 +14,8 @@
     integrity="sha512-9YHSK59/rjvhtDcY/b+4rdnl0V4LPDWdkKceBl8ZLF5TB6745ml1AfluEU6dFWqwDw9lPvnauxFgpKvJqp7jiQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/edit_profile.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/edit_profile.css">
 
 </head>
 
@@ -36,7 +36,7 @@
 
       <div class="img bg-wrap text-center py-4" style="background-image: url();">
         <div class="user-logo">
-          <div class="img" style="background-image: url(../assets/images/logo.jpg);"></div>
+          <div class="img" style="background-image: url(/images/logo.jpg);"></div>
           <h3>Catriona Henderson</h3>
         </div>
       </div>
@@ -67,109 +67,87 @@
     <div id="Profile" class="p-4 p-md-5 pt-5">
 
       <div class="userimage">
-        <h2 class="mb-4">Welcome, Mr. XYZ </h2>
-        <div><img src="../assets/images/logo.jpg" alt="Student-image" id="photo"> </div>
+        <h2 class="mb-4">Welcome, <%= student.firstName %> <%= student.lastName %> </h2>
       </div>
-      <form action="">
+      <form action="/updateStudent" method="POST">
 
         <table class="table table-hover">
           <tr>
-            <td> Student ID </td>
+            <td> Email Address </td>
             <td>:</td>
-            <td> <input type="number" value="202009999" placeholder="Enter your Student Id"> </td>
+            <td> <input style="width: 100%;" type="email" value="<%= student.email %>" placeholder="Enter your Student Id"> </td>
           </tr>
           <tr>
             <td>First Name </td>
             <td>:</td>
-            <td> <input type="text" value="Name" placeholder="Enter your Name"> </td>
+            <td> <input type="text" value="<%= student.firstName %>" placeholder="Enter your Name"> </td>
           </tr>
           <tr>
             <td>Middle Name</td>
             <td>:</td>
-            <td> <input type="text" value="Name" placeholder="Enter your Middle Name"> </td>
+            <td> <input type="text" value="<%= student.middleName %>" placeholder="Enter your Middle Name"> </td>
           </tr>
           <tr>
             <td>Last Name </td>
             <td>:</td>
-            <td> <input type="text" value="Name" placeholder="Enter your Last Name"> </td>
-          </tr>
-          <tr>
-            <td>Email Address</td>
-            <td>:</td>
-            <td> <input type="email" value="202009999@institute.com" placeholder="Enter your Email Address"> </td>
-          </tr>
-          <tr>
-            <td>Alternative Email Address</td>
-            <td>:</td>
-            <td> <input type="email" value="202009999@abcd.com" placeholder="Enter your Alternative Email Address">
-            </td>
+            <td> <input type="text" value="<%= student.lastName %>" placeholder="Enter your Last Name"> </td>
           </tr>
           <tr>
             <td>Date Of Birth</td>
             <td>:</td>
-            <td><input type="date" value="2002-01-01" placeholder="Enter"></td>
+            <td><input type="date" value="<%= student.dob %>" placeholder="<%= new Date(student.dob).toDateString() %>"></td>
           </tr>
           <tr>
             <td>Gender</td>
             <td>:</td>
-            <td> <input type="text" value="Male" placeholder="Enter your Last Name"> </td>
+            <td> <input type="text" value="<%= student.gender %>" placeholder="Enter your Last Name"> </td>
           </tr>
           <tr>
             <td>Mobile Nnumber</td>
             <td>:</td>
-            <td> <input type="number" value="1234567890" placeholder="Enter your Mobile Nnumber"> </td>
+            <td> <input type="number" value="<%= student.mobileNumber %>" placeholder="Enter your Mobile Nnumber"> </td>
           </tr>
           <tr>
             <td>Alternative Mobile Nnumber</td>
             <td>:</td>
-            <td> <input type="number" value="1234567890" placeholder="Enter your Mobile Nnumber"> </td>
-          </tr>
-
-          <tr>
-            <td>Father Name </td>
-            <td>:</td>
-            <td> <input type="text" value="Name" placeholder="Enter your Father Name"> </td>
-          </tr>
-
-          <tr>
-            <td>Father Mobile Nnumber</td>
-            <td>:</td>
-            <td> <input type="number" value="1234567890" placeholder="Enter Father's Mobile Nnumber"> </td>
+            <td> <input type="number" value="<%= student.alternateMobileNumber %>" placeholder="Enter your Mobile Nnumber"> </td>
           </tr>
           <tr>
             <td>10th Percentage</td>
             <td>:</td>
-            <td><input type="text" value="90%" placeholder="Enter 10th Percentage"></td>
+            <td><input type="number" min="1" max="100" step="0.01" value="<%= student.tenthPercentage %>" placeholder="Enter 10th Percentage"></td>
           </tr>
           <tr>
             <td>12th Percentage</td>
             <td>:</td>
-            <td><input type="text" value="90%" placeholder="Enter 12th Percentage"></td>
+            <td><input type="number" min="1" max="100" step="0.01" value="<%= student.twelfthPercentage %>" placeholder="Enter 12th Percentage"></td>
           </tr>
-
           <tr>
             <td>CGPA</td>
             <td>:</td>
-            <td> <input type="number" value="8.54" placeholder="Enter CPI"> </td>
+            <td> <input type="number" min="1" max="100" step="0.01" value="<%= student.cpi %>" placeholder="Enter CPI"> </td>
           </tr>
-
           <tr>
-            <td>Current Backlogs</td>
+            <td>Active Backlogs</td>
             <td>:</td>
-            <td> <input type="number" value="0" placeholder="Enter Current Backlogs"> </td>
+            <td> <input type="number" value="<%= student.activeBacklog %>" placeholder="Enter Current Backlogs"> </td>
           </tr>
           <tr>
             <td>Total Backlogs</td>
             <td>:</td>
-            <td> <input type="number" value="0" placeholder="Enter Total Backlogs"> </td>
+            <td> <input type="number" value="<%= student.totalBacklog %>" placeholder="Enter Total Backlogs"> </td>
+          </tr>
+          <tr>
+            <td>Branch</td>
+            <td>:</td>
+            <td> <input type="text" value="<%= student.branch %>" placeholder="Enter Total Backlogs"> </td>
           </tr>
           <tr>
             <td>Resume</td>
             <td>:</td>
-            <!-- <td><a href="#"><button type="button" class="button">Download</button></a></td> -->
-            <td><input type="file"></td>
+            <td> <input type="text" value="<%= student.resume %>" placeholder="Enter Total Backlogs"> </td>
           </tr>
-          <tr>
+          <!-- <tr>
             <td>Changes password</td>
             <td>:</td>
             <td> <input type="password" value="" placeholder="Enter New password" required> </td>
@@ -178,19 +156,19 @@
             <td>Confirm password</td>
             <td>:</td>
             <td> <input type="password" value="" placeholder="Re Enter password" required> </td>
-          </tr>
+          </tr> -->
         </table>
 
         <!-- <input type="submit" name="Save"> -->
-        <button class="submit" type="button">Save changes</button>
+        <button class="submit" type="submit">Save changes</button>
       </form>
 
     </div>
   </div>
-  <script src="../assets/js/jquery.min.js"></script>
-  <script src="../assets/js/popper.js"></script>
-  <script src="../assets/js/main.js"></script>
-  <script src="../assets/js/bootstrap.min.js"></script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/popper.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
 </body>
 
 </html>

@@ -22,6 +22,7 @@ const studentSchema = new Schema({
     resume: { type: String, require: true },
     isVerified: { type: Boolean, default: false },
     isPlaced: { type: Boolean, default: false },
+    isRejected: { type: Boolean, default: false },
 });
 
 const companySchema = new Schema({

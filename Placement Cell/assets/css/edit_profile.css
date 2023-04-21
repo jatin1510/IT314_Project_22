@@ -45,13 +45,13 @@ body {
 
 .table>tbody>tr>td {
     font-size: 15px;
-    padding: 8px;
+    /* padding: 8px; */
 }
 
 input {
     border: 0px;
     padding: 5px;
-    width: auto;
+    width: 100%;
 }
 
 .submit {
