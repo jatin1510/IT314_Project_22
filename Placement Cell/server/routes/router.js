@@ -27,7 +27,8 @@ route.get('/login', controller.findPerson);
 
 
 route.get('/datasheet', controller.datasheet);
-
+route.get('/filter', controller.filter);
+ 
 /**
   * @description get update Routes
   * @method GET /

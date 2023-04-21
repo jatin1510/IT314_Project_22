@@ -959,7 +959,7 @@ exports.registerStudentInJob = (req, res) => {
         });
 };
 
-exports.filter = (req , res ) => {
+exports.filter = (req , res) => {
 
     
     var query = {jobName:req.body.jobName}; 
