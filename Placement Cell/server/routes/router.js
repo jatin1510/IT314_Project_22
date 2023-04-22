@@ -69,4 +69,12 @@ route.get('/verifyStudent', authorizationAdmin, controller.verifyStudent);
 route.get('/verifyJob', authorizationAdmin, controller.verifyJob);
 route.get('/verifyCompany', authorizationSuperAdmin, controller.verifyCompany);
 
+
+/**
+ * Admin side 
+ */
+
+route.get('/unverifiedstudents' , authorizationAdmin  , controller.verifystudent);
+route.get('/unverifiedjobs' , authorizationAdmin  , controller.verifyjob);
+route.get('/unverifiedcompany' , authorizationAdmin  , controller.verifycompany);
 module.exports = route;

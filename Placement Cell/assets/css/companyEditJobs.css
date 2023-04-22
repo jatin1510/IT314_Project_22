@@ -1,79 +1,32 @@
-/* .table-hover tbody tr:hover td {
-    background: rgb(196, 225, 255);
-} */
-
-.dark {
-    color: #fff;
-    background-color: RGBA(33, 37, 41, var(--bs-bg-opacity, 1));
+body{
+    Background-color : #f0f8ff;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-body {
-    /* background-color: lightcyan; */
-    background-color: antiquewhite;
-    background: linear-gradient(to right, #267871, #136a8a);
-}
-
-#Company {
-
-    min-height: 100vh;
-    -webkit-transition: all 0.3s;
-    -o-transition: all 0.3s;
-    transition: all 0.3s;
-
-
-    /* margin: 15px; */
-    margin: auto;
-    margin-top: 50px;
-    width: 60%;
-    /* background-color: antiquewhite; */
-    /* background-color: lightcyan; */
-    background-color: white;
+.p-4{
     display: inline-block;
-    /* box-shadow: 0 .5em 1em -.125em rgba(10, 10, 10, .1), 0 0 0 10px rgba(10, 10, 10, .02); */
-    box-shadow: 0 .5em 1em -.125em black, 0 0 0 10px rgba(10, 10, 10, .02);
 }
 
-.table>tbody>tr>td {
-    font-size: 15px;
-}
-
-a {
-    text-decoration: none;
-    color: black;
-}
-
-/* 
-.filter {
-    width: 100%;
-    margin-bottom: 1rem;
-    color: #212529;
-} */
-
-select {
-    border-radius: 8px;
-    padding: 2px;
-    margin: 2px;
-}
-
-/* 
 .form-group2{
     font-size: 1.2em;
 }
+#content{
+    display: flex;
+    }
 .box {
 
     background-color: #fff;
-    width: 45em;
-    border-radius: 6px;
+    width: 42em;
+    border-radius: 0.375em;
     box-shadow: 0 .5em 1em -.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
     color: #4a4a4a;
     display: inline-block;
     padding: 1.25rem;
     margin-left: 15em;
-    margin-top: 1em;
+   
+    margin: 1em auto;
 }
-.table-hover tbody tr:hover td {
-    background: rgb(196, 225, 255);
-}
+
 form {
     display: block;
     margin-top: 0em;
@@ -86,8 +39,9 @@ form {
 }
 
 .title1{
+    color: black;
     font-size: 2.5em;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 
@@ -101,10 +55,10 @@ form {
 }
 
 .form-group [type="text"]{
-    height: 3em;
+    height: 2.2em;
     width: 100%;
-    font-size: 1.2em;
-
+    font-size: 1.5em;
+    margin-top: 0%;
    
 }
 .form-group [type="text"]:hover{
@@ -118,9 +72,19 @@ form {
 
 
 .form-group [type="password"]{
-    height: 3em;
+    height: 2.2em;
     width: 100%;
-    font-size: 1.2em;
+    font-size: 1.5em;
+   
+}
+
+.form-group [type="password"]:hover{
+   
+    
+
+    box-shadow: 0 0 3px 1px #8eb0f9;
+    outline: none; 
+   
 }
 
 
@@ -135,9 +99,9 @@ form {
    
     background-color: #212121;
     
-    color: #FFFFFF99;
+    color: #ffffffc5;
     font-size: 1.5em;
-    width: 10em;
+    width: 8em;
     height: 3em;
     border-radius: 0em;
     margin-top: 0.75em;
@@ -152,6 +116,7 @@ form {
 
     background-color:#1779fa ;
     color : #fff;
+    border: none;
     box-shadow: 0 .5em 1em -.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
 }
 
@@ -215,4 +180,4 @@ form {
 .file-label:hover .file-cta {
     background-color: #eee;
     color: #363636;
-} */
+}

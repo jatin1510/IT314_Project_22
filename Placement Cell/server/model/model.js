@@ -45,6 +45,8 @@ const adminSchema = new Schema({
 
 const jobSchema = new Schema({
     comp: { type: mongoose.Schema.Types.ObjectId, ref: 'company' },
+    companyName: { type: String, required: true },
+    hrName: { type: String, required: true },
     jobName: { type: String, require: true },
     postingLocation: { type: String, require: true },
     ugCriteria: [{ type: String, require: true }],

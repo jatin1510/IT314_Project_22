@@ -2,15 +2,17 @@
 <html lang="en">
 
 <head>
-  <title>Edit jobs</title>
+  <title>Interview schedule</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
 
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/adminEditJobs.css">
+  <link rel="stylesheet" href="../assets/css/adminInterviewschedule.css">
 </head>
 
 <body>
@@ -21,15 +23,15 @@
         <button type="button" id="sidebarCollapse" class="btn btn-primary">
         </button>
       </div>
-      <div class="img bg-wrap text-center py-4" style="background-image: url(../assets/images/office.jpg);">
+      <div class="img bg-wrap text-center py-4" style="background-image: url(../assets/images/admin_bg.jpg);">
         <div class="user-logo">
-          <div class="img" style="background-image: url(../assets/images/businessman.png);"></div>
+          <div class="img" style="background-image: url(../assets/images/logo.jpg);"></div>
           <h3>Admin</h3>
         </div>
       </div>
       <ul class="list-unstyled components mb-5">
-        <li>
-          <a href="Home.html"><span class="fa fa-home mr-3"></span> Home</a>
+        <li class="active">
+          <a href="#"><span class="fa fa-home mr-3"></span> Home</a>
         </li>
         <li>
           <a href="adminHome.html"><i class="fa fa-line-chart mr-3" aria-hidden="true"></i> Admin Statistics</a>
@@ -37,8 +39,8 @@
         <li>
           <a href="adminVerifyStudent.html"><span class="fa fa-check mr-3 notif"></span> Verify Students</a>
         </li>
-        <li class="active">
-          <a href="#"><span class="fa fa-edit mr-3"></span> Edit Jobs</a>
+        <li>
+          <a href="adminInterviewSchedule.html"><span class="fa fa-edit mr-3"></span> Interview schedule</a>
         </li>
         <li>
           <a href="adminVerifyJobs.html"><span class="fa fa-briefcase mr-3"></span> Verify Jobs</a>
@@ -55,18 +57,44 @@
 
     <!-- Page Content  -->
     <div id="content" class="p-4 p-md-5 pt-5">
-      <h2 class="mb-4">Edit Jobs</h2>
+      <h2 class="mb-4">Interview schedule</h2>
       <table>
         <thead>
           <tr>
             <th>Company Name</th>
             <th>Job</th>
-            <th>Job details</th>
             <th>Start Dates</th>
             <th>End Dates</th>
           </tr>
         </thead>
         <tbody>
+
+            <% record.forEach(function(row)) {%>
+                <% let i=0%>
+                <tr>
+                
+                  <td> <%= record.comp </td>
+                  <td> <%= record.jobName %> </td>
+
+                  <td>
+                    <label for="datepicker"></label>
+                    <input type="date" id="datepicker" name="datepicker" min="2023-04-11" max="2024-04-11">
+      
+                  </td>
+                  <td>
+      
+      
+      
+                    <input type="date" id="datepicker" name="datepicker" min="2023-04-11" max="2024-04-11">
+      
+                  </td>
+                  <% i++%>
+    
+                </tr>
+              <%   }) %>
+
+        
+
           <tr>
             <td>Google</td>
             <td>Tester</td>
@@ -106,6 +134,7 @@
       </table>
     </div>
   </div>
+
 
   <script src="../assets/js/jquery.min.js"></script>
   <script src="../assets/js/popper.js"></script>

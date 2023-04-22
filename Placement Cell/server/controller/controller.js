@@ -38,12 +38,12 @@ exports.findPerson = async (req, res) =>
                         .status(404)
                         .send({ message: `Not found user with email: ${email} ` });
                 } else {
-                    if (!bcrypt.compareSync(password, data[0].password)) {
-                        res
-                            .status(500)
-                            .send({ message: `Password Invalid` });
-                        return;
-                    }
+                    // if (!bcrypt.compareSync(password, data[0].password)) {
+                    //     res
+                    //         .status(500)
+                    //         .send({ message: `Password Invalid` });
+                    //     return;
+                    // }
                     // create token
                     const token = generateToken(data[0]._id, email, role);
                     console.log(token);
@@ -102,12 +102,12 @@ exports.findPerson = async (req, res) =>
                     // initialize cookie with role student and email
                     if (data[0].role == 1) {
                         if (role === "Placement Manager") {
-                            if (!bcrypt.compareSync(password, data[0].password)) {
-                                res
-                                    .status(500)
-                                    .send({ message: `Password Invalid` });
-                                return;
-                            }
+                            //if (!bcrypt.compareSync(password, data[0].password)) {
+                            //    res
+                            //        .status(500)
+                            //        .send({ message: `Password Invalid` });
+                            //    return;
+                            //}
                             // create token
                             const token = generateToken(data[0]._id, email, role);
                             console.log(token);
@@ -122,12 +122,12 @@ exports.findPerson = async (req, res) =>
                     }
                     else {
                         if (role === "Admin") {
-                            if (!bcrypt.compareSync(password, data[0].password)) {
-                                res
-                                    .status(500)
-                                    .send({ message: `Password Invalid` });
-                                return;
-                            }
+                            //if (!bcrypt.compareSync(password, data[0].password)) {
+                            //    res
+                            //        .status(500)
+                            //         .send({ message: `Password Invalid` });
+                            //    return;
+                            //}
                             // create token
                             const token = await generateToken(data[0]._id, email, role);
                             console.log(token);
@@ -1004,3 +1004,93 @@ exports.registerStudentInJob = (req, res) =>
             });
         });
 };
+
+
+exports.filter = (req , res) => {
+ 
+    var query = {jobName:req.body.jobName}; 
+    job.find(query)
+        .then(data => {
+            if(!data){
+                res.status(404).send({message:"Not Found"});
+            }
+            else{
+                res.send(data); 
+            }
+            })
+        .catch(err=>{
+            res.status(500).send({message:"Error while fetching data of requested query"})
+        })
+};
+
+// generate datasheet for admin 
+
+exports.datasheet = async(req , res) =>{
+   try{
+    const workbook = new excelJS.Workbook(); 
+    const worksheet = workbook.addWorksheet("Students"); 
+
+    worksheet.columns = [
+        {header:"firstName" , key:"firstName"},
+        {header:"lastName" , key:"lastName"} ,
+        {header:"email" , key:"email"} , 
+        {header:"gender" , key:"gender"},
+        {header:"mobileNumber" , key:"mobileNumber"}
+    ]
+
+    let counter = 1; 
+
+    var userdata = await student.find({isPlaced:false}); 
+    //res.send(userdata);
+    let users = []; 
+
+    userdata.forEach((user)=>{
+         worksheet.addRow(user); 
+
+    });
+    
+    worksheet.getRow(1).eachCell((cell)=>{
+        cell.font = {bold:true}; 
+    });
+    res.setHeader(
+        "Content-Type" , 
+        "application/vnd.openxmlformats-officedocument.spreadsheatml.sheet"
+    );
+    
+    res.setHeader("Content-Disposition", `attachment; filename=studentData.xlsx`); 
+
+    return workbook.xlsx.write(res).then(()=>{
+        res.status(200); 
+    });
+   }
+   catch(error){
+    res.send({status:400 , success:false , msg:error.message});
+   }
+};
+
+
+// fetch data for admin to verify company , students , jobs : 
+exports.verifycompany = async (req , res)=>{
+
+    const data = await company.find({isVerified:false}).exec();
+    console.log(data);
+    res.render('adminVerifyCompany' , {record : data}); 
+     
+}
+
+exports.verifystudent = async (req , res)=>{
+
+    const data = await student.find({isVerified:false}).exec();
+    console.log(data);
+    res.render('adminVerifyStudent' , {record : data}); 
+    
+}
+
+exports.verifyjob = async (req , res)=>{
+
+    const data = await job.find({isVerified:false}).exec();
+    console.log(data);
+    res.render('adminVerifyJobs' , {record : data}); 
+   
+}
+
