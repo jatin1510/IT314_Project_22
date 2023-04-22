@@ -34,28 +34,29 @@
         </div>
       </div>
       <ul class="list-unstyled components mb-5">
-        <li>
-          <a href="Home.html"><span class="fa fa-home mr-3"></span>Home</a>
+        <li class="active">
+          <a href="#"><span class="fa fa-home mr-3"></span> Home</a>
         </li>
-        <li>
-          <a href="studentProfile.html"><span class="fa fa-user mr-3"></span>Profile</a>
+        <li class="active">
+          <a href="#"><span class="fa fa-user mr-3"></span> Profile</a>
         </li>
         <li class="active">
           <a href="#"><span class="fa fa-pencil-square-o mr-3"></span>Edit Profile</a>
         </li>
-        <li>
-          <a href="#"><span class="fa fa-cloud-upload mr-3"></span>Update Resume</a>
+        <li class="active">
+          <a href="#"><span class="fa fa-cloud-upload mr-3"></span> Update Resume</a>
         </li>
-        <li>
-          <a href="studentCompanyDetails.html"><span class="fa fa-list mr-3"></span>Companies</a>
+        <li class="active">
+          <a href="#"><span class="fa fa-list mr-3"></span>Companies</a>
         </li>
-        <!-- <li class="active">
+        <li class="active">
           <a href="#"><span class="fa fa-info mr-3"></span> About Us</a>
-        </li> -->
-        <li>
-          <a href="#"><span class="fa fa-sign-out mr-3"></span>Logout</a>
+        </li>
+        <li class="active">
+          <a href="#"><span class="fa fa-sign-out mr-3"></span>Sign Out</a>
         </li>
       </ul>
+
 
     </nav>
 
@@ -161,22 +162,46 @@
           <tr>
             <td>Resume</td>
             <td>:</td>
-            <td><input type="file"></td>
+            <td> <input type="url" placeholder="Enter Resume Link"></td>
           </tr>
           <tr>
             <td>Changes password</td>
             <td>:</td>
-            <td> <input type="password" value="" placeholder="Enter New password" required> </td>
+            <td> <input type="password" id="pass1" onkeyup="return validate()" placeholder="Enter New password"
+                required>
+              <!-- <br>
+              <span id="length" style="color: red;"> Password must contain at least 8 characters.</span>
+              <br>
+              <span id="number" style="color: red;"> Password must contain atleast one number.</span>
+              <br>
+              <span id="upper" style="color: red;"> Password must contain atleast one uppercase.</span>
+              <br>
+              <span id="lower" style="color: red;"> Password must contain atleast one lowercsae.</span>
+              <br>
+              <span id="special" style="color: red;"> Password must contain atleast one special characters.</span>
+              <br> -->
+              <p id="length" style="color: red;"> Password must contain at least 8 characters.</p>
+              <p id="number" style="color: red;"> Password must contain atleast one number.</p>
+              <p id="upper" style="color: red;"> Password must contain atleast one uppercase.</p>
+              <p id="lower" style="color: red;"> Password must contain atleast one lowercsae.</p>
+              <p id="special" style="color: red;"> Password must contain atleast one special characters.</p>
+            </td>
           </tr>
+
           <tr>
             <td>Confirm password</td>
             <td>:</td>
-            <td> <input type="password" value="" placeholder="Re Enter password" required> </td>
+            <td>
+              <input type="password" id="pass2" oninput="return confirm()" placeholder="Re Enter password" required>
+
+              <p id="incorrectMsg" style="color: red;">password does not match!</p>
+            </td>
           </tr>
         </table>
 
-        <!-- <input type="submit" name="Save"> -->
-        <button class="submit" type="button">Save changes</button>
+
+        <!-- <button class="submit" type="button">Save changes</button> -->
+        <button type="submit" class="strong submit" id="SUBMIT">Save changes</button>
       </form>
 
     </div>
@@ -187,5 +212,86 @@
 <script src="../assets/js/popper.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/main.js"></script>
+
+<script>
+  function confirm() {
+
+    var pass1 = document.getElementById('pass1');
+    var pass2 = document.getElementById('pass2');
+    if (pass1.value == pass2.value) {
+      document.getElementById('incorrectMsg').style.display = 'none';
+    }
+    else {
+      document.getElementById('incorrectMsg').style.display = 'block';
+    }
+  }
+</script>
+
+
+<script>
+  function validate() {
+
+    var pass = document.getElementById('pass1');
+    var upper = document.getElementById('upper');
+    var lower = document.getElementById('lower');
+    var num = document.getElementById('number');
+    var len = document.getElementById('length');
+    var special = document.getElementById('special');
+
+    // if (pass.value.match(/[0-9]/)) {
+    //   num.style.color = 'green'
+    // }
+    // if (pass.value.match(/[A-Z]/)) {
+    //   upper.style.color = 'green'
+    // }
+    // if (pass.value.match(/[a-z]/)) {
+    //   lower.style.color = 'green'
+    // }
+    // if (pass.value.match(/[!\@\#\$\%\^\&\*]/)) {
+    //   special.style.color = 'green'
+    // }
+    // if (pass.value.length < 8) {
+    //   len.style.color = 'green'
+    // }
+
+
+    if (pass.value.match(/[0-9]/)) {
+      num.style.display = 'none';
+    }
+    else {
+      num.style.display = 'block';
+    }
+
+    if (pass.value.match(/[A-Z]/)) {
+      upper.style.display = 'none';
+    }
+    else {
+      upper.style.display = 'block';
+    }
+
+    if (pass.value.match(/[a-z]/)) {
+      lower.style.display = 'none';
+    }
+    else {
+      lower.style.display = 'block';
+    }
+
+    if (pass.value.match(/[!\@\#\$\%\^\&\*]/)) {
+      special.style.display = 'none';
+    }
+    else {
+      special.style.display = 'block';
+    }
+
+    if (pass.value.length < 8) {
+      len.style.display = 'block';
+    }
+    else {
+      len.style.display = 'none';
+    }
+
+    return correct;
+  }
+</script>
 
 </html>

@@ -51,6 +51,10 @@ form {
     font-weight: 400;
 }
 
+.form-group [type="password"],
+.form-group [type="email"],
+.form-group [type="number"],
+.form-group [type="url"],
 .form-group [type="text"] {
     height: 2.2em;
     width: 100%;
@@ -59,54 +63,15 @@ form {
 
 }
 
+.form-group [type="password"]:hover,
+.form-group [type="number"]:hover,
+.form-group [type="email"]:hover,
+.form-group [type="url"]:hover,
 .form-group [type="text"]:hover {
     box-shadow: 0 0 3px 1px #8eb0f9;
     outline: none;
 
 }
-
-.form-group [type="number"] {
-    height: 2.2em;
-    width: 100%;
-    font-size: 15px;
-    margin-top: 0%;
-
-}
-
-.form-group [type="email"]:hover {
-    box-shadow: 0 0 3px 1px #8eb0f9;
-    outline: none;
-
-}
-
-.form-group [type="email"] {
-    height: 2.2em;
-    width: 100%;
-    font-size: 15px;
-    margin-top: 0%;
-
-}
-
-.form-group [type="number"]:hover {
-    box-shadow: 0 0 3px 1px #8eb0f9;
-    outline: none;
-
-}
-
-
-.form-group [type="password"] {
-    height: 2.2em;
-    width: 100%;
-    font-size: 15px;
-
-}
-
-.form-group [type="password"]:hover {
-    box-shadow: 0 0 3px 1px #8eb0f9;
-    outline: none;
-
-}
-
 
 #browser {
     width: 100%
@@ -158,4 +123,11 @@ span {
     /* background-color: rebeccapurple; */
     margin: 5px;
     font-size: 15px;
+}
+
+#incorrectMsg {
+    text-align: center;
+    font-size: 1.4em;
+    color: red;
+    display: none;
 }

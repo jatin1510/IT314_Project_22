@@ -31,11 +31,11 @@
         </div>
       </div>
       <ul class="list-unstyled components mb-5">
-        <li>
-          <a href="Home.html"><span class="fa fa-home mr-3"></span> Home</a>
+        <li class="active">
+          <a href="#"><span class="fa fa-home mr-3"></span> Home</a>
         </li>
-        <li>
-          <a href="AboutUS.html"><span class="fa fa-info mr-3"></span> About Us</a>
+        <li class="active">
+          <a href="#"><span class="fa fa-info mr-3"></span> About Us</a>
         </li>
       </ul>
 
@@ -43,7 +43,6 @@
 
     <div id="content" class="p-4 p-md-5 pt-5">
       <div class="box">
-
         <form action="#add_company_submit" method="POST">
 
           <div class="title1">
@@ -91,10 +90,9 @@
 
           <div class="form-group gender">
             <label for="gender" class="label-1"> Gender : </label>
-            <!-- <input type="text" name="number" id="browser" autocomplete="off" required> -->
-            <input type="radio" required> <span>Male</span>
-            <input type="radio" required><span>Female</span>
-            <input type="radio" required> <span>Other</span>
+            <input type="radio" name="gender" required> <span>Male</span>
+            <input type="radio" name="gender" required><span>Female</span>
+            <input type="radio" name="gender" required> <span>Other</span>
           </div>
 
 
@@ -123,35 +121,43 @@
             <input type="number" name="backlog" id="browser" autocomplete="off" required>
           </div>
 
-          <label for="hrname" class="label-1"> Resume </label>
+          <label for="hrname" class="label-1"> Resume Link</label>
           <div class="form-group">
-            <input type="file" name="resume" id="browser" autocomplete="off" required>
+            <input type="url" name="hrname" id="browser" autocomplete="off" required>
           </div>
 
           <label for="password" class="label-1"> Password </label>
+
           <div class="form-group">
-            <input type="password" name="password" id="browser" autocomplete="off" required>
+            <input type="password" name="password" id="pass1" autocomplete="off" onkeyup="return validate()" required>
+
           </div>
 
           <div class="form-group2" class="label-1">
             <ul>
-              <li>
+              <li id="length">
                 Your password must contain at least 8 characters.
               </li>
-              <li>
-                Your password can’t be entirely numeric.
+              <li id="number">
+                Your password atleast one number.
               </li>
-              <li>
-                Your password must use special characters.
+              <li id="upper">
+                Your password atleast one uppercase.
+              </li>
+              <li id="lower">
+                Your password atleast one lowercsae.
+              </li>
+              <li id="special">
+                Your password atleast one special characters.
               </li>
             </ul>
-          </div>
 
+          </div>
           <label for="password" class="label-1"> Password confirmation </label>
           <div class="form-group">
-            <input type="password" name="password" id="browser" autocomplete="off" required>
+            <input type="password" name="password" id="pass2" autocomplete="off" oninput="return confirm()" required>
           </div>
-
+          <p id="incorrectMsg">password doesn't match!</p>
           <div class="btns">
             <button type="submit" class="strong">Register</button>
           </div>
@@ -161,10 +167,78 @@
     </div>
   </div>
 
-  <script src="../assets/js/jquery.min.js"></script>
-  <script src="../assets/js/popper.js"></script>
-  <script src="../assets/js/bootstrap.min.js"></script>
-  <script src="../assets/js/main.js"></script>
 </body>
+
+
+<script src="js/jquery.min.js"></script>
+<script src="js/popper.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
+
+<script> function validate() {
+    var pass = document.getElementById('pass1');
+    var upper = document.getElementById('upper');
+    var lower = document.getElementById('lower');
+    var num = document.getElementById('number');
+    var len = document.getElementById('length');
+    var special = document.getElementById('special');
+
+
+    if (pass.value.match(/[0-9]/)) {
+      num.style.color = 'green'
+    }
+    else {
+      num.style.color = 'red'
+    }
+    if (pass.value.match(/[A-Z]/)) {
+      upper.style.color = 'green'
+    }
+    else {
+      upper.style.color = 'red'
+    }
+    if (pass.value.match(/[a-z]/)) {
+      lower.style.color = 'green'
+    }
+    else {
+      lower.style.color = 'red'
+    }
+    if (pass.value.match(/[!\@\#\$\%\^\&\*]/)) {
+      special.style.color = 'green'
+    }
+    else {
+      special.style.color = 'red'
+    }
+
+    if (pass.value.length < 8) {
+      len.style.color = 'red'
+    }
+    else {
+      len.style.color = 'green'
+    }
+
+  }
+
+  function confirm() {
+
+    var pass1 = document.getElementById('pass1');
+    var pass2 = document.getElementById('pass2');
+
+    // document.getElementById('number').style.display = 'none'
+    // document.getElementById('length').style.display = 'none'
+    // document.getElementById('upper').style.display = 'none'
+    // document.getElementById('lower').style.display = 'none'
+    // document.getElementById('special').style.display = 'none'
+
+
+    if (pass1.value == pass2.value) {
+
+      document.getElementById('incorrectMsg').style.display = 'none'
+    }
+    else {
+      document.getElementById('incorrectMsg').style.display = 'block'
+    }
+
+  }
+</script>
 
 </html>
