@@ -38,7 +38,7 @@ i{
 }
 
 #sidebar {
-    height: 100vh;
+    height: auto;
 }
 
 #navbar {
