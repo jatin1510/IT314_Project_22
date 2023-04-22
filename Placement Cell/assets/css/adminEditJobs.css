@@ -21,11 +21,13 @@ th {
 }
 
 .btn {
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 14px;
+  padding: 10px 40px;
+  border-radius: 25px;
+  font-size: 16px;
   cursor: pointer;
-  margin: 0px;
+  background-color: #4CAF50;
+  color:#ffffff;
+  margin-top: 40px;
 }
 
 tr:hover {
@@ -34,11 +36,10 @@ tr:hover {
 
 
 
-.accept:hover {
-  color: #4CAF50;
-  background-color: white;
-  border-top: 3px solid #4CAF50;
-  border-bottom: 3px solid #4CAF50;
+.btn:hover {
+  color:#4CAF50;
+  background-color: rgb(237, 255, 234);
+  border: 2px solid #4CAF50;
 }
 
 .reject:hover {
