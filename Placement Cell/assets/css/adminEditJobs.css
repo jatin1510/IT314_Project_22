@@ -20,14 +20,16 @@ th {
   background-color: #badafa;
 }
 
-.btn {
+.btn1 {
   padding: 10px 40px;
   border-radius: 25px;
+  margin-left:20px;
   font-size: 16px;
   cursor: pointer;
   background-color: #4CAF50;
   color:#ffffff;
   margin-top: 40px;
+  border:0px;
 }
 
 tr:hover {
@@ -36,7 +38,7 @@ tr:hover {
 
 
 
-.btn:hover {
+.btn1:hover {
   color:#4CAF50;
   background-color: rgb(237, 255, 234);
   border: 2px solid #4CAF50;
