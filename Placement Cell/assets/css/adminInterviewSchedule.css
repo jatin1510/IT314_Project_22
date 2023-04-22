@@ -1,9 +1,9 @@
 table {
   border-collapse: collapse;
-  width: 80%;
+  width: 100%;
   box-shadow: 0 .5em 1em -.125em rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .02);
   border: 2px solid #badafa;
-  margin-left: 10%;
+
 }
 
 th,
@@ -34,7 +34,23 @@ tr:hover {
   background-color: #dfedff;
 }
 
+.btn1 {
+  padding: 10px 40px;
+  border-radius: 25px;
+  margin-left: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: #ffffff;
+  margin-top: 40px;
+  /* border: 0px; */
+}
 
+.btn1:hover {
+  color: #4CAF50;
+  background-color: rgb(237, 255, 234);
+  border: 2px solid #4CAF50;
+}
 
 .accept:hover {
   color: #4CAF50;

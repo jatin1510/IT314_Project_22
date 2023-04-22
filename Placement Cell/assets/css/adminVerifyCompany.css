@@ -2,6 +2,8 @@ table {
     border-collapse: collapse;
     width: 100%;
     box-shadow: 0 .5em 1em -.125em rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .02);
+    border: 2px solid #badafa;
+    /* margin-left: 10%; */
 }
 
 th,
@@ -33,42 +35,38 @@ tr:hover {
 }
 
 /* Style the profile and verify buttons */
-.accept,
-.reject {
-    background-color: #4CAF50;
-    border: none;
+
+
+
+.accept {
     color: white;
-    padding: 8px 16px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 13px;
-    margin: 4px 2px;
-    cursor: pointer;
+    background-color: #4CAF50;
+    border: 2px solid #4CAF50;
     border-radius: 8px;
+    padding: 8px 16px;
+    margin: 4px 2px;
+
+}
+
+.reject {
+    color: white;
+    background-color: #f44336;
+    border: 2px solid #f44336;
+    border-radius: 8px;
+    padding: 8px 16px;
+    margin: 4px 2px;
 }
 
 /* Style the accept and reject buttons */
-
-.accept {
-    background-color: #4CAF50;
-}
-
-.reject {
-    background-color: #f44336;
-}
-
-
 .accept:hover {
     color: #4CAF50;
     background-color: white;
-    border: 3px solid #4CAF50;
-
-
+    border: 2px solid #4CAF50;
 }
 
 .reject:hover {
     color: #f44336;
+    border: 2px solid #f44336;
     background-color: white;
-    border: 3px solid #f44336;
+
 }
