@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 
+<!-- Major Change in CSS required -->
 <head>
   <title>Register Company</title>
   <meta charset="utf-8">
@@ -12,8 +13,8 @@
   integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
   crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="register_company.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/registerCompany.css">
 </head>
 
 <body>
@@ -24,17 +25,34 @@
         <button type="button" id="sidebarCollapse" class="btn btn-primary">
         </button>
       </div>
-      <div class="img bg-wrap text-center py-4" style="background-image: url(images/bg_1.jpg);">
+      <div class="img bg-wrap text-center py-4" style="background-image: url(../assets/images/bg_1.jpg);">
         <div class="user-logo">
-          <div class="img" style="background-image: url(images/logo.jpg);"></div>
-          <h3>HR NAME</h3>
+          <div class="img" style="background-image: url(../assets/images/logo.jpg);"></div>
+          <h3>Welcome</h3>
         </div>
       </div>
       <ul class="list-unstyled components mb-5">
         <li class="active">
-          <a href="#"><span class="fa fa-home mr-3"></span> Home</a>
+          <a href="Home.html"><span class="fa fa-home mr-3"></span> Home</a>
         </li>
-       
+        <!-- <li>
+          <a href="#"><span class="fa-solid fa-user mr-3"></span> Profile</a>
+        </li>
+        <li>
+          <a href="#"><span class="fa-solid fa-user-pen mr-3 notif"></span> Edit Profile</a>
+        </li>
+        <li>
+          <a href="#"><span class="fa-solid fa-plus mr-3"></span> Add Job</a>
+        </li>
+        <li>
+          <a href="#"><span class="fa-solid fa-pen-to-square mr-3"></span> Edit Job</a>
+        </li>
+        <li>
+          <a href="#"><span class="fa-solid fa-list mr-3"></span> Student list</a>
+        </li>
+        <li>
+          <a href="#"><span class="fa fa-sign-out mr-3"></span> Sign Out</a>
+        </li> -->
       </ul>
 
     </nav>
@@ -103,7 +121,7 @@
           <label for="password" class="label-1"> Password </label>
 
           <div class="form-group">
-            <input type="password" name="password" id="pass1" autocomplete="off" onkeyup="return validate()" required>
+            <input type="password" name="password" id="browser" autocomplete="off" required>
 
           </div>
 
@@ -111,27 +129,20 @@
 
             <ul>
 
-              <li id="length">
+              <li>
                 Your password must contain at least 8 characters.
               </li>
 
 
 
-              <li id="number">
-                Your password atleast one number.
+              <li>
+                Your password can’t be entirely numeric.
 
               </li>
 
-              <li id="upper">
-                Your password atleast one uppercase.
-              </li>
-              <li id="lower">
-                Your password atleast one lowercsae.
-              </li>
+              <li>
 
-              <li id="special">
-
-                Your password atleast one special characters.
+                Your password must use special characters.
               </li>
 
 
@@ -148,12 +159,11 @@
           <label for="password" class="label-1"> Password confirmation </label>
 
           <div class="form-group">
-            <input type="password" name="password" id="pass2" autocomplete="off" oninput="return confirm()" required>
+            <input type="password" name="password" id="browser" autocomplete="off" required>
 
           </div>
 
 
-          <p id="incorrectMsg">password do not match!</p>
 
 
 
@@ -172,86 +182,6 @@
     </div>
   </div>
 
-  <script> function validate()
-    {
-      var pass = document.getElementById('pass1');
-      var upper = document.getElementById('upper');
-      var lower = document.getElementById('lower');
-      var num =document.getElementById('number');
-      var len = document.getElementById('length');
-      var special = document.getElementById('special');
-  
-      if (pass.value.match(/[0-9]/))
-      {
-        num.style.color = 'green'
-      }
-      else{
-        num.style.color = 'red'
-      }
-
-      if (pass.value.match(/[0-9]/))
-      {
-        num.style.color = 'green'
-      }
-      else{
-        num.style.color = 'red'
-      }
-      if (pass.value.match(/[A-Z]/))
-      {
-        upper.style.color = 'green'
-      }
-      else{
-        upper.style.color = 'red'
-      }
-      if (pass.value.match(/[a-z]/))
-      {
-        lower.style.color = 'green'
-      }
-      else{
-        lower.style.color = 'red'
-      }
-      if (pass.value.match(/[!\@\#\$\%\^\&\*]/))
-      {
-        special.style.color = 'green'
-      }
-      else{
-        special.style.color = 'red'
-      }
-
-      if(pass.value.length < 8)
-      {
-        len.style.color='red'
-      }
-      else
-      {
-        len.style.color='green'
-      }
-  
-    }
-    
-    function confirm(){
-
-      var pass1=document.getElementById('pass1');
-      var pass2=document.getElementById('pass2');
-      
-      // document.getElementById('number').style.display = 'none'
-      // document.getElementById('length').style.display = 'none'
-      // document.getElementById('upper').style.display = 'none'
-      // document.getElementById('lower').style.display = 'none'
-      // document.getElementById('special').style.display = 'none'
-
-
-      if (pass1.value == pass2.value)
-      {
-
-        document.getElementById('incorrectMsg').style.display = 'none'
-      }
-      else{
-        document.getElementById('incorrectMsg').style.display = 'block'
-      }
-      
-    }
-    </script>
   <script src="js/jquery.min.js"></script>
   <script src="js/popper.js"></script>
   <script src="js/bootstrap.min.js"></script>
