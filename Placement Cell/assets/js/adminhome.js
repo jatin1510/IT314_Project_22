@@ -24,11 +24,11 @@ async function drawChart()
   console.log(male);
   const data1 = await google.visualization.arrayToDataTable([
     ['Category', 'percentage'],
-    ['Male', parseInt(male)],
-    ['Female', 100 - parseInt(male)],
+    ['A1', parseInt(male)],
+    ['A', 100 - parseInt(male)],
   ]);
   const options1 = {
-    title: 'Total Student Placed Gender Wise',
+    title: 'Job Offered Category Wise',
     width: 600,
     height: 600,
     colors: ['#3f00bb', '#5f8aff']

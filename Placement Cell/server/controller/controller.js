@@ -230,22 +230,30 @@ exports.alreadyLoggedIn = async (req, res) =>
                         .status(404)
                         .send({ message: `Not found admin with email: ${email} ` });
                 } else {
+                    const placedStudent = await student.find({ isPlaced: true }).exec();
+                    const totalStudent = await student.find().exec();
+                    const placed = (placedStudent.length * 100) / totalStudent.length;
+                    
+                    const A1jobs = await job.find({ isVerified: true, ctc: { $gte: 10.0 } }).exec();
+                    const totalJobs = await job.find({ isVerified: true }).exec();
+                    const a1 = (A1jobs.length * 100) / totalJobs.length;
+
+                    console.log(placed, a1);
                     if (data.role == 1) {
                         if (role === "Placement Manager") {
                             // TODO: calculate percentage for placed and male
-                            res.render('adminHome', { admin: data, placed: 30, male: 80, isSuperAdmin: true });
+                            res.render('adminHome', { admin: data, placed: placed, a1: a1, isSuperAdmin: true });
                         }
                         else {
                             res
-                            .status(500)
-                            .send({ message: `Error retrieving user with role ${role}` });
+                                .status(500)
+                                .send({ message: `Error retrieving user with role ${role}` });
                         }
                     }
                     else {
                         if (role === "Admin") {
-                            const flag = false;
                             // TODO: calculate percentage for placed and male
-                            res.render('adminHome', { admin: data, placed: 30, male: 80, isSuperAdmin: false });
+                            res.render('adminHome', { admin: data, placed: placed, a1: a1, isSuperAdmin: false });
                             return;
                         }
                         else {
@@ -634,23 +642,60 @@ exports.updateAdmin = async (req, res) =>
     const id = req.id;
     const role = req.role;
 
+    console.log(id, role);
     if (role !== "Placement Manager" && role !== "Admin") {
         res
             .status(500)
             .send({ message: 'Role not matched' });
         return;
     }
+
+    const old = req.body.password;
+
     if (req.body.password) {
-        await bcrypt.hash(req.body.password, saltRounds)
-            .then((hashedPassword) =>
+        console.log(req.body.password, req.body.newPassword, req.body.newConfirmPassword);
+
+        await admin.findById(id)
+            .then(async (data) =>
             {
-                req.body.password = hashedPassword;
+                if (!data) {
+                    res
+                        .status(404)
+                        .send({ message: `Not found user with email: ${email} ` });
+                    return;
+                } else {
+                    if (!bcrypt.compareSync(req.body.password, data.password)) {
+                        res
+                            .status(500)
+                            .send({ message: `Old Password InCorrect` });
+                        return;
+                    }
+                    console.log("password matched");
+                    await bcrypt.hash(req.body.newPassword, saltRounds)
+                        .then((hashedPassword) =>
+                        {
+                            req.body.password = hashedPassword;
+                        })
+                        .catch(err =>
+                        {
+                            console.log('Error:', err);
+                            return;
+                        })
+                }
             })
-            .catch(err =>
+            .catch((err) =>
             {
-                console.log('Error:', err);
-            })
+                res
+                    .status(500)
+                    .send({ message: `Error retrieving user with email ${email}` });
+                return;
+            });
     }
+
+    if (req.body.password && req.body.password == old) {
+        return;
+    }
+
     const stored = req.body;
     await admin.findByIdAndUpdate(id, stored, { useFindAndModify: false })
         .then((data) =>
@@ -658,7 +703,7 @@ exports.updateAdmin = async (req, res) =>
             if (!data) {
                 res.status(400).send({ message: `Cannot update admin with ${id}. May be user not found!` })
             } else {
-                res.send(stored);
+                res.redirect('/profile');
             }
         })
         .catch(err =>
@@ -684,6 +729,10 @@ exports.updatePassword = async (req, res) =>
     else if (role == "Company") {
     }
     else {
+        if (role == "Admin")
+            res.render('adminUpdatePassword', { isSuperAdmin: false });
+        else
+            res.render('adminUpdatePassword', { isSuperAdmin: true });
     }
 }
 
@@ -781,13 +830,14 @@ exports.sendMail = async (req, res) =>
         },
     });
 
-    const students = await student.find({ isPlaced: false }).exec();
+    const students = await student.find({ isPlaced: false, isVerified: true }).exec();
     // const emails = [];
     // for (let i = 0; i < students.length; i++) {
     //     emails.push(students[i].email);
     // }
+    // console.log(emails);
     // const emails = ["jatinranpariya1510@gmail.com", "jbranpariya15@gmail.com", "202001226@daiict.ac.in", "nikhilvaghasiya1600@gmail.com"];
-    const emails = ["202001202@daiict.ac.in"];
+    const emails = ["virajpansuriya777@gmail.com"];
 
     if (!students) {
         res.status(200).send({
@@ -800,23 +850,19 @@ exports.sendMail = async (req, res) =>
     job.findById(id)
         .then((data) =>
         {
-            res.send(data);
             const companyId = data.comp;
             company.findById(companyId)
                 .then(async (companyData) =>
                 {
                     const CompanyName = companyData.companyName;
-
                     const JobName = data.jobName;
                     const locations = data.postingLocation;
                     const openfor = data.ugCriteria;
                     const CpiCriteria = data.cpiCriteria;
                     const ctc = data.ctc;
                     const description = data.description;
-
-                    const start_date = new Date();
-                    const end_date = new Date();
-                    end_date.setDate(end_date.getDate() + 1);
+                    const start_date = data.startDate;
+                    const end_date = data.endDate;
 
                     const options = {
                         from: `placementdaiict@outlook.com`,
@@ -854,6 +900,8 @@ exports.sendMail = async (req, res) =>
                         }
                         console.log("Mail Sent: ", info.response);
                     });
+
+                    res.redirect('/adminInterviewSchedule');
                 })
                 .catch(err =>
                 {
@@ -1547,7 +1595,6 @@ exports.adminJobs = async (req, res) =>
 
 exports.adminCompany = async (req, res) =>
 {
-
     let flag = false;
     if (req.role != "Admin") {
         flag = true;
@@ -1556,7 +1603,6 @@ exports.adminCompany = async (req, res) =>
     const data = await company.find({}).exec();
     console.log(data);
     res.render('adminCompany', { company: data, isSuperAdmin: flag });
-
 }
 
 
@@ -1567,11 +1613,9 @@ exports.adminInterviewSchedule = async (req, res) =>
     if (req.role != "Admin") {
         flag = true;
     }
-    const data = await job.find({ isRejected: false }).exec();
+    const data = await job.find({ isRejected: false, isVerified: true }).exec();
     console.log(data);
     res.render('adminInterviewSchedule', { record: data, isSuperAdmin: flag });
-
-
 }
 
 exports.adminUpdateInterviewSchedule = async (req, res) =>
@@ -1582,32 +1626,18 @@ exports.adminUpdateInterviewSchedule = async (req, res) =>
             .send({ message: 'Data to update can not be empty' });
     }
 
-    const start_date = req.body.startDate;
-    const end_date = req.body.endDate;
+    const id = req.params.id;
+    const sd = new Date(req.body.startDate);
+    const ed = new Date(req.body.endDate);
 
-    let sd = new Date(start_date);
-    let ed = new Date(end_date);
-
-    console.log(typeof (sd));
-    console.log(typeof (ed));
-    const stored = req.body;
-    console.log(req.body.startDate);
-    console.log(req.body.endDate);
-    console.log(stored);
-    const idd = req.params.id;
-    console.log(idd);
-
-    var myquery = { _id: idd };
-    var newvalues = { $set: { startDate: sd, endDate: ed } };
-    job.updateOne(myquery, newvalues, function (err, res)
-    {
-        if (err) throw err;
-        else {
-
-            res.redirect("/adminInterviewSchedule")
-
-        }
-        db.close();
-    });
-
+    job.findByIdAndUpdate(id, { startDate: sd, endDate: ed }, { useFindAndModify: false })
+        .then(async (data) =>
+        {
+            // mail karo badha student ne
+            res.redirect(`/mail/${id}`);
+        })
+        .catch((err) =>
+        {
+            res.status(500).send({ message: "Error occured" });
+        })
 }

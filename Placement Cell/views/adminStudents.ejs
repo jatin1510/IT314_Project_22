@@ -46,14 +46,21 @@
             <div class="img bg-wrap text-center py-4" style="background-image: url(/images/bg_1.jpg);">
                 <div class="user-logo">
                     <div class="img" style="background-image: url(/images/logo.jpg);"></div>
-                    <h3>Admin</h3>
+                    <% if(isSuperAdmin) {%>
+                        <h3>Placement Manager</h3>
+                    <% } else {%>
+                        <h3>Admin</h3>
+                    <% }%>
                 </div>
             </div>
             <ul class="list-unstyled components mb-5">
                 
                 <li>
-                    <a href="/adminhome"><i class="fa fa-line-chart mr-3" aria-hidden="true"></i> Admin Statistics</a>
+                    <a href="/profile"><i class="fa fa-line-chart mr-3" aria-hidden="true"></i> Admin Statistics</a>
                 </li>
+                <li>
+                    <a href="/updatePassword"><i class="fa fa-cloud-upload mr-3 " aria-hidden="true"></i> Update Password</a>
+                  </li>
                 <li>
                     <a href="/unverifiedstudents"><span class="fa fa-check mr-3 notif"></span> Verify Students</a>
                 </li>
@@ -68,8 +75,8 @@
                       <a href="/unverifiedcompany"><i class="fa fa-building-o mr-3" aria-hidden="true"></i> Verify Company</a>
                     </li>
                     <% } %>
-                <li>
-                    <a href="#"><span class="fa-solid fa-list mr-3"></span> Student list</a>
+                <li class="active">
+                    <a href="/adminStudents"><span class="fa-solid fa-list mr-3"></span> Student list</a>
                 </li>
                 <li>
                     <a href="/adminJobs"><span class="fa-solid fa-list mr-3"></span> Job list</a>

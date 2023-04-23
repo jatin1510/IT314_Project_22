@@ -81,7 +81,7 @@ route.get('/rejectStudent/:id', authorizationAdmin, controller.rejectStudent);
 route.get('/rejectJob/:id', authorizationAdmin, controller.rejectJob);
 route.get('/rejectCompany/:id', authorizationSuperAdmin, controller.rejectCompany);
 
-route.post('/adminUpdateInterviewSchedule/:id', authorizationSuperAdmin, controller.adminUpdateInterviewSchedule);
+route.post('/adminUpdateInterviewSchedule/:id', authorizationAdmin, controller.adminUpdateInterviewSchedule);
 
 
 route.get('/registerStudentInJob/:id', authorization, controller.registerStudentInJob)

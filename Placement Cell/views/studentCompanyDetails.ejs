@@ -143,8 +143,16 @@
                                   </a>
                                   <% } else { %>
                                     <% if(user.cpi >= jobs[i].cpiCriteria) { %>
-                                        <a href="/registerStudentInJob/<%= jobs[i]._id %>">
-                                            <button style="background: green;" type="button " class="btn btn-primary">Register</button>
+                                        <% const curDate = new Date() %>
+                                        <% if(jobs[i].startDate <= curDate && curDate <= jobs[i].endDate ) {%>
+                                            <a href="/registerStudentInJob/<%= jobs[i]._id %>">
+                                                <button style="background: green;" type="button " class="btn btn-primary">Register</button>
+                                            </a>
+                                        <% } else { %>
+                                            <a class="disabled">
+                                                <button style="background: orange;" type="button" disabled class="btn btn-primary">Register</button>
+                                            </a>
+                                        <% } %>
                                     <% } else { %>
                                         <a class="disabled">
                                             <button style="background: rgb(133, 178, 133);" type="button" disabled class="btn btn-primary">Register</button>
