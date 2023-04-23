@@ -39,12 +39,12 @@ exports.findPerson = async (req, res) =>
                         .status(404)
                         .send({ message: `Not found user with email: ${email} ` });
                 } else {
-                    // if (!bcrypt.compareSync(password, data[0].password)) {
-                    //     res
-                    //         .status(500)
-                    //         .send({ message: `Password Invalid` });
-                    //     return;
-                    // }
+                     if (!bcrypt.compareSync(password, data[0].password)) {
+                         res
+                            .status(500)
+                            .send({ message: `Password Invalid` });
+                         return;
+                     }
                     // create token
                     const token = generateToken(data[0]._id, email, role);
                     console.log(token);
@@ -103,12 +103,12 @@ exports.findPerson = async (req, res) =>
                     // initialize cookie with role student and email
                     if (data[0].role == 1) {
                         if (role === "Placement Manager") {
-                            //if (!bcrypt.compareSync(password, data[0].password)) {
-                            //    res
-                            //        .status(500)
-                            //        .send({ message: `Password Invalid` });
-                            //    return;
-                            //}
+                            if (!bcrypt.compareSync(password, data[0].password)) {
+                                res
+                                    .status(500)
+                                    .send({ message: `Password Invalid` });
+                                return;
+                            }
                             // create token
                             const token = generateToken(data[0]._id, email, role);
                             console.log(token);
@@ -123,12 +123,12 @@ exports.findPerson = async (req, res) =>
                     }
                     else {
                         if (role === "Admin") {
-                            //if (!bcrypt.compareSync(password, data[0].password)) {
-                            //    res
-                            //        .status(500)
-                            //         .send({ message: `Password Invalid` });
-                            //    return;
-                            //}
+                            if (!bcrypt.compareSync(password, data[0].password)) {
+                                res
+                                    .status(500)
+                                     .send({ message: `Password Invalid` });
+                                return;
+                            }
                             // create token
                             const token = await generateToken(data[0]._id, email, role);
                             console.log(token);
