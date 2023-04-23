@@ -19,3 +19,8 @@ exports.registerPage = (req, res) =>
 {
     res.render('registerStudent');
 };
+
+exports.postJobPage = (req, res) =>
+{
+    res.render('companyPostJob');
+}

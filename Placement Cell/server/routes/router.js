@@ -27,6 +27,7 @@ route.post('/postJob', controller.postJob);
   * @method POST /
   */
 route.post('/profile', controller.findPerson);
+route.get('/profile', authorization, controller.alreadyLoggedIn);
 
 /**
   * @description get update Routes
@@ -68,5 +69,16 @@ route.get('/mail/:id', authorizationAdmin, controller.sendMail);
 route.get('/verifyStudent', authorizationAdmin, controller.verifyStudent);
 route.get('/verifyJob', authorizationAdmin, controller.verifyJob);
 route.get('/verifyCompany', authorizationSuperAdmin, controller.verifyCompany);
+
+/**
+  * @description company routes
+  * @method GET /
+  */
+route.get('/postJob', services.postJobPage);
+route.post('/saveJob', authorization, controller.postJob);
+route.get('/registredStudentsInJob/:id', authorization, controller.registredStudentsInJob);
+route.get('/updateJob/:id', authorization, controller.updateJob);
+route.get('/deleteJob/:id', authorization, controller.deleteJob);
+route.post('/updateJobPost/:id', authorization, controller.updateJobPost);
 
 module.exports = route;
