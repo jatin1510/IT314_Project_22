@@ -73,7 +73,7 @@
 
           <label for="contact" class="label-1"> Contact No. </label>
           <div class="form-group">
-            <input type="text" name="contactNumber" id="browser" autocomplete="off" value="<%= company.contactNumber %>" required>
+            <input type="tel" pattern="[1-9]{5}-[0-9]{5}" name="contactNumber" id="browser" autocomplete="off" value="<%= company.contactNumber %>" required>
           </div>
 
           <div class="btns">

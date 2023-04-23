@@ -115,8 +115,8 @@ input[type="password"]:focus:invalid {
 input[type="text"]:valid~.validation,
 input[type="email"]:valid~.validation,
 input[type="password"]:valid~.validation {
-  display: block;
-  border-color: #0C0;
+  /* display: block;
+  border-color: #0C0; */
 }
 
 input[type="text"]:valid~.validation span,
@@ -192,4 +192,13 @@ input[type="submit"]:hover {
 
 .login {
   background-color: #0C0;
+}
+
+.myclass{
+  border-radius: 5px;
+  margin: 0.4ex;
+  padding: 2ex;
+  background-color: #329dd5;
+  font-size: 18px;
+  font-weight: bold;
 }

@@ -13,7 +13,7 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="css/Student_Register.css">
+  <link rel="stylesheet" href="/css/registerStudent.css">
 </head>
 
 <body>
@@ -31,11 +31,8 @@
         </div>
       </div>
       <ul class="list-unstyled components mb-5">
-        <li class="active">
-          <a href="#"><span class="fa fa-home mr-3"></span> Home</a>
-        </li>
-        <li class="active">
-          <a href="#"><span class="fa fa-info mr-3"></span> About Us</a>
+        <li>
+          <a href="/"><span class="fa fa-home mr-3"></span> Home</a>
         </li>
       </ul>
 
@@ -44,114 +41,121 @@
     <div id="content" class="p-4 p-md-5 pt-5">
       <div class="box">
 
-        <form action="#add_company_submit" method="POST">
+        <form action="" method="POST">
 
           <div class="title1">
-
-            <a> Student Registrasion Form: </a>
-
+            <a> Student Registrasion </a>
           </div>
 
-
-          <label for="hrname" class="label-1"> ID </label>
-          <div class="form-group">
-            <input type="number" name="hrname" id="browser" autocomplete="off" required>
-          </div>
-
-          <label for="hrname" class="label-1">First Name </label>
-          <div class="form-group">
-            <input type="text" name="fname" id="browser" autocomplete="off" required>
-          </div>
-
-          <label for="Company" class="label-1"> Middle Name </label>
-          <div class="form-group">
-            <input type="text" name="mname" id="browser" autocomplete="off" required>
-          </div>
-
-          <label for="Company" class="label-1"> Last Name </label>
-          <div class="form-group">
-            <input type="text" name="lname" id="browser" autocomplete="off" required>
-          </div>
-
-          <label for="Company" class="label-1"> Date Of Birth </label>
-          <div class="form-group">
-            <input type="date" name="lname" id="browser" class="dob" autocomplete="off" required>
-          </div>
-
-
-          <label for="hrname" class="label-1"> Mobile Number </label>
-          <div class="form-group">
-            <input type="number" name="number" id="browser" autocomplete="off" required>
-          </div>
-
-          <label for="email" class="label-1"> Email</label>
+          <label for="email" class="label-1"> Email </label>
           <div class="form-group">
             <input type="email" name="email" id="browser" autocomplete="off" required>
           </div>
 
+          <label for="firstName" class="label-1">First Name </label>
+          <div class="form-group">
+            <input type="text" name="firstName" id="browser" autocomplete="off" required>
+          </div>
+
+          <label for="middleName" class="label-1"> Middle Name </label>
+          <div class="form-group">
+            <input type="text" name="middleName" id="browser" autocomplete="off" required>
+          </div>
+
+          <label for="lastName" class="label-1"> Last Name </label>
+          <div class="form-group">
+            <input type="text" name="lastName" id="browser" autocomplete="off" required>
+          </div>
+
+          <label for="dob" class="label-1"> Date Of Birth </label>
+          <div class="form-group">
+            <input type="date" name="dob" id="browser" class="dob" autocomplete="off" required>
+          </div>
+
           <div class="form-group gender">
-            <label for="gender" class="label-1"> Gender : </label>
-            <!-- <input type="text" name="number" id="browser" autocomplete="off" required> -->
-            <input type="radio" required> <span>Male</span>
-            <input type="radio" required><span>Female</span>
-            <input type="radio" required> <span>Other</span>
+            <label for="gender" class="label-1"> Gender </label>
+            <input type="radio" name="gender" value="Male" required> <span>Male</span>
+            <input type="radio" name="gender" value="Female" required><span>Female</span>
+            <input type="radio" name="gender" value="Other" required> <span>Other</span>
           </div>
 
-
-          <label for="hrname" class="label-1"> 10th Percentage </label>
+          <label for="mobileNumber" class="label-1"> Mobile Number </label>
           <div class="form-group">
-            <input type="number" name="Percentage" id="browser" autocomplete="off" required>
+            <input type="tel" name="mobileNumber" id="browser" pattern="[1-9]{5}-[0-9]{5}" autocomplete="off" placeholder="99999-99999" required>
           </div>
 
-          <label for="hrname" class="label-1"> 12th Percentage </label>
+          <label for="alternateMobileNumber" class="label-1"> Alternate Mobile Number </label>
           <div class="form-group">
-            <input type="number" name="Percentage" id="browser" autocomplete="off" required>
+            <input type="tel" name="alternateMobileNumber" id="browser" pattern="[1-9]{5}-[0-9]{5}" autocomplete="off" placeholder="99999-99999" required>
           </div>
 
-          <label for="hrname" class="label-1"> CPI </label>
+          <label for="tenthPercentage" class="label-1"> 10th Percentage </label>
           <div class="form-group">
-            <input type="number" name="cpi" id="browser" autocomplete="off" required>
+            <input type="number" min="1" max="100" step="0.01" name="tenthPercentage" id="browser" autocomplete="off" required>
           </div>
 
-          <label for="hrname" class="label-1"> Active Backlog </label>
+          <label for="twelfthPercentage" class="label-1"> 12th Percentage </label>
           <div class="form-group">
-            <input type="number" name="backlog" id="browser" autocomplete="off" required>
+            <input type="number" min="1" max="100" step="0.01" name="twelfthPercentage" id="browser" autocomplete="off" required>
           </div>
 
-          <label for="hrname" class="label-1"> Total Backlog </label>
+          <label for="cpi" class="label-1"> CPI </label>
           <div class="form-group">
-            <input type="number" name="backlog" id="browser" autocomplete="off" required>
+            <input type="number" name="cpi" min="1" max="10" step="0.01" id="browser" autocomplete="off" required>
           </div>
 
-          <label for="hrname" class="label-1"> Resume Link </label>
+          <label for="activeBacklog" class="label-1"> Active Backlog </label>
           <div class="form-group">
-            <input type="url" name="hrname" id="browser" autocomplete="off" required>
+            <input type="number" name="activeBacklog" id="browser" autocomplete="off" required>
+          </div>
+
+          <label for="totalBacklog" class="label-1"> Total Backlog </label>
+          <div class="form-group">
+            <input type="number" name="totalBacklog" id="browser" autocomplete="off" required>
+          </div>
+
+          <div class="form-group gender">
+            <label for="branch" class="label-1"> Branch </label>
+            <input type="radio" name="branch" value="B.Tech" required> <span>B.Tech</span>
+            <input type="radio" name="branch" value="M.Tech" required><span>M.Tech</span>
+            <input type="radio" name="branch" value="MSc" required> <span>MSc</span>
+          </div>
+
+          <label for="resume" class="label-1"> Resume Link </label>
+          <div class="form-group">
+            <input type="url" name="resume" id="browser" autocomplete="off" required>
           </div>
 
           <label for="password" class="label-1"> Password </label>
           <div class="form-group">
-            <input type="password" name="password" id="browser" autocomplete="off" required>
+            <input type="password" name="password" id="pass1" autocomplete="off" onkeyup="return validate()" required>
           </div>
 
           <div class="form-group2" class="label-1">
             <ul>
-              <li>
+              <li id="length">
                 Your password must contain at least 8 characters.
               </li>
-              <li>
-                Your password can’t be entirely numeric.
+              <li id="number">
+                Your password atleast one number.
               </li>
-              <li>
-                Your password must use special characters.
+              <li id="upper">
+                Your password atleast one uppercase.
+              </li>
+              <li id="lower">
+                Your password atleast one lowercsae.
+              </li>
+              <li id="special">
+                Your password atleast one special characters.
               </li>
             </ul>
-          </div>
 
-          <label for="password" class="label-1"> Password confirmation </label>
+          </div>
+          <label for="confirmPassword" class="label-1"> Confirm Password </label>
           <div class="form-group">
-            <input type="password" name="password" id="browser" autocomplete="off" required>
+            <input type="password" name="confirmPassword" id="pass2" autocomplete="off" oninput="return confirm()" required>
           </div>
-
+          <p id="incorrectMsg">Password do not match!</p>
           <div class="btns">
             <button type="submit" class="strong">Register</button>
           </div>
@@ -167,6 +171,78 @@
   <script src="js/popper.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/main.js"></script>
+
+  <script> function validate() {
+      var pass = document.getElementById('pass1');
+      var upper = document.getElementById('upper');
+      var lower = document.getElementById('lower');
+      var num = document.getElementById('number');
+      var len = document.getElementById('length');
+      var special = document.getElementById('special');
+
+      if (pass.value.match(/[0-9]/)) {
+        num.style.color = 'green'
+      }
+      else {
+        num.style.color = 'red'
+      }
+
+      if (pass.value.match(/[0-9]/)) {
+        num.style.color = 'green'
+      }
+      else {
+        num.style.color = 'red'
+      }
+      if (pass.value.match(/[A-Z]/)) {
+        upper.style.color = 'green'
+      }
+      else {
+        upper.style.color = 'red'
+      }
+      if (pass.value.match(/[a-z]/)) {
+        lower.style.color = 'green'
+      }
+      else {
+        lower.style.color = 'red'
+      }
+      if (pass.value.match(/[!\@\#\$\%\^\&\*]/)) {
+        special.style.color = 'green'
+      }
+      else {
+        special.style.color = 'red'
+      }
+
+      if (pass.value.length < 8) {
+        len.style.color = 'red'
+      }
+      else {
+        len.style.color = 'green'
+      }
+
+    }
+
+    function confirm() {
+
+      var pass1 = document.getElementById('pass1');
+      var pass2 = document.getElementById('pass2');
+
+      // document.getElementById('number').style.display = 'none';
+      // document.getElementById('length').style.display = 'none';
+      // document.getElementById('upper').style.display = 'none';
+      // document.getElementById('lower').style.display = 'none';
+      // document.getElementById('special').style.display = 'none';
+
+
+      if (pass1.value == pass2.value) {
+
+        document.getElementById('incorrectMsg').style.display = 'none'
+      }
+      else {
+        document.getElementById('incorrectMsg').style.display = 'block'
+      }
+
+    }
+  </script>
 </body>
 
 </html>

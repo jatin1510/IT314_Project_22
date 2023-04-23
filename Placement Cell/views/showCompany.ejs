@@ -26,27 +26,27 @@
         <button type="button" id="sidebarCollapse" class="btn btn-primary">
         </button>
       </div>
-      <div class="img bg-wrap text-center py-4" style="background-image: url(../assets/images/bg_1.jpg);">
+      <div class="img bg-wrap text-center py-4" style="background-image: url(/images/bg_1.jpg);">
         <div class="user-logo">
           <div class="img" style="background-image: url(/images/logo.jpg);"></div>
-          <h3><%= student.firstName %> <%= student.lastName %></h3>
+          <h3><%= user.firstName %> <%= user.lastName %></h3>
         </div>
       </div>
       <ul class="list-unstyled components mb-5">
-        <li class="active">
+        <li>
           <a href="/profile"><span class="fa fa-user mr-3"></span> Profile</a>
         </li>
-        <% if(student.isRejected == false) {%>
+        <% if(user.isRejected == false) {%>
           <li>
             <a href="/updatePassword"><span class="fa fa-cloud-upload mr-3 "></span> Update Password</a>
           </li>
-          <% if(student.isVerified == false) {%>
+          <% if(user.isVerified == false) {%>
           <li>
             <a href="/update"><span class="fa fa-pencil-square-o mr-3"></span>Edit Profile</a>
           </li>
           <% }%>
-          <% if(student.isVerified == true) {%>
-            <li>
+          <% if(user.isVerified == true) {%>
+            <li class="active">
               <a href="/viewCompany"><span class="fa fa-list mr-3 "></span> Companies</a>
             </li>
           <%}%>
@@ -60,96 +60,55 @@
 
 
     <div id="Profile" class="p-4 p-md-5 pt-5">
-
       <div class="userimage">
-        <h2 class="mb-4">Welcome, <%= student.firstName %> <%= student.lastName %> </h2>
+        <h2 class="mb-4"> Job Details, <%= job.companyName %> </h2>
         <div><img src="/images/logo.jpg" alt="Student-image" id="photo"> </div>
       </div>
-      <% if(student.isRejected) {%>
-      <h5 style="text-align:center; color: red;">Your are rejected by the admin </h5>
-      <%} else { %>
-        <% if (student.isVerified) { %>
-          <h5 style="text-align:center; color: green;">Your profile is verified </h5>
-          <% }else {%>
-            <h5 style="text-align:center; color: red;">Your profile is not verified </h5>
-          <% } %>
-        <% } %>
       <table class="table">
         <tr>
-          <td>Email Address </td>
+            <td>Company Name </td>
+            <td>:</td>
+            <td> <%= job.companyName %> </td>
+          </tr>
+        <tr>
+          <td>Job Name </td>
           <td>:</td>
-          <td> <%= student.email %> </td>
+          <td> <%= job.jobName %> </td>
         </tr>
         <tr>
-          <td>First Name </td>
+          <td>Posting Location</td>
           <td>:</td>
-          <td> <%= student.firstName %> </td>
+          <td><%= job.postingLocation %> </td>
         </tr>
         <tr>
-          <td>Middle Name</td>
+          <td>Open For </td>
           <td>:</td>
-          <td><%= student.middleName %> </td>
+          <td><%= job.ugCriteria %> </td>
         </tr>
         <tr>
-          <td>Last Name </td>
+          <td>CPI Required</td>
           <td>:</td>
-          <td><%= student.lastName %> </td>
+          <td><%= job.cpiCriteria %></td>
         </tr>
         <tr>
-          <td>Date Of Birth</td>
+          <td>CTC</td>
           <td>:</td>
-          
-          <td><%= new Date(student.dob).toDateString() %></td>
+          <td><%= job.ctc %> LPA</td>
         </tr>
         <tr>
-          <td>Gender</td>
+          <td>Description</td>
           <td>:</td>
-          <td><%= student.gender %></td>
+          <td><%= job.description %></td>
         </tr>
         <tr>
-          <td>Mobile Nnumber</td>
+          <td>Registration Start Date</td>
           <td>:</td>
-          <td><%= student.mobileNumber %></td>
+          <td><%= job.startDate %></td>
         </tr>
         <tr>
-          <td>Alternative Mobile Nnumber</td>
+          <td>Registration End Date</td>
           <td>:</td>
-          <td><%= student.alternateMobileNumber %></td>
-        </tr>
-        <tr>
-          <td>10th Percentage</td>
-          <td>:</td>
-          <td><%= student.tenthPercentage %>%</td>
-        </tr>
-        <tr>
-          <td>12th Percentage</td>
-          <td>:</td>
-          <td><%= student.twelfthPercentage %>%</td>
-        </tr>
-        <tr>
-          <td>CPI</td>
-          <td>:</td>
-          <td><%= student.cpi %></td>
-        </tr>
-        <tr>
-          <td>Active Backlogs</td>
-          <td>:</td>
-          <td><%= student.activeBacklog %></td>
-        </tr>
-        <tr>
-          <td>Total Backlogs</td>
-          <td>:</td>
-          <td><%= student.totalBacklog %></td>
-        </tr>
-        <tr>
-          <td>Branch</td>
-          <td>:</td>
-          <td><%= student.branch %></td>
-        </tr>
-        <tr>
-          <td>Resume</td>
-          <td>:</td>
-          <td><a href="<%= student.resume %>" target="_blank"><button type="button" class="button">View Your Resume</button></a></td>
+          <td><%= job.endDate %></td>
         </tr>
       </table>
 

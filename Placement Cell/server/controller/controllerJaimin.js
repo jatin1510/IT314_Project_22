@@ -5,7 +5,7 @@ const saltRounds = 10;
 const jwt = require('jsonwebtoken');
 const { syncIndexes } = require('mongoose');
 const nodemailer = require('nodemailer');
-const excelJS = require('exceljs')
+
 require('dotenv').config({ path: 'config.env' });
 
 const cookie_expires_in = 24 * 60 * 60 * 1000;
@@ -17,17 +17,6 @@ const generateToken = (id, email, role) =>
         process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRES_IN,
     });
-};
-
-exports.home = async (req, res) =>
-{
-    const token = req.cookies.jwt;
-    if (token) {
-        res.render('Home', { flag: true });
-    }
-    else {
-        res.render('Home', { flag: false });
-    }
 };
 
 /**
@@ -233,19 +222,18 @@ exports.alreadyLoggedIn = async (req, res) =>
                     if (data.role == 1) {
                         if (role === "Placement Manager") {
                             // TODO: calculate percentage for placed and male
-                            res.render('adminHome', { admin: data, placed: 30, male: 80, isSuperAdmin: true });
+                            res.render('adminHome', { admin: data, placed: 30, male: 80 });
                         }
                         else {
                             res
-                            .status(500)
-                            .send({ message: `Error retrieving user with role ${role}` });
+                                .status(500)
+                                .send({ message: `Error retrieving user with role ${role}` });
                         }
                     }
                     else {
                         if (role === "Admin") {
-                            const flag = false;
                             // TODO: calculate percentage for placed and male
-                            res.render('adminHome', { admin: data, placed: 30, male: 80, isSuperAdmin: false });
+                            res.render('adminHome', { admin: data, placed: 30, male: 80 });
                             return;
                         }
                         else {
@@ -264,7 +252,6 @@ exports.alreadyLoggedIn = async (req, res) =>
             });
     }
 };
-
 /**
   * @description Register Utility Functions
   */
@@ -313,7 +300,7 @@ exports.registerStudent = async (req, res) =>
                 {
                     const token = generateToken(data._id, user.email, "Student");
                     res.cookie("jwt", token, { maxAge: cookie_expires_in, httpOnly: true });
-                    res.redirect('/profile');
+                    res.send(data);
                 })
                 .catch(err =>
                 {
@@ -358,8 +345,7 @@ exports.registerCompany = async (req, res) =>
                 {
                     const token = generateToken(data._id, data.email, "Company");
                     res.cookie("jwt", token, { maxAge: cookie_expires_in, httpOnly: true });
-                    res.redirect('/profile');
-
+                    res.send(data);
                 })
                 .catch(err =>
                 {
@@ -506,6 +492,7 @@ exports.updateStudent = async (req, res) =>
 
     const id = req.id;
     const role = req.role;
+
     if (role !== "Student") {
         res
             .status(500)
@@ -513,63 +500,28 @@ exports.updateStudent = async (req, res) =>
         return;
     }
 
-    const old = req.body.password;
-
     if (req.body.password) {
-        console.log(req.body.password, req.body.newPassword, req.body.newConfirmPassword);
-
-        await student.findById(id)
-            .then(async (data) =>
+        await bcrypt.hash(req.body.password, saltRounds)
+            .then((hashedPassword) =>
             {
-                if (!data) {
-                    res
-                        .status(404)
-                        .send({ message: `Not found user with email: ${email} ` });
-                    return;
-                } else {
-                    if (!bcrypt.compareSync(req.body.password, data.password)) {
-                        res
-                            .status(500)
-                            .send({ message: `Old Password InCorrect` });
-                        return;
-                    }
-                    console.log("password matched");
-                    await bcrypt.hash(req.body.newPassword, saltRounds)
-                        .then((hashedPassword) =>
-                        {
-                            req.body.password = hashedPassword;
-                        })
-                        .catch(err =>
-                        {
-                            console.log('Error:', err);
-                            return;
-                        })
-                }
+                req.body.password = hashedPassword;
             })
-            .catch((err) =>
+            .catch(err =>
             {
-                res
-                    .status(500)
-                    .send({ message: `Error retrieving user with email ${email}` });
-                return;
-            });
+                console.log('Error:', err);
+            })
     }
-
-    if (req.body.password && req.body.password == old) {
-        return;
-    }
-
     const stored = req.body;
+    console.log(req);
     console.log(stored);
     await student.findByIdAndUpdate(id, stored, { useFindAndModify: false })
         .then((data) =>
         {
             if (!data) {
-                res
-                    .status(400)
-                    .send({ message: `Cannot update student with ${id}. May be user not found!` })
+                res.status(400).send({ message: `Cannot update student with ${id}. May be user not found!` })
             } else {
-                res.redirect('/profile');
+                
+                res.send(stored);
             }
         })
         .catch(err =>
@@ -666,27 +618,6 @@ exports.updateAdmin = async (req, res) =>
             res.status(500).send({ message: 'Error update admin information' });
         })
 }
-
-
-exports.updatePassword = async (req, res) =>
-{
-    const email = req.email;
-    const role = req.role;
-    const id = req.id;
-
-    console.log("inside update password");
-    console.log(email, role, id);
-
-    if (role == "Student") {
-        const stu = await student.findById(id);
-        res.render('studentUpdatePassword', { student: stu });
-    }
-    else if (role == "Company") {
-    }
-    else {
-    }
-}
-
 
 /**
   * @description Logout current user
@@ -872,17 +803,13 @@ exports.sendMail = async (req, res) =>
   */
 exports.verifyStudent = async (req, res) =>
 {
-    const id = req.params.id;
+    const id = req.query.id;
     console.log(id);
     if (id) {
         await student.findByIdAndUpdate(id, { isVerified: true }, { useFindAndModify: false })
-            .then(async (data) =>
+            .then((data) =>
             {
-                //console.log(data);
-                //const dta = await student.find({isVerified:false}).exec(); 
-                //res.render('adminVerifyStudent' , {record : dta});
-                //res.send(`Verified student with object id ${id}`);
-                res.redirect("/unverifiedstudents");
+                res.send(`Verified student with object id ${id}`);
             })
             .catch(err =>
             {
@@ -905,17 +832,12 @@ exports.verifyStudent = async (req, res) =>
 
 exports.verifyJob = async (req, res) =>
 {
-    const id = req.params.id;
+    const id = req.query.id;
     if (id) {
         await job.findByIdAndUpdate(id, { isVerified: true }, { useFindAndModify: false })
-            .then(async (data) =>
+            .then((data) =>
             {
-
-
-                // const dta = await job.find({isVerified:false}).exec(); 
-                // console.log(data); 
-                res.redirect("/unverifiedjobs")
-
+                res.send(`Verified job with object id ${id}`);
             })
             .catch(err =>
             {
@@ -938,13 +860,12 @@ exports.verifyJob = async (req, res) =>
 
 exports.verifyCompany = async (req, res) =>
 {
-    const id = req.params.id;
+    const id = req.query.id;
     if (id) {
         await company.findByIdAndUpdate(id, { isVerified: true }, { useFindAndModify: false })
-            .then(async (data) =>
+            .then((data) =>
             {
-                //const dta = await company.find({isVerified:false}).exec(); 
-                res.redirect("/unverifiedcompany")
+                res.send(`Verified company with object id ${id}`);
             })
             .catch(err =>
             {
@@ -965,6 +886,24 @@ exports.verifyCompany = async (req, res) =>
     }
 }
 
+//company home by Jaimin
+exports.showJob = (req, res) =>
+{
+    const companyID = null;
+    job.find({ comp: companyID })
+        .then(data =>
+        {
+            if (!data) {
+                res.status(404).send({ message: "Not found company with id " + id })
+            } else {
+                res.send(data);
+            }
+        })
+        .catch(err =>
+        {
+            res.status(500).send({ message: "Error retrieving company with id " + id })
+        })
+};
 
 exports.postJob = async (req, res) =>
 {
@@ -1115,11 +1054,10 @@ exports.jobsRegistredbyStudent = (req, res) =>
 };
 
 // Help student to register in Job
-exports.registerStudentInJob = async (req, res) =>
+exports.registerStudentInJob = (req, res) =>
 {
-    const jobID = req.params.id;
-    const studentID = req.id;
-
+    const jobID = "642c1273520e78f528916627";
+    const studentID = "642c10217a0fdd91ee4100b5";
     if (!req.body) {
         res.status(400).send({ message: 'Content can not be empty!' });
         return;
@@ -1134,43 +1072,16 @@ exports.registerStudentInJob = async (req, res) =>
     // save student in the database
     user
         .save(user)
-        .then(async (data) =>
+        .then(data =>
         {
-            res.redirect('/viewCompany');
+            // redirect to company home page
+            // res.redirect('/');
+            res.send(user);
         })
         .catch(err =>
         {
             res.status(500).send({
                 message: err.message || 'Some error occured  while creating a create operation',
-            });
-        });
-};
-
-exports.deregisterStudentInJob = async (req, res) =>
-{
-    const jobID = req.params.id;
-    const studentID = req.id;
-    console.log(studentID, jobID);
-    if (!req.body) {
-        res.status(400).send({ message: 'Content can not be empty!' });
-        return;
-    }
-
-    const entry = await studentJob.findOne({ job: jobID, student: studentID });
-    await studentJob.findByIdAndDelete(entry._id)
-        .then(async (data) =>
-        {
-            if (!data) {
-                res.status(404).send({ message: `Cannot delete with id ${entry._id}. Maybe ID is wrong!` })
-            }
-            else {
-                res.redirect('/viewCompany');
-            }
-        })
-        .catch(err =>
-        {
-            res.status(500).send({
-                message: `Could not delete user with id=${id}`,
             });
         });
 };
@@ -1226,388 +1137,4 @@ exports.deleteJob = async (req, res) =>
         {
             res.status(500).send({ message: "Error deleting job with id " + id })
         });
-}
-
-exports.viewCompany = async (req, res) =>
-{
-    const id = req.id;
-    const role = req.role;
-
-    if (role === "Student" || role === "Admin" || role === "Placement Manager") {
-        const data = await job.find({ isVerified: true }).exec();
-        const registered = [], locations = [], jobTitles = [];
-
-        for (let i = 0; i < data.length; i++) {
-            locations.push(data[i].postingLocation);
-            jobTitles.push(data[i].jobName);
-
-            const jobID = data[i]._id;
-            const ok = await studentJob.findOne({ job: jobID, student: id });
-            if (ok)
-                registered.push(1);
-            else
-                registered.push(0);
-        }
-        const user = await student.findById(id);
-        const uniqueLocations = [...new Set(locations.map(item => item))];
-        const uniquejobTitles = [...new Set(jobTitles.map(item => item))];
-
-        res.render('studentCompanyDetails', { jobs: data, registered: registered, user: user, location: uniqueLocations, titles: uniquejobTitles });
-    }
-    else {
-        res.send('You have not access to the company list');
-    }
-}
-
-exports.showCompany = async (req, res) =>
-{
-    const id = req.id;
-    const jobID = req.params.id;
-    const jobDetails = await job.findById(jobID).exec();
-    const user = await student.findById(id);
-    console.log(jobDetails);
-    res.render('showCompany', { job: jobDetails, user: user });
-}
-
-exports.filter = async (req, res) =>
-{
-    const id = req.id;
-
-    const query = { jobName: req.body.jobTitle, postingLocation: req.body.location, cpiCriteria: { $gte: req.body.cpi }, ctc: { $gte: req.body.ctc }, isVerified: true };
-
-    if (req.body.jobTitle == "Any") {
-        delete query.jobName;
-    }
-    if (req.body.location == "Any") {
-        delete query.postingLocation;
-    }
-    if (req.body.cpi == "Any") {
-        delete query.cpiCriteria;
-    }
-    if (req.body.ctc == "Any") {
-        delete query.ctc;
-    }
-    job.find(query)
-        .then(async (queryData) =>
-        {
-            if (!queryData) {
-                res.status(404).send({ message: "Not Found" });
-            }
-            else {
-                const registered = [], locations = [], jobTitles = [];
-
-                for (let i = 0; i < queryData.length; i++) {
-                    const jobID = queryData[i]._id;
-                    const ok = await studentJob.findOne({ job: jobID, student: id });
-                    if (ok)
-                        registered.push(1);
-                    else
-                        registered.push(0);
-                }
-
-                const data = await job.find({ isVerified: true }).exec();
-                for (let i = 0; i < data.length; i++) {
-                    locations.push(data[i].postingLocation);
-                    jobTitles.push(data[i].jobName);
-                }
-
-                const user = await student.findById(id);
-                const uniqueLocations = [...new Set(locations.map(item => item))];
-                const uniquejobTitles = [...new Set(jobTitles.map(item => item))];
-
-                res.render('studentCompanyDetails', { jobs: queryData, registered: registered, user: user, location: uniqueLocations, titles: uniquejobTitles });
-            }
-        })
-        .catch(err =>
-        {
-            res.status(500).send({ message: "Error while fetching data of requested query" })
-        });
-}
-
-// Viraj
-// generate datasheet for admin 
-exports.datasheet = async (req, res) =>
-{
-    try {
-        const workbook = new excelJS.Workbook();
-        const worksheet = workbook.addWorksheet("Students");
-
-        worksheet.columns = [
-            { header: "firstName", key: "firstName" },
-            { header: "lastName", key: "lastName" },
-            { header: "email", key: "email" },
-            { header: "gender", key: "gender" },
-            { header: "mobileNumber", key: "mobileNumber" }
-        ]
-
-        let counter = 1;
-
-        var userdata = await student.find({ isPlaced: false });
-        //res.send(userdata);
-        let users = [];
-
-        userdata.forEach((user) =>
-        {
-            worksheet.addRow(user);
-
-        });
-
-        worksheet.getRow(1).eachCell((cell) =>
-        {
-            cell.font = { bold: true };
-        });
-        res.setHeader(
-            "Content-Type",
-            "application/vnd.openxmlformats-officedocument.spreadsheatml.sheet"
-        );
-
-        res.setHeader("Content-Disposition", `attachment; filename=studentData.xlsx`);
-
-        return workbook.xlsx.write(res).then(() =>
-        {
-            res.status(200);
-        });
-    }
-    catch (error) {
-        res.send({ status: 400, success: false, msg: error.message });
-    }
-};
-
-
-// fetch data for admin to verify company(only super admin can verify company) , students , jobs : 
-exports.verifycompany = async (req, res) =>
-{
-    let flag = false;
-    if (req.role != "Admin") flag = true;
-    const data = await company.find({ isVerified: false, isRejected: false }).exec();
-    console.log(data);
-    res.render('adminVerifyCompany', { record: data, isSuperAdmin: flag });
-
-}
-
-exports.verifystudent = async (req, res) =>
-{
-    let flag = false;
-    if (req.role != "Admin") flag = true;
-    const data = await student.find({ isVerified: false, isRejected: false }).exec();
-    console.log(data);
-    res.render('adminVerifyStudent', { record: data, isSuperAdmin: flag });
-
-}
-
-exports.verifyjob = async (req, res) =>
-{
-    let flag = false;
-    if (req.role != "Admin") {
-        flag = true;
-    }
-    const data = await job.find({ isVerified: false, isRejected: false }).exec();
-    console.log(data);
-    res.render('adminVerifyJobs', { record: data, isSuperAdmin: flag });
-
-}
-
-
-
-/**
-  * @description Verification Functions
-*/
-
-exports.rejectStudent = async (req, res) =>
-{
-    const id = req.params.id;
-    console.log(id);
-    if (id) {
-        await student.findByIdAndUpdate(id, { isRejected: true }, { useFindAndModify: false })
-            .then(async (data) =>
-            {
-                //console.log(data);
-                //const dta = await student.find({isVerified:false}).exec(); 
-                //res.render('adminVerifyStudent' , {record : dta});
-                //res.send(`Verified student with object id ${id}`);
-                res.redirect("/unverifiedstudents")
-            })
-            .catch(err =>
-            {
-                res.status(500).send({ message: 'Student not found' });
-            })
-    }
-    else {
-        const students = await student.find({ isRejected: true }).exec();
-        if (!students) {
-            res.status(200).send({ message: 'All students are verified' });
-            return;
-        }
-
-        // render verifyStudent page with students object
-        // res.rend('verifyStudent', {students: students});
-        res.send(students);
-        // console.log(students.length);
-    }
-}
-
-exports.rejectJob = async (req, res) =>
-{
-    const id = req.params.id;
-    if (id) {
-        await job.findByIdAndUpdate(id, { isRejected: true }, { useFindAndModify: false })
-            .then(async (data) =>
-            {
-
-
-                // const dta = await job.find({isVerified:false}).exec(); 
-                // console.log(data); 
-                res.redirect("/unverifiedjobs")
-
-            })
-            .catch(err =>
-            {
-                res.status(500).send({ message: 'Job not found' });
-            })
-    }
-    else {
-        const jobs = await job.find({ isRejected: true }).exec();
-        if (!jobs) {
-            res.status(200).send({ message: 'All jobs are verified' });
-            return;
-        }
-
-        // render verifyJob page with students object
-        // res.rend('verifyJob', {jobs: jobs});
-        res.send(jobs);
-        console.log(jobs.length);
-    }
-}
-
-exports.rejectCompany = async (req, res) =>
-{
-    const id = req.params.id;
-    if (id) {
-        await company.findByIdAndUpdate(id, { isRejected: true }, { useFindAndModify: false })
-            .then(async (data) =>
-            {
-                //const dta = await company.find({isVerified:false}).exec(); 
-                res.redirect("/unverifiedcompany")
-            })
-            .catch(err =>
-            {
-                res.status(500).send({ message: 'Company not found' });
-            })
-    }
-    else {
-        const companies = await company.find({ isRejected: true }).exec();
-        if (!companies) {
-            res.status(200).send({ message: 'All companies are verified' });
-            return;
-        }
-
-        // render verifyCompany with companies object
-        // res.render('verifyCompany', {companies: companies});
-        res.send(companies);
-        console.log(companies.length);
-    }
-}
-
-exports.adminhome = async (req, res) =>
-{
-    let flag = false;
-    if (req.role != "Admin") {
-        flag = true;
-    }
-    res.render('adminHome', { isSuperAdmin: flag, placed: 30, male: 80 })
-}
-
-exports.adminStudents = async (req, res) =>
-{
-
-    let flag = false;
-    if (req.role != "Admin") {
-        flag = true;
-    }
-
-    const data = await student.find({}).exec();
-    console.log(data);
-    res.render('adminStudents', { students: data, isSuperAdmin: flag });
-
-}
-
-exports.adminJobs = async (req, res) =>
-{
-
-    let flag = false;
-    if (req.role != "Admin") {
-        flag = true;
-    }
-
-    const data = await job.find({}).exec();
-    console.log(data);
-    res.render('adminJobs', { jobs: data, isSuperAdmin: flag });
-
-}
-
-exports.adminCompany = async (req, res) =>
-{
-
-    let flag = false;
-    if (req.role != "Admin") {
-        flag = true;
-    }
-
-    const data = await company.find({}).exec();
-    console.log(data);
-    res.render('adminCompany', { company: data, isSuperAdmin: flag });
-
-}
-
-
-// need to modify from here 
-exports.adminInterviewSchedule = async (req, res) =>
-{
-    let flag = false;
-    if (req.role != "Admin") {
-        flag = true;
-    }
-    const data = await job.find({ isRejected: false }).exec();
-    console.log(data);
-    res.render('adminInterviewSchedule', { record: data, isSuperAdmin: flag });
-
-
-}
-
-exports.adminUpdateInterviewSchedule = async (req, res) =>
-{
-    if (!req.body) {
-        return res
-            .status(400)
-            .send({ message: 'Data to update can not be empty' });
-    }
-
-    const start_date = req.body.startDate;
-    const end_date = req.body.endDate;
-
-    let sd = new Date(start_date);
-    let ed = new Date(end_date);
-
-    console.log(typeof (sd));
-    console.log(typeof (ed));
-    const stored = req.body;
-    console.log(req.body.startDate);
-    console.log(req.body.endDate);
-    console.log(stored);
-    const idd = req.params.id;
-    console.log(idd);
-
-    var myquery = { _id: idd };
-    var newvalues = { $set: { startDate: sd, endDate: ed } };
-    job.updateOne(myquery, newvalues, function (err, res)
-    {
-        if (err) throw err;
-        else {
-
-            res.redirect("/adminInterviewSchedule")
-
-        }
-        db.close();
-    });
-
 }

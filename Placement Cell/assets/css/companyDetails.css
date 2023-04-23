@@ -55,6 +55,10 @@ select {
     margin: 2px;
 }
 
+a.disabled:hover {
+    cursor:not-allowed;
+ }
+
 /* 
 .form-group2{
     font-size: 1.2em;

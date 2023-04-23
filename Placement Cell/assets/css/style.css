@@ -12011,8 +12011,8 @@ a[data-toggle="collapse"] {
 
 .btn.btn-primary:hover,
 .btn.btn-primary:focus {
-  background: #2f89fc !important;
-  border-color: #2f89fc !important;
+  background: #2f89fc;
+  border-color: #2f89fc;
 }
 
 .footer p {

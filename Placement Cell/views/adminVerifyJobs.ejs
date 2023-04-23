@@ -2,18 +2,19 @@
 <html lang="en">
 
 <head>
-  <title>Admin Home</title>
+  <title>Verify Jobs</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-  <link rel="stylesheet" href="/css/adminhome.css">
+
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/adminVerifyJobs.css">
 </head>
 
 <body>
@@ -24,7 +25,7 @@
         <button type="button" id="sidebarCollapse" class="btn btn-primary">
         </button>
       </div>
-      <div class="img bg-wrap text-center py-4" style="background-image: url(/images/bg_1.jpg);">
+      <div class="img bg-wrap text-center py-4" style="background-image: url(/images/admin_bg.jpg);">
         <div class="user-logo">
           <div class="img" style="background-image: url(/images/logo.jpg);"></div>
           <h3>Admin</h3>
@@ -32,18 +33,18 @@
       </div>
       <ul class="list-unstyled components mb-5">
         
-        <li class="active">
-          <a href="#"><i class="fa fa-line-chart mr-3" aria-hidden="true"></i> Admin Statistics</a>
+        <li>
+          <a href="/adminhome"><i class="fa fa-line-chart mr-3" aria-hidden="true"></i> Admin Statistics</a>
         </li>
         <li>
           <a href="/unverifiedstudents"><i class="fa fa-check mr-3" aria-hidden="true"></i> Verify Students</a>
         </li>
         <li>
-          <a href="adminEditJobs.html"><i class="fa fa-pencil-square-o mr-3" aria-hidden="true"></i> Interview
+          <a href="/adminInterviewSchedule"><i class="fa fa-pencil-square-o mr-3" aria-hidden="true"></i> Interview
             schedule</a>
         </li>
-        <li>
-          <a href="/unverifiedjobs"><i class="fa fa-briefcase mr-3" aria-hidden="true"></i> Verify Jobs</a>
+        <li class="active">
+          <a href="#"><i class="fa fa-briefcase mr-3" aria-hidden="true"></i> Verify Jobs</a>
         </li>
         <% if(isSuperAdmin==true) {%>
           <li>
@@ -60,38 +61,61 @@
             <li>
               <a href="/adminCompany"><span class="fa-solid fa-list mr-3"></span> Company list</a>
             </li>
-
             <li>
-              <a href="/datasheet"><span class="fa fa-solid fa-download"></span> Datasheet</a>
+              <a href="/datasheet"><span class="fa fa-download"></span> Datasheet</a>
             </li>
             <li>
               <a href="/logout"><span class="fa fa-sign-out mr-3"></span> Logout</a>
             </li>
       </ul>
+
     </nav>
 
-    <div style="display: none;" id="placed">
-      <%= placed %>
-    </div>
-    <div style="display: none;" id="male">
-      <%= male %>
-    </div>
     <!-- Page Content  -->
     <div id="content" class="p-4 p-md-5 pt-5">
-      <h2 class="mb-4">Admin Home</h2>
-      <h2 class="headline">Placement Statistics for current year:</h2>
-      <div class="main">
-        <div id="myChart" class="chart"></div>
-        <div id="myChart1" class="chart"></div>
-      </div>
-      <div class="main">
-        <div class="box box1">Highest Package Offered : 50 LPA</div>
-        <div class="box box2">Average Placement Package : 20 LPA</div>
-      </div>
+      <h2 class="mb-4">Verify Jobs</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Company name</th>
+            <th>Job name</th>
+            <th>CPI criteria</th>
+            <th>CTC</th>
+            <th>Accept</th>
+            <th>Reject</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <% for(let i=0;i<record.length;i++) {%>
+
+            <tr>
+
+              <td>
+                <%= record[i].companyName%>
+              </td>
+              <td>
+                <%= record[i].jobName %>
+              </td>
+              <td>
+                <%= record[i].cpiCriteria %>
+              </td>
+              <td>
+                <%= record[i].ctc %>
+              </td>
+              <td> <a href="/verifyJob/<%= record[i]._id%>"><button class="btn1 accept">Accept</button> </a>
+              <td><a href="/rejectJob/<%= record[i]._id%>"> <button class="btn1 reject">Reject</button> </a> </td>
+
+
+            </tr>
+            <% } %>
+
+              <!-- add more rows here as needed -->
+        </tbody>
+      </table>
     </div>
   </div>
 
-  <script src="/js/adminhome.js"></script>
   <script src="/js/jquery.min.js"></script>
   <script src="/js/popper.js"></script>
   <script src="/js/main.js"></script>

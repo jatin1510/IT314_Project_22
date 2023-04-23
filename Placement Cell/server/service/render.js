@@ -15,9 +15,19 @@ exports.loginPage = (req, res) =>
     res.render('Login');
 };
 
-exports.registerPage = (req, res) =>
+exports.registerStudent = (req, res) =>
 {
     res.render('registerStudent');
+};
+
+exports.registerCompany = (req, res) =>
+{
+    res.render('registerCompany');
+};
+
+exports.viewCompany = (req, res) =>
+{
+    res.render('studentCompanyDetails');
 };
 
 exports.postJobPage = (req, res) =>

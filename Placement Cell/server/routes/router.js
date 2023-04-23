@@ -2,16 +2,23 @@ const express = require('express');
 const route = express.Router();
 const services = require('../service/render');
 const controller = require('../controller/controller');
-const { authorization, authorizationAdmin, authorizationSuperAdmin } = require('../middleware/middleware');
+const { authorization, authorizationAdmin, authorizationSuperAdmin, authorizationStudentAndAdmin } = require('../middleware/middleware');
 
 /**
   * @description Root Route
   * @method GET /
   */
-route.get('/', services.home);
+route.get('/', controller.home);
 route.get('/aboutus', services.aboutus);
 route.get('/loginPage', services.loginPage);
-route.get('/registerPage', services.registerPage);
+route.get('/registerStudent', services.registerStudent);
+route.get('/registerCompany', services.registerCompany);
+
+
+route.get('/viewCompany', authorization, controller.viewCompany);
+
+// update password
+route.get('/updatePassword', authorization, controller.updatePassword);
 
 /**
   * @description Register Routes
@@ -66,19 +73,37 @@ route.get('/mail/:id', authorizationAdmin, controller.sendMail);
   * @description Verify Routes (serving pages)
   * @method GET /
   */
-route.get('/verifyStudent', authorizationAdmin, controller.verifyStudent);
-route.get('/verifyJob', authorizationAdmin, controller.verifyJob);
-route.get('/verifyCompany', authorizationSuperAdmin, controller.verifyCompany);
+route.get('/verifyStudent/:id', authorizationAdmin, controller.verifyStudent);
+route.get('/verifyJob/:id', authorizationAdmin, controller.verifyJob);
+route.get('/verifyCompany/:id', authorizationSuperAdmin, controller.verifyCompany);
 
-/**
-  * @description company routes
-  * @method GET /
-  */
+route.get('/rejectStudent/:id', authorizationAdmin, controller.rejectStudent);
+route.get('/rejectJob/:id', authorizationAdmin, controller.rejectJob);
+route.get('/rejectCompany/:id', authorizationSuperAdmin, controller.rejectCompany);
+
+route.post('/adminUpdateInterviewSchedule/:id', authorizationSuperAdmin, controller.adminUpdateInterviewSchedule);
+
+
+route.get('/registerStudentInJob/:id', authorization, controller.registerStudentInJob)
+route.get('/deregisterStudentInJob/:id', authorization, controller.deregisterStudentInJob)
+route.get('/showcompany/:id', authorization, controller.showCompany)
+route.post('/filter', authorizationStudentAndAdmin, controller.filter)
+
 route.get('/postJob', services.postJobPage);
 route.post('/saveJob', authorization, controller.postJob);
 route.get('/registredStudentsInJob/:id', authorization, controller.registredStudentsInJob);
 route.get('/updateJob/:id', authorization, controller.updateJob);
 route.get('/deleteJob/:id', authorization, controller.deleteJob);
 route.post('/updateJobPost/:id', authorization, controller.updateJobPost);
+
+route.get('/unverifiedstudents' , authorizationAdmin  , controller.verifystudent);
+route.get('/unverifiedjobs' , authorizationAdmin  , controller.verifyjob);
+route.get('/unverifiedcompany' , authorizationAdmin  , controller.verifycompany);
+route.get('/adminInterviewSchedule' , authorizationAdmin  , controller.adminInterviewSchedule);
+route.get('/datasheet' , authorizationAdmin  , controller.datasheet);
+route.get('/adminhome' , authorizationAdmin  , controller.adminhome);
+route.get('/adminStudents' , authorizationAdmin  , controller.adminStudents);
+route.get('/adminJobs' , authorizationAdmin  , controller.adminJobs);
+route.get('/adminCompany' , authorizationAdmin  , controller.adminCompany);
 
 module.exports = route;
