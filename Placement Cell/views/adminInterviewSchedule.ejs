@@ -11,8 +11,8 @@
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/adminInterviewschedule.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/adminInterviewschedule.css">
 </head>
 
 <body>
@@ -23,33 +23,36 @@
         <button type="button" id="sidebarCollapse" class="btn btn-primary">
         </button>
       </div>
-      <div class="img bg-wrap text-center py-4" style="background-image: url(../assets/images/admin_bg.jpg);">
+      <div class="img bg-wrap text-center py-4" style="background-image: url(/images/admin_bg.jpg);">
         <div class="user-logo">
-          <div class="img" style="background-image: url(../assets/images/logo.jpg);"></div>
+          <div class="img" style="background-image: url(/images/logo.jpg);"></div>
           <h3>Admin</h3>
         </div>
       </div>
       <ul class="list-unstyled components mb-5">
         <li class="active">
-          <a href="#"><span class="fa fa-home mr-3"></span> Home</a>
+          <a href="/"><span class="fa fa-home mr-3"></span> Home</a>
         </li>
         <li>
           <a href="adminHome.html"><i class="fa fa-line-chart mr-3" aria-hidden="true"></i> Admin Statistics</a>
         </li>
         <li>
-          <a href="adminVerifyStudent.html"><span class="fa fa-check mr-3 notif"></span> Verify Students</a>
+          <a href="/unverifiedstudents"><span class="fa fa-check mr-3 notif"></span> Verify Students</a>
         </li>
         <li>
           <a href="adminInterviewSchedule.html"><span class="fa fa-edit mr-3"></span> Interview schedule</a>
         </li>
         <li>
-          <a href="adminVerifyJobs.html"><span class="fa fa-briefcase mr-3"></span> Verify Jobs</a>
+          <a href="/unverifiedjobs"><span class="fa fa-briefcase mr-3"></span> Verify Jobs</a>
         </li>
         <li>
           <a href="adminVerifyCompany.html"><span class="fa fa-building mr-3"></span> Verify Company</a>
         </li>
         <li>
-          <a href="#"><span class="fa fa-sign-out mr-3"></span> Logout</a>
+            <a href="/datasheet"><span class="fa fa-download"></span> Datasheet</a>
+          </li>
+        <li>
+          <a href="/logout"><span class="fa fa-sign-out mr-3"></span> Logout</a>
         </li>
       </ul>
 
@@ -65,70 +68,39 @@
             <th>Job</th>
             <th>Start Dates</th>
             <th>End Dates</th>
+            <th>Confirm</th>
           </tr>
         </thead>
         <tbody>
 
-            <% record.forEach(function(row)) {%>
-                <% let i=0%>
+            <%  for(let i=0;i<record.length;i++) {%>
+               
                 <tr>
                 
-                  <td> <%= record.comp </td>
-                  <td> <%= record.jobName %> </td>
+                  <td> <%= record[i].companyName%> </td>
+                  <td> <%= record[i].jobName %> </td>
 
-                  <td>
-                    <label for="datepicker"></label>
-                    <input type="date" id="datepicker" name="datepicker" min="2023-04-11" max="2024-04-11">
+                  <form action="/adminUpdateInterviewSchedule/<%= record[i]._id%>" method="POST">
+                    <td>
+                      <label for="datepicker"></label>
+                      <input type="date" id="datepicker"  name="startDate" min="2023-04-11" max="2024-04-11">
+        
+                    </td>
+                    <td>
+        
+                      <input type="date" id="datepicker" name="endDate" min="2023-04-11" max="2024-04-11">
+        
+                    </td>
+                    <td> <button type="Submit" > Submit</button></td>
       
-                  </td>
-                  <td>
-      
-      
-      
-                    <input type="date" id="datepicker" name="datepicker" min="2023-04-11" max="2024-04-11">
-      
-                  </td>
-                  <% i++%>
+                  </form>
+                  
     
                 </tr>
-              <%   }) %>
+              <%   } %>
 
         
-
-          <tr>
-            <td>Google</td>
-            <td>Tester</td>
-            <td>xyz</td>
-            <td>
-              <label for="datepicker"></label>
-              <input type="date" id="datepicker" name="datepicker" min="2023-04-11" max="2024-04-11">
-
-            </td>
-            <td>
-
-
-
-              <input type="date" id="datepicker" name="datepicker" min="2023-04-11" max="2024-04-11">
-
-            </td>
-          </tr>
-          <tr>
-            <td>Google</td>
-            <td>Tester</td>
-            <td>xyz</td>
-            <td>
-
-              <input type="date" id="datepicker" name="datepicker" min="2023-04-11" max="2024-04-11">
-
-            </td>
-            <td>
-
-
-
-              <input type="date" id="datepicker" name="datepicker" min="2023-04-11" max="2024-04-11">
-
-            </td>
-          </tr>
+ 
           <!-- add more rows here as needed -->
         </tbody>
       </table>
@@ -136,10 +108,10 @@
   </div>
 
 
-  <script src="../assets/js/jquery.min.js"></script>
-  <script src="../assets/js/popper.js"></script>
-  <script src="../assets/js/main.js"></script>
-  <script src="../assets/js/bootstrap.min.js"></script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/popper.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
 </body>
 
 </html>

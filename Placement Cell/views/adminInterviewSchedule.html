@@ -66,6 +66,7 @@
             <th>Job details</th>
             <th>Start Dates</th>
             <th>End Dates</th>
+            <th> Confirm</th>
           </tr>
         </thead>
         <tbody>
@@ -73,18 +74,22 @@
             <td>Google</td>
             <td>Tester</td>
             <td>xyz</td>
-            <td>
-              <label for="datepicker"></label>
-              <input type="date" id="datepicker" name="datepicker" min="2023-04-11" max="2024-04-11">
 
-            </td>
-            <td>
+            <form>
+              <td>
+                <label for="datepicker"></label>
+                <input type="date" id="datepicker"  name="startdate" min="2023-04-11" max="2024-04-11">
+  
+              </td>
+              <td>
+  
+                <input type="date" id="datepicker" name="enddate" min="2023-04-11" max="2024-04-11">
+  
+              </td>
+              <td> <button type="Submit" > Submit</button></td>
 
+            </form>
 
-
-              <input type="date" id="datepicker" name="datepicker" min="2023-04-11" max="2024-04-11">
-
-            </td>
           </tr>
           <tr>
             <td>Google</td>

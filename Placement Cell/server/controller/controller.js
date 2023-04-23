@@ -5,6 +5,7 @@ const saltRounds = 10;
 const jwt = require('jsonwebtoken');
 const { syncIndexes } = require('mongoose');
 const nodemailer = require('nodemailer');
+const excelJS = require('exceljs')
 
 require('dotenv').config({ path: 'config.env' });
 
@@ -112,7 +113,7 @@ exports.findPerson = async (req, res) =>
                             const token = generateToken(data[0]._id, email, role);
                             console.log(token);
                             res.cookie("jwt", token, { maxAge: cookie_expires_in, httpOnly: true });
-                            res.render('adminHome', { admin: data[0], placed: 30, male: 80 });
+                            res.render('adminHome', { isSuperAdmin : true, placed: 30, male: 80 });
                         }
                         else {
                             res
@@ -133,7 +134,7 @@ exports.findPerson = async (req, res) =>
                             console.log(token);
                             res.cookie("jwt", token, { maxAge: cookie_expires_in, httpOnly: true });
                             // calculate percentage for placed and male
-                            res.render('adminHome', { admin: data[0], placed: 30, male: 80 });
+                            res.render('adminHome', { isSuperAdmin : false, placed: 30, male: 80 });
                             return;
                         }
                         else {
@@ -723,13 +724,17 @@ exports.sendMail = async (req, res) =>
   */
 exports.verifyStudent = async (req, res) =>
 {
-    const id = req.query.id;
+    const id = req.params.id;
     console.log(id);
     if (id) {
         await student.findByIdAndUpdate(id, { isVerified: true }, { useFindAndModify: false })
-            .then((data) =>
+            .then(async (data) =>
             {
-                res.send(`Verified student with object id ${id}`);
+                //console.log(data);
+                //const dta = await student.find({isVerified:false}).exec(); 
+                //res.render('adminVerifyStudent' , {record : dta});
+                //res.send(`Verified student with object id ${id}`);
+                res.redirect("/unverifiedstudents")
             })
             .catch(err =>
             {
@@ -752,12 +757,17 @@ exports.verifyStudent = async (req, res) =>
 
 exports.verifyJob = async (req, res) =>
 {
-    const id = req.query.id;
+    const id = req.params.id;
     if (id) {
         await job.findByIdAndUpdate(id, { isVerified: true }, { useFindAndModify: false })
-            .then((data) =>
+            .then(async (data) =>
             {
-                res.send(`Verified job with object id ${id}`);
+
+              
+               // const dta = await job.find({isVerified:false}).exec(); 
+               // console.log(data); 
+                res.redirect("/unverifiedjobs")
+               
             })
             .catch(err =>
             {
@@ -780,12 +790,13 @@ exports.verifyJob = async (req, res) =>
 
 exports.verifyCompany = async (req, res) =>
 {
-    const id = req.query.id;
+    const id = req.params.id;
     if (id) {
         await company.findByIdAndUpdate(id, { isVerified: true }, { useFindAndModify: false })
-            .then((data) =>
+            .then(async (data) =>
             {
-                res.send(`Verified company with object id ${id}`);
+               //const dta = await company.find({isVerified:false}).exec(); 
+                res.redirect("/unverifiedcompany")
             })
             .catch(err =>
             {
@@ -1069,28 +1080,231 @@ exports.datasheet = async(req , res) =>{
 };
 
 
-// fetch data for admin to verify company , students , jobs : 
+// fetch data for admin to verify company(only super admin can verify company) , students , jobs : 
 exports.verifycompany = async (req , res)=>{
-
-    const data = await company.find({isVerified:false}).exec();
+    let flag = false;  
+    if(req.role != "Admin") flag = true;
+    const data = await company.find({isVerified:false , isRejected:false}).exec();
     console.log(data);
-    res.render('adminVerifyCompany' , {record : data}); 
+    res.render('adminVerifyCompany' , {record : data , isSuperAdmin : flag}); 
      
 }
 
 exports.verifystudent = async (req , res)=>{
-
-    const data = await student.find({isVerified:false}).exec();
+    let flag = false;  
+    if(req.role != "Admin") flag = true;
+    const data = await student.find({isVerified:false , isRejected:false}).exec();
     console.log(data);
-    res.render('adminVerifyStudent' , {record : data}); 
-    
+    res.render('adminVerifyStudent' , {record : data ,  isSuperAdmin : flag}); 
+
 }
 
 exports.verifyjob = async (req , res)=>{
-
-    const data = await job.find({isVerified:false}).exec();
+    let flag = false;  
+    if(req.role != "Admin") {
+        flag = true;
+    }
+    const data = await job.find({isVerified:false , isRejected:false}).exec();
     console.log(data);
-    res.render('adminVerifyJobs' , {record : data}); 
+    res.render('adminVerifyJobs' , {record : data , isSuperAdmin : flag}); 
    
 }
 
+
+
+/**
+  * @description Verification Functions
+*/
+
+exports.rejectStudent = async (req, res) =>
+{
+    const id = req.params.id;
+    console.log(id);
+    if (id) {
+        await student.findByIdAndUpdate(id, { isRejected: true }, { useFindAndModify: false })
+            .then(async (data) =>
+            {
+                //console.log(data);
+                //const dta = await student.find({isVerified:false}).exec(); 
+                //res.render('adminVerifyStudent' , {record : dta});
+                //res.send(`Verified student with object id ${id}`);
+                res.redirect("/unverifiedstudents")
+            })
+            .catch(err =>
+            {
+                res.status(500).send({ message: 'Student not found' });
+            })
+    }
+    else {
+        const students = await student.find({ isRejected: true  }).exec();
+        if (!students) {
+            res.status(200).send({ message: 'All students are verified' });
+            return;
+        }
+
+        // render verifyStudent page with students object
+        // res.rend('verifyStudent', {students: students});
+        res.send(students);
+        // console.log(students.length);
+    }
+}
+
+exports.rejectJob = async (req, res) =>
+{
+    const id = req.params.id;
+    if (id) {
+        await job.findByIdAndUpdate(id, { isRejected: true  }, { useFindAndModify: false })
+            .then(async (data) =>
+            {
+
+              
+               // const dta = await job.find({isVerified:false}).exec(); 
+               // console.log(data); 
+                res.redirect("/unverifiedjobs")
+               
+            })
+            .catch(err =>
+            {
+                res.status(500).send({ message: 'Job not found' });
+            })
+    }
+    else {
+        const jobs = await job.find({ isRejected: true  }).exec();
+        if (!jobs) {
+            res.status(200).send({ message: 'All jobs are verified' });
+            return;
+        }
+
+        // render verifyJob page with students object
+        // res.rend('verifyJob', {jobs: jobs});
+        res.send(jobs);
+        console.log(jobs.length);
+    }
+}
+
+exports.rejectCompany = async (req, res) =>
+{
+    const id = req.params.id;
+    if (id) {
+        await company.findByIdAndUpdate(id, { isRejected: true  }, { useFindAndModify: false })
+            .then(async (data) =>
+            {
+               //const dta = await company.find({isVerified:false}).exec(); 
+                res.redirect("/unverifiedcompany")
+            })
+            .catch(err =>
+            {
+                res.status(500).send({ message: 'Company not found' });
+            })
+    }
+    else {
+        const companies = await company.find({ isRejected: true  }).exec();
+        if (!companies) {
+            res.status(200).send({ message: 'All companies are verified' });
+            return;
+        }
+
+        // render verifyCompany with companies object
+        // res.render('verifyCompany', {companies: companies});
+        res.send(companies);
+        console.log(companies.length);
+    }
+}
+
+exports.adminhome = async(req , res)=>{
+    let flag = false;  
+    if(req.role != "Admin") {
+        flag = true;
+    }
+    res.render('adminHome' , {isSuperAdmin : flag  , placed: 30, male: 80})
+}
+
+exports.adminStudents = async(req , res)=>{
+
+    let flag = false; 
+    if(req.role != "Admin") {
+        flag = true;
+    }
+
+    const data = await student.find({}).exec();
+    console.log(data);
+    res.render('adminStudents' , {students : data , isSuperAdmin : flag });
+
+}
+
+exports.adminJobs = async(req , res)=>{
+
+    let flag = false; 
+    if(req.role != "Admin") {
+        flag = true;
+    }
+    
+    const data = await job.find({}).exec();
+    console.log(data);
+    res.render('adminJobs' , {jobs : data , isSuperAdmin : flag });
+
+}
+
+exports.adminCompany = async(req , res)=>{
+
+    let flag = false; 
+    if(req.role != "Admin") {
+        flag = true;
+    }
+    
+    const data = await company.find({}).exec();
+    console.log(data);
+    res.render('adminCompany' , {company : data , isSuperAdmin : flag });
+
+}
+
+
+// need to modify from here 
+exports.adminInterviewSchedule = async (req , res)=>{
+    let flag = false;  
+    if(req.role != "Admin") {
+        flag = true;
+    }
+    const data = await job.find({isRejected: false  }).exec();
+    console.log(data);
+    res.render('adminInterviewSchedule' , {record : data , isSuperAdmin : flag}); 
+
+
+}
+
+exports.adminUpdateInterviewSchedule = async (req, res) =>
+{
+    if (!req.body) {
+        return res
+            .status(400)
+            .send({ message: 'Data to update can not be empty' });
+    }
+
+    const start_date = req.body.startDate;
+    const end_date = req.body.endDate;
+
+    let sd = new Date(start_date); 
+    let ed = new Date(end_date);
+    
+    console.log(typeof(sd)); 
+    console.log(typeof(ed)); 
+    const stored = req.body;
+    console.log(req.body.startDate);
+    console.log(req.body.endDate);
+    console.log(stored);
+    const idd = req.params.id; 
+    console.log(idd); 
+
+    var myquery = { _id: idd };
+    var newvalues = { $set: {startDate: sd, endDate:  ed } };
+    job.updateOne(myquery, newvalues, function(err, res) {
+        if (err) throw err;
+        else{
+
+            res.redirect("/adminInterviewSchedule")
+
+        }
+        db.close();
+      });
+    
+}

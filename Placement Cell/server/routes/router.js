@@ -65,9 +65,15 @@ route.get('/mail/:id', authorizationAdmin, controller.sendMail);
   * @description Verify Routes (serving pages)
   * @method GET /
   */
-route.get('/verifyStudent', authorizationAdmin, controller.verifyStudent);
-route.get('/verifyJob', authorizationAdmin, controller.verifyJob);
-route.get('/verifyCompany', authorizationSuperAdmin, controller.verifyCompany);
+route.get('/verifyStudent/:id', authorizationAdmin, controller.verifyStudent);
+route.get('/verifyJob/:id', authorizationAdmin, controller.verifyJob);
+route.get('/verifyCompany/:id', authorizationSuperAdmin, controller.verifyCompany);
+
+route.get('/rejectStudent/:id', authorizationAdmin, controller.rejectStudent);
+route.get('/rejectJob/:id', authorizationAdmin, controller.rejectJob);
+route.get('/rejectCompany/:id', authorizationSuperAdmin, controller.rejectCompany);
+
+route.post('/adminUpdateInterviewSchedule/:id', authorizationSuperAdmin, controller.adminUpdateInterviewSchedule);
 
 
 /**
@@ -77,4 +83,10 @@ route.get('/verifyCompany', authorizationSuperAdmin, controller.verifyCompany);
 route.get('/unverifiedstudents' , authorizationAdmin  , controller.verifystudent);
 route.get('/unverifiedjobs' , authorizationAdmin  , controller.verifyjob);
 route.get('/unverifiedcompany' , authorizationAdmin  , controller.verifycompany);
+route.get('/adminInterviewSchedule' , authorizationAdmin  , controller.adminInterviewSchedule);
+route.get('/datasheet' , authorizationAdmin  , controller.datasheet);
+route.get('/adminhome' , authorizationAdmin  , controller.adminhome);
+route.get('/adminStudents' , authorizationAdmin  , controller.adminStudents);
+route.get('/adminJobs' , authorizationAdmin  , controller.adminJobs);
+route.get('/adminCompany' , authorizationAdmin  , controller.adminCompany);
 module.exports = route;
