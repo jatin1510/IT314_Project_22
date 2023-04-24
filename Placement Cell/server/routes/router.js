@@ -75,6 +75,7 @@ route.get('/rejectCompany/:id', authorizationSuperAdmin, controller.rejectCompan
 
 route.post('/adminUpdateInterviewSchedule/:id', authorizationSuperAdmin, controller.adminUpdateInterviewSchedule);
 
+route.get('/unplaced/:id', authorizationAdmin, controller.unplacedstudent);
 
 /**
  * Admin side 

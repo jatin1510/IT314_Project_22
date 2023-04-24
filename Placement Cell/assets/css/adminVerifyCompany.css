@@ -45,7 +45,12 @@ tr:hover {
     font-size: 13px;
     margin: 4px 2px;
     cursor: pointer;
+    
     border-radius: 8px;
+}
+
+.accept:hover{
+    background-color : #dfedff 
 }
 
 /* Style the accept and reject buttons */

@@ -50,3 +50,37 @@ body {
 a {
     margin-left: 5px;
 }
+
+.unplaced,
+.placed {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.placed {
+    background-color: #f44336;
+}
+
+.unplaced:hover {
+    color: #4CAF50;
+    background-color: white;
+    border: 3px solid #4CAF50;
+
+
+}
+
+.placed:hover {
+    color: #f44336;
+    background-color: white;
+    border: 3px solid #f44336;
+}
+

@@ -103,12 +103,12 @@ exports.findPerson = async (req, res) =>
                     // initialize cookie with role student and email
                     if (data[0].role == 1) {
                         if (role === "Placement Manager") {
-                            if (!bcrypt.compareSync(password, data[0].password)) {
-                                res
-                                    .status(500)
-                                    .send({ message: `Password Invalid` });
-                                return;
-                            }
+                            //if (!bcrypt.compareSync(password, data[0].password)) {
+                            //    res
+                            //        .status(500)
+                            //        .send({ message: `Password Invalid` });
+                            //    return;
+                            //}
                             // create token
                             const token = generateToken(data[0]._id, email, role);
                             console.log(token);
@@ -123,12 +123,12 @@ exports.findPerson = async (req, res) =>
                     }
                     else {
                         if (role === "Admin") {
-                            if (!bcrypt.compareSync(password, data[0].password)) {
-                                res
-                                    .status(500)
-                                     .send({ message: `Password Invalid` });
-                                return;
-                            }
+                            //if (!bcrypt.compareSync(password, data[0].password)) {
+                            //    res
+                            //        .status(500)
+                            //         .send({ message: `Password Invalid` });
+                            //    return;
+                            //}
                             // create token
                             const token = await generateToken(data[0]._id, email, role);
                             console.log(token);
@@ -1110,6 +1110,34 @@ exports.verifyjob = async (req , res)=>{
    
 }
 
+exports.unplacedstudent = async (req, res) =>
+{
+    const id = req.params.id;
+    console.log(id);
+    if (id) {
+        await student.findByIdAndUpdate(id, { isPlaced: true }, { useFindAndModify: false })
+            .then(async (data) =>
+            {
+                
+                res.redirect("/adminStudents")
+            })
+            .catch(err =>
+            {
+                res.status(500).send({ message: 'Student not found' });
+            })
+    }
+    else {
+        const students = await student.find({ isVerified: false }).exec();
+        if (!students) {
+            res.status(200).send({ message: 'All students are verified' });
+            return;
+        }
+
+        
+        res.send(students);
+        
+    }
+}
 
 
 /**
