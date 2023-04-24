@@ -43,12 +43,12 @@ exports.findPerson = async (req, res) => {
                 if (!data) {
                     res
                         .status(404)
-                        .send({ message: `Not found user with email: ${email} ` });
+                        .render('error', { message: `Not found user with email: ${email} ` });
                 } else {
                     if (!bcrypt.compareSync(password, data[0].password)) {
                         res
                             .status(500)
-                            .send({ message: `Password Invalid` });
+                            .render('error', { message: `Password Invalid` });
                         return;
                     }
                     // create token
@@ -61,7 +61,7 @@ exports.findPerson = async (req, res) => {
             .catch((err) => {
                 res
                     .status(500)
-                    .send({ message: `Error retrieving user with email ${email}` });
+                    .render('error', { message: `Error retrieving user with email ${email}` });
             });
     }
     else if (role == "Company") {
@@ -71,12 +71,12 @@ exports.findPerson = async (req, res) => {
                     // Make new webpage for all not found errors
                     res
                         .status(404)
-                        .send({ message: `Not found Company with email: ${email} ` });
+                        .render('error', { message: `Not found Company with email: ${email} ` });
                 } else {
                     if (!bcrypt.compareSync(password, data[0].password)) {
                         res
                             .status(500)
-                            .send({ message: `Password Invalid` });
+                            .render('error', { message: `Password Invalid` });
                         return;
                     }
                     // create token
@@ -90,7 +90,7 @@ exports.findPerson = async (req, res) => {
             .catch((err) => {
                 res
                     .status(500)
-                    .send({ message: `Error retrieving user with email ${email}` });
+                    .render('error', { message: `Error retrieving user with email ${email}` });
             });
     }
     else {
@@ -100,7 +100,7 @@ exports.findPerson = async (req, res) => {
                     // Make new webpage for all not found errors
                     res
                         .status(404)
-                        .send({ message: `Not found admin with email: ${email} ` });
+                        .render('error', { message: `Not found admin with email: ${email} ` });
                 } else {
                     // initialize cookie with role student and email
                     if (data[0].role == 1) {
@@ -108,7 +108,7 @@ exports.findPerson = async (req, res) => {
                             if (!bcrypt.compareSync(password, data[0].password)) {
                                 res
                                     .status(500)
-                                    .send({ message: `Password Invalid` });
+                                    .render('error', { message: `Password Invalid` });
                                 return;
                             }
                             // create token
@@ -120,7 +120,7 @@ exports.findPerson = async (req, res) => {
                         else {
                             res
                                 .status(500)
-                                .send({ message: `Error retrieving user with role ${role}` });
+                                .render('error', { message: `Error retrieving user with role ${role}` });
                         }
                     }
                     else {
@@ -128,7 +128,7 @@ exports.findPerson = async (req, res) => {
                             if (!bcrypt.compareSync(password, data[0].password)) {
                                 res
                                     .status(500)
-                                    .send({ message: `Password Invalid` });
+                                    .render('error', { message: `Password Invalid` });
                                 return;
                             }
                             // create token
@@ -141,7 +141,7 @@ exports.findPerson = async (req, res) => {
                         else {
                             res
                                 .status(500)
-                                .send({ message: `Error retrieving user with role ${role}` });
+                                .render('error', { message: `Error retrieving user with role ${role}` });
                         }
                     }
                 }
@@ -149,7 +149,7 @@ exports.findPerson = async (req, res) => {
             .catch((err) => {
                 res
                     .status(500)
-                    .send({ message: `Error retrieving user with email ${email}` });
+                    .render('error', { message: `Error retrieving user with email ${email}` });
             });
     }
 };
@@ -169,7 +169,7 @@ exports.alreadyLoggedIn = async (req, res) => {
                 if (!data) {
                     res
                         .status(404)
-                        .send({ message: `Not found user with email: ${email} ` });
+                        .render('error', { message: `Not found user with email: ${email} ` });
                 } else {
                     res.render('studentProfile', { student: data });
                 }
@@ -178,7 +178,7 @@ exports.alreadyLoggedIn = async (req, res) => {
                 console.log(err);
                 res
                     .status(500)
-                    .send({ message: `Error retrieving user with email ${email}` });
+                    .render('error', { message: `Error retrieving user with email ${email}` });
             });
     }
     else if (role == "Company") {
@@ -188,7 +188,7 @@ exports.alreadyLoggedIn = async (req, res) => {
                     // Make new webpage for all not found errors
                     res
                         .status(404)
-                        .send({ message: `Not found Company with email: ${email} ` });
+                        .render('error', { message: `Not found Company with email: ${email} ` });
                 } else {
                     const jobs = await job.find({ comp: data._id }).exec();
                     // console.log(jobs);
@@ -203,7 +203,7 @@ exports.alreadyLoggedIn = async (req, res) => {
             .catch((err) => {
                 res
                     .status(500)
-                    .send({ message: `Error retrieving user with email ${email}` });
+                    .render('error', { message: `Error retrieving user with email ${email}` });
             });
     }
     else {
@@ -213,7 +213,7 @@ exports.alreadyLoggedIn = async (req, res) => {
                     // Make new webpage for all not found errors
                     res
                         .status(404)
-                        .send({ message: `Not found admin with email: ${email} ` });
+                        .render('error', { message: `Not found admin with email: ${email} ` });
                 } else {
                     const placedStudent = await student.find({ isPlaced: true }).exec();
                     const totalStudent = await student.find().exec();
@@ -232,7 +232,7 @@ exports.alreadyLoggedIn = async (req, res) => {
                         else {
                             res
                                 .status(500)
-                                .send({ message: `Error retrieving user with role ${role}` });
+                                .render('error', { message: `Error retrieving user with role ${role}` });
                         }
                     }
                     else {
@@ -244,7 +244,7 @@ exports.alreadyLoggedIn = async (req, res) => {
                         else {
                             res
                                 .status(500)
-                                .send({ message: `Error retrieving user with role ${role}` });
+                                .render('error', { message: `Error retrieving user with role ${role}` });
                         }
                     }
                 }
@@ -252,7 +252,7 @@ exports.alreadyLoggedIn = async (req, res) => {
             .catch((err) => {
                 res
                     .status(500)
-                    .send({ message: `Error retrieving user with email ${email}` });
+                    .render('error', { message: `Error retrieving user with email ${email}` });
             });
     }
 };
@@ -264,13 +264,17 @@ exports.alreadyLoggedIn = async (req, res) => {
 exports.registerStudent = async (req, res) => {
     // validate request
     if (!req.body) {
-        res.status(400).send({ message: 'Content can not be empty!' });
+        res
+            .status(400)
+            .render('error', { message: 'Content can not be empty!' });
         return;
     }
 
     if (req.body.confirmPassword !== req.body.password) {
         // make new webpage for any type for error
-        res.send("Password doesn't matched");
+        res
+            .status(400)
+            .render('error', { message: "Password doesn't matched" });
         return;
     }
 
@@ -305,13 +309,17 @@ exports.registerStudent = async (req, res) => {
                     res.redirect('/profile');
                 })
                 .catch(err => {
-                    res.status(500).send({
-                        message: err.message || 'Some error occured  while creating a create operation',
-                    });
+                    res
+                        .status(500)
+                        .render('error', {
+                            message: err.message || 'Some error occured  while creating a create operation',
+                        });
                 });
         })
         .catch(err => {
-            console.log('Error:', err);
+            res
+                .status(500)
+                .render('error', { message: err.message || 'Some error occured while hashing password' });
         })
 }
 
@@ -319,7 +327,9 @@ exports.registerStudent = async (req, res) => {
 exports.registerCompany = async (req, res) => {
     // validate request
     if (!req.body) {
-        res.status(400).send({ message: 'Content can not be empty!' });
+        res
+            .status(400)
+            .render('error', { message: 'Content can not be empty!' });
         return;
     }
 
@@ -346,13 +356,17 @@ exports.registerCompany = async (req, res) => {
 
                 })
                 .catch(err => {
-                    res.status(500).send({
-                        message: err.message || 'Some error occured  while creating a create operation',
-                    });
+                    res
+                        .status(500)
+                        .render('error', {
+                            message: err.message || 'Some error occured  while creating a create operation',
+                        });
                 });
         })
         .catch(err => {
-            console.log('Error:', err);
+            res
+                .status(500)
+                .render('error', { message: err.message || 'Some error occured while hashing password' });
         })
 }
 
@@ -360,7 +374,9 @@ exports.registerCompany = async (req, res) => {
 exports.registerAdmin = async (req, res) => {
     // validate request
     if (!req.body) {
-        res.status(400).send({ message: 'Content can not be empty!' });
+        res
+            .status(400)
+            .render('error', { message: 'Content can not be empty!' });
         return;
     }
 
@@ -383,13 +399,17 @@ exports.registerAdmin = async (req, res) => {
                     res.send(data);
                 })
                 .catch(err => {
-                    res.status(500).send({
-                        message: err.message || 'Some error occured  while creating a create operation',
-                    });
+                    res
+                        .status(500)
+                        .render('error', {
+                            message: err.message || 'Some error occured  while creating a create operation',
+                        });
                 });
         })
         .catch(err => {
-            console.log('Error:', err);
+            res
+                .status(500)
+                .render('error', { message: err.message || 'Some error occured while hashing password' });
         })
 }
 
@@ -401,9 +421,6 @@ exports.updateUser = async (req, res) => {
     const role = req.role;
     const id = req.id;
 
-    console.log("inside update router");
-    console.log(email, role, id);
-
     if (role == "Student") {
         await student.find({ _id: id })
             .then((data) => {
@@ -413,7 +430,7 @@ exports.updateUser = async (req, res) => {
             .catch((err) => {
                 res
                     .status(500)
-                    .send({ message: `Error retrieving user with email ${email}` });
+                    .render('error', { message: `Error retrieving user with email ${email}` });
             });
     }
     else if (role == "Company") {
@@ -425,7 +442,7 @@ exports.updateUser = async (req, res) => {
             .catch((err) => {
                 res
                     .status(500)
-                    .send({ message: `Error retrieving user with email ${email}` });
+                    .render('error', { message: `Error retrieving user with email ${email}` });
             });
     }
     else {
@@ -440,7 +457,7 @@ exports.updateUser = async (req, res) => {
                     else {
                         res
                             .status(500)
-                            .send({ message: `Error retrieving user with role ${role}` });
+                            .render('error', { message: `Error retrieving user with role ${role}` });
                     }
                 }
                 else {
@@ -451,14 +468,14 @@ exports.updateUser = async (req, res) => {
                     else {
                         res
                             .status(500)
-                            .send({ message: `Error retrieving user with role ${role}` });
+                            .render('error', { message: `Error retrieving user with role ${role}` });
                     }
                 }
             })
             .catch((err) => {
                 res
                     .status(500)
-                    .send({ message: `Error retrieving user with email ${email}` });
+                    .render('error', { message: `Error retrieving user with email ${email}` });
             });
     }
 }
@@ -470,7 +487,7 @@ exports.updateStudent = async (req, res) => {
     if (!req.body) {
         return res
             .status(400)
-            .send({ message: 'Data to update can not be empty' });
+            .render('error', { message: 'Data to update can not be empty' });
     }
 
     const id = req.id;
@@ -478,7 +495,7 @@ exports.updateStudent = async (req, res) => {
     if (role !== "Student") {
         res
             .status(500)
-            .send({ message: 'Role not matched' });
+            .render('error', { message: 'Role not matched' });
         return;
     }
 
@@ -492,13 +509,13 @@ exports.updateStudent = async (req, res) => {
                 if (!data) {
                     res
                         .status(404)
-                        .send({ message: `Not found user with email: ${email} ` });
+                        .render('error', { message: `Not found user with id: ${email} ` });
                     return;
                 } else {
                     if (!bcrypt.compareSync(req.body.password, data.password)) {
                         res
                             .status(500)
-                            .send({ message: `Old Password InCorrect` });
+                            .render('error', { message: `Old Password InCorrect` });
                         return;
                     }
                     console.log("password matched");
@@ -515,7 +532,7 @@ exports.updateStudent = async (req, res) => {
             .catch((err) => {
                 res
                     .status(500)
-                    .send({ message: `Error retrieving user with email ${email}` });
+                    .render('error', { message: `Error retrieving user with email ${email}` });
                 return;
             });
     }
@@ -531,13 +548,15 @@ exports.updateStudent = async (req, res) => {
             if (!data) {
                 res
                     .status(400)
-                    .send({ message: `Cannot update student with ${id}. May be user not found!` })
+                    .render('error', { message: `Cannot update student with ${id}. May be user not found!` })
             } else {
                 res.redirect('/profile');
             }
         })
         .catch(err => {
-            res.status(500).send({ message: 'Error update student information' });
+            res
+                .status(500)
+                .render('error', { message: 'Error update student information' });
         })
 }
 
@@ -545,7 +564,7 @@ exports.updateCompany = async (req, res) => {
     if (!req.body) {
         return res
             .status(400)
-            .send({ message: 'Data to update can not be empty' });
+            .render('error', { message: 'Data to update can not be empty' });
     }
 
     const id = req.id;
@@ -554,7 +573,7 @@ exports.updateCompany = async (req, res) => {
     if (role !== "Company") {
         res
             .status(500)
-            .send({ message: 'Role not matched' });
+            .render('error', { message: 'Role not matched' });
         return;
     }
     const old = req.body.password;
@@ -567,13 +586,13 @@ exports.updateCompany = async (req, res) => {
                 if (!data) {
                     res
                         .status(404)
-                        .send({ message: `Not found user with email: ${email} ` });
+                        .render('error', { message: `Not found user with id: ${email} ` });
                     return;
                 } else {
                     if (!bcrypt.compareSync(req.body.password, data.password)) {
                         res
                             .status(500)
-                            .send({ message: `Old Password InCorrect` });
+                            .render('error', { message: `Old Password InCorrect` });
                         return;
                     }
                     console.log("password matched");
@@ -590,7 +609,7 @@ exports.updateCompany = async (req, res) => {
             .catch((err) => {
                 res
                     .status(500)
-                    .send({ message: `Error retrieving user with email ${email}` });
+                    .render('error', { message: `Error retrieving user with email ${email}` });
                 return;
             });
     }
@@ -602,13 +621,17 @@ exports.updateCompany = async (req, res) => {
     await company.findByIdAndUpdate(id, stored, { useFindAndModify: false })
         .then((data) => {
             if (!data) {
-                res.status(400).send({ message: `Cannot update company with ${id}. May be user not found!` })
+                res
+                    .status(400)
+                    .render('error', { message: `Cannot update company with ${id}. May be user not found!` })
             } else {
                 res.redirect('/profile');
             }
         })
         .catch(err => {
-            res.status(500).send({ message: 'Error update company information' });
+            res
+                .status(500)
+                .render('error', { message: 'Error update company information' });
         })
 }
 
@@ -616,7 +639,7 @@ exports.updateAdmin = async (req, res) => {
     if (!req.body) {
         return res
             .status(400)
-            .send({ message: 'Data to update can not be empty' });
+            .render('error', { message: 'Data to update can not be empty' });
     }
 
     const id = req.id;
@@ -626,7 +649,7 @@ exports.updateAdmin = async (req, res) => {
     if (role !== "Placement Manager" && role !== "Admin") {
         res
             .status(500)
-            .send({ message: 'Role not matched' });
+            .render('error', { message: 'Role not matched' });
         return;
     }
 
@@ -640,13 +663,13 @@ exports.updateAdmin = async (req, res) => {
                 if (!data) {
                     res
                         .status(404)
-                        .send({ message: `Not found user with email: ${email} ` });
+                        .render('error', { message: `Not found user with id: ${email} ` });
                     return;
                 } else {
                     if (!bcrypt.compareSync(req.body.password, data.password)) {
                         res
                             .status(500)
-                            .send({ message: `Old Password InCorrect` });
+                            .render('error', { message: `Old Password InCorrect` });
                         return;
                     }
                     console.log("password matched");
@@ -663,7 +686,7 @@ exports.updateAdmin = async (req, res) => {
             .catch((err) => {
                 res
                     .status(500)
-                    .send({ message: `Error retrieving user with email ${email}` });
+                    .render('error', { message: `Error retrieving user with email ${email}` });
                 return;
             });
     }
@@ -676,13 +699,13 @@ exports.updateAdmin = async (req, res) => {
     await admin.findByIdAndUpdate(id, stored, { useFindAndModify: false })
         .then((data) => {
             if (!data) {
-                res.status(400).send({ message: `Cannot update admin with ${id}. May be user not found!` })
+                res.status(400).render('error', { message: `Cannot update admin with ${id}. May be user not found!` })
             } else {
                 res.redirect('/profile');
             }
         })
         .catch(err => {
-            res.status(500).send({ message: 'Error update admin information' });
+            res.status(500).render('error', { message: 'Error update admin information' });
         })
 }
 
@@ -738,14 +761,14 @@ exports.deleteUser = async (req, res) => {
         student.findByIdAndDelete(id)
             .then(data => {
                 if (!data) {
-                    res.status(404).send({ message: `Cannot delete with id ${id}. Maybe ID is wrong!` })
+                    res.status(404).render('error', { message: `Cannot delete with id ${id}. Maybe ID is wrong!` })
                 }
                 else {
-                    res.send({ message: 'User was deleted successfully' });
+                    res.render('error', { message: 'User was deleted successfully' });
                 }
             })
             .catch(err => {
-                res.status(500).send({
+                res.status(500).render('error', {
                     message: `Could not delete user with id=${id}`,
                 });
             });
@@ -754,14 +777,14 @@ exports.deleteUser = async (req, res) => {
         company.findByIdAndDelete(id)
             .then(data => {
                 if (!data) {
-                    res.status(404).send({ message: `Cannot delete with id ${id}. Maybe ID is wrong!` })
+                    res.status(404).render('error', { message: `Cannot delete with id ${id}. Maybe ID is wrong!` })
                 }
                 else {
-                    res.send({ message: 'User was deleted successfully' });
+                    res.render('error', { message: 'User was deleted successfully' });
                 }
             })
             .catch(err => {
-                res.status(500).send({
+                res.status(500).render('error', {
                     message: `Could not delete user with id=${id}`,
                 });
             });
@@ -770,14 +793,14 @@ exports.deleteUser = async (req, res) => {
         admin.findByIdAndDelete(id)
             .then(data => {
                 if (!data) {
-                    res.status(404).send({ message: `Cannot delete with id ${id}. Maybe ID is wrong!` })
+                    res.status(404).render('error', { message: `Cannot delete with id ${id}. Maybe ID is wrong!` })
                 }
                 else {
-                    res.send({ message: 'User was deleted successfully' });
+                    res.render('error', { message: 'User was deleted successfully' });
                 }
             })
             .catch(err => {
-                res.status(500).send({
+                res.status(500).render('error', {
                     message: `Could not delete user with id=${id}`,
                 });
             });
@@ -806,7 +829,7 @@ exports.sendMail = async (req, res) => {
     const emails = ["virajpansuriya777@gmail.com"];
 
     if (!students) {
-        res.status(200).send({
+        res.status(200).render('error', {
             message: `All registered students are placed.`,
         });
         return;
@@ -867,12 +890,12 @@ exports.sendMail = async (req, res) => {
                     res.redirect('/adminInterviewSchedule');
                 })
                 .catch(err => {
-                    res.status(500).send({ message: 'Company not found' });
+                    res.status(500).render('error', { message: 'Company not found' });
                 })
 
         })
         .catch(err => {
-            res.status(500).send({ message: 'Job not found' });
+            res.status(500).render('error', { message: 'Job not found' });
         })
 }
 
@@ -888,17 +911,17 @@ exports.verifyStudent = async (req, res) => {
                 //console.log(data);
                 //const dta = await student.find({isVerified:false}).exec(); 
                 //res.render('adminVerifyStudent' , {record : dta});
-                //res.send(`Verified student with object id ${id}`);
+                //res.render('error', `Verified student with object id ${id}`);
                 res.redirect("/unverifiedstudents");
             })
             .catch(err => {
-                res.status(500).send({ message: 'Student not found' });
+                res.status(500).render('error', { message: 'Student not found' });
             })
     }
     else {
         const students = await student.find({ isVerified: false }).exec();
         if (!students) {
-            res.status(200).send({ message: 'All students are verified' });
+            res.status(200).render('error', { message: 'All students are verified' });
             return;
         }
 
@@ -922,13 +945,13 @@ exports.verifyJob = async (req, res) => {
 
             })
             .catch(err => {
-                res.status(500).send({ message: 'Job not found' });
+                res.status(500).render('error', { message: 'Job not found' });
             })
     }
     else {
         const jobs = await job.find({ isVerified: false }).exec();
         if (!jobs) {
-            res.status(200).send({ message: 'All jobs are verified' });
+            res.status(200).render('error', { message: 'All jobs are verified' });
             return;
         }
 
@@ -948,13 +971,13 @@ exports.verifyCompany = async (req, res) => {
                 res.redirect("/unverifiedcompany")
             })
             .catch(err => {
-                res.status(500).send({ message: 'Company not found' });
+                res.status(500).render('error', { message: 'Company not found' });
             })
     }
     else {
         const companies = await company.find({ isVerified: false }).exec();
         if (!companies) {
-            res.status(200).send({ message: 'All companies are verified' });
+            res.status(200).render('error', { message: 'All companies are verified' });
             return;
         }
 
@@ -969,7 +992,7 @@ exports.verifyCompany = async (req, res) => {
 exports.postJob = async (req, res) => {
     // add job to jobSchema
     if (!req.body) {
-        res.status(400).send({ message: 'Content can not be empty!' });
+        res.status(400).render('error', { message: 'Content can not be empty!' });
         return;
     }
     const comp = await company.findById(req.id).exec();
@@ -993,7 +1016,7 @@ exports.postJob = async (req, res) => {
             res.redirect('/profile');
         })
         .catch(err => {
-            res.status(500).send({
+            res.status(500).render('error', {
                 message: err.message || 'Some error occured  while creating a create operation',
             });
         });
@@ -1004,7 +1027,7 @@ exports.registredStudentsInJob = async (req, res) => {
     studentJob.find({ job: jobID })
         .then(data => {
             if (!data) {
-                res.status(404).send({ message: "Not found Job with id " + jobID })
+                res.status(404).render('error', { message: "Not found Job with id " + jobID })
             } else {
                 // console.log(jobID);
                 studentJob.aggregate([
@@ -1025,7 +1048,7 @@ exports.registredStudentsInJob = async (req, res) => {
                             await student.find({ _id: result[index].student })
                                 .then((result1) => {
                                     if (!result1) {
-                                        res.status(404).send({ message: "Not found Student with id " + result[index].student })
+                                        res.status(404).render('error', { message: "Not found Student with id " + result[index].student })
                                     }
                                     else if (result[index].job == jobID) {
                                         arrayOfStudents.push(result1[0]);
@@ -1045,7 +1068,7 @@ exports.registredStudentsInJob = async (req, res) => {
             }
         })
         .catch(err => {
-            res.status(500).send({ message: "Error retrieving Job with id " + jobID });
+            res.status(500).render('error', { message: "Error retrieving Job with id " + jobID });
         })
 };
 
@@ -1054,7 +1077,7 @@ exports.jobsRegistredbyStudent = (req, res) => {
     studentJob.find({ student: studentID })
         .then(data => {
             if (!data) {
-                res.status(404).send({ message: "Not found Student with id " + studentID })
+                res.status(404).render('error', { message: "Not found Student with id " + studentID })
             } else {
                 // console.log(jobID);
                 studentJob.aggregate([
@@ -1074,7 +1097,7 @@ exports.jobsRegistredbyStudent = (req, res) => {
                             await job.find({ _id: result[index].job })
                                 .then((result1) => {
                                     if (!result1) {
-                                        res.status(404).send({ message: "Not found job with id " + result[index].job })
+                                        res.status(404).render('error', { message: "Not found job with id " + result[index].job })
                                     }
                                     else {
                                         arrayOfJobs.push(result1[0]);
@@ -1093,7 +1116,7 @@ exports.jobsRegistredbyStudent = (req, res) => {
             }
         })
         .catch(err => {
-            res.status(500).send({ message: "Error retrieving Student with id " + studentID });
+            res.status(500).render('error', { message: "Error retrieving Student with id " + studentID });
         })
 };
 
@@ -1103,7 +1126,7 @@ exports.registerStudentInJob = async (req, res) => {
     const studentID = req.id;
 
     if (!req.body) {
-        res.status(400).send({ message: 'Content can not be empty!' });
+        res.status(400).render('error', { message: 'Content can not be empty!' });
         return;
     }
 
@@ -1120,7 +1143,7 @@ exports.registerStudentInJob = async (req, res) => {
             res.redirect('/viewCompany');
         })
         .catch(err => {
-            res.status(500).send({
+            res.status(500).render('error', {
                 message: err.message || 'Some error occured  while creating a create operation',
             });
         });
@@ -1131,7 +1154,7 @@ exports.deregisterStudentInJob = async (req, res) => {
     const studentID = req.id;
     console.log(studentID, jobID);
     if (!req.body) {
-        res.status(400).send({ message: 'Content can not be empty!' });
+        res.status(400).render('error', { message: 'Content can not be empty!' });
         return;
     }
 
@@ -1139,14 +1162,14 @@ exports.deregisterStudentInJob = async (req, res) => {
     await studentJob.findByIdAndDelete(entry._id)
         .then(async (data) => {
             if (!data) {
-                res.status(404).send({ message: `Cannot delete with id ${entry._id}. Maybe ID is wrong!` })
+                res.status(404).render('error', { message: `Cannot delete with id ${entry._id}. Maybe ID is wrong!` })
             }
             else {
                 res.redirect('/viewCompany');
             }
         })
         .catch(err => {
-            res.status(500).send({
+            res.status(500).render('error', {
                 message: `Could not delete user with id=${id}`,
             });
         });
@@ -1155,7 +1178,7 @@ exports.deregisterStudentInJob = async (req, res) => {
 exports.updateJob = async (req, res) => {
     const jobID = req.params.id;
     if (!req.body) {
-        res.status(400).send({ message: 'Content can not be empty!' });
+        res.status(400).render('error', { message: 'Content can not be empty!' });
         return;
     }
     const jobObject = await job.findById(jobID);
@@ -1169,14 +1192,14 @@ exports.updateJobPost = async (req, res) => {
     await job.findByIdAndUpdate(id, object, { useFindAndModify: false })
         .then(async (data) => {
             if (!data) {
-                res.status(404).send({ message: "Cannot update job with id " + id });
+                res.status(404).render('error', { message: "Cannot update job with id " + id });
             }
             else {
                 res.redirect('/profile');
             }
         })
         .catch(err => {
-            res.status(500).send({ message: "Error updating job with id " + id })
+            res.status(500).render('error', { message: "Error updating job with id " + id })
         });
 }
 
@@ -1186,7 +1209,7 @@ exports.deleteJob = async (req, res) => {
     await job.findByIdAndDelete(id)
         .then(async (data) => {
             if (!data) {
-                res.status(404).send({ message: "Cannot delete job with id " + id });
+                res.status(404).render('error', { message: "Cannot delete job with id " + id });
             }
             else {
                 console.log(data);
@@ -1194,7 +1217,7 @@ exports.deleteJob = async (req, res) => {
             }
         })
         .catch(err => {
-            res.status(500).send({ message: "Error deleting job with id " + id })
+            res.status(500).render('error', { message: "Error deleting job with id " + id })
         });
 }
 
@@ -1224,7 +1247,7 @@ exports.viewCompany = async (req, res) => {
         res.render('studentCompanyDetails', { jobs: data, registered: registered, user: user, location: uniqueLocations, titles: uniquejobTitles });
     }
     else {
-        res.send('You have not access to the company list');
+        res.render('error', 'You have not access to the company list');
     }
 }
 
@@ -1257,7 +1280,7 @@ exports.filter = async (req, res) => {
     job.find(query)
         .then(async (queryData) => {
             if (!queryData) {
-                res.status(404).send({ message: "Not Found" });
+                res.status(404).render('error', { message: "Not Found" });
             }
             else {
                 const registered = [], locations = [], jobTitles = [];
@@ -1285,7 +1308,7 @@ exports.filter = async (req, res) => {
             }
         })
         .catch(err => {
-            res.status(500).send({ message: "Error while fetching data of requested query" })
+            res.status(500).render('error', { message: "Error while fetching data of requested query" })
         });
 }
 
@@ -1307,7 +1330,7 @@ exports.datasheet = async (req, res) => {
         let counter = 1;
 
         var userdata = await student.find({ isPlaced: false });
-        //res.send(userdata);
+        //res.render('error', userdata);
         let users = [];
 
         userdata.forEach((user) => {
@@ -1330,7 +1353,9 @@ exports.datasheet = async (req, res) => {
         });
     }
     catch (error) {
-        res.send({ status: 400, success: false, msg: error.message });
+        res
+            .status(404)
+            .render('error', { message: "Error while generating datasheet" });
     }
 };
 
@@ -1384,7 +1409,7 @@ exports.rejectStudent = async (req, res) => {
                 res.redirect("/unverifiedstudents")
             })
             .catch(err => {
-                res.status(500).send({ message: 'Student not found' });
+                res.status(500).render('error', { message: 'Student not found' });
             })
     }
     else {
@@ -1414,7 +1439,7 @@ exports.rejectJob = async (req, res) => {
 
             })
             .catch(err => {
-                res.status(500).send({ message: 'Job not found' });
+                res.status(500).render('error', { message: 'Job not found' });
             })
     }
     else {
@@ -1440,7 +1465,7 @@ exports.rejectCompany = async (req, res) => {
                 res.redirect("/unverifiedcompany")
             })
             .catch(err => {
-                res.status(500).send({ message: 'Company not found' });
+                res.status(500).render('error', { message: 'Company not found' });
             })
     }
     else {
@@ -1518,7 +1543,7 @@ exports.adminUpdateInterviewSchedule = async (req, res) => {
     if (!req.body) {
         return res
             .status(400)
-            .send({ message: 'Data to update can not be empty' });
+            .render('error', { message: 'Data to update can not be empty' });
     }
 
     const id = req.params.id;
@@ -1531,6 +1556,6 @@ exports.adminUpdateInterviewSchedule = async (req, res) => {
             res.redirect(`/mail/${id}`);
         })
         .catch((err) => {
-            res.status(500).send({ message: "Error occured" });
+            res.status(500).render('error', { message: "Error occured" });
         })
 }

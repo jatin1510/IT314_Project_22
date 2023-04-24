@@ -15,7 +15,7 @@ body{
 .error1{
     text-align: center;
     color: #2F2D51;
-    font-size: 3.125em;
+    font-size: 2em;
     font-family: 'Jost', sans-serif;
     margin-top: 1em;
     margin-bottom: 0.2em;
@@ -24,7 +24,7 @@ body{
 .error2{
     font-size: 1.2em;
     font-family: 'Jost', sans-serif;
-    color: #77838F;
+    color: #1c4063;
     margin: 0em 0em 1.3em;
     text-align: center;
 }
