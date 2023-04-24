@@ -117,7 +117,7 @@
                             <td> Open For</td>
                             <td> Job Title </td>
                             <td> Details </td>
-                            <td> Register</td>
+                            <td> (De)Register</td>
                         </tr>
                         <% for(var i=0; i<jobs.length; i++) {%> 
                             <tr>
@@ -138,9 +138,16 @@
                               </td>
                               <td>
                                 <% if(registered[i] == 1) { %>
-                                  <a class="debug" href="/deregisterStudentInJob/<%= jobs[i]._id %>">
-                                    <button style="background-color: red;" type="button " class=" btn btn-primary">Deregister</button>
-                                  </a>
+                                    <% const curDate = new Date() %>
+                                    <% if(jobs[i].startDate <= curDate && curDate <= jobs[i].endDate ) {%>
+                                        <a class="debug" href="/deregisterStudentInJob/<%= jobs[i]._id %>">
+                                            <button style="background-color: red;" type="button " class=" btn btn-primary">Deregister</button>
+                                        </a>
+                                    <% } else { %>
+                                        <a class="disabled">
+                                            <button style="background: orange;" type="button" disabled class="btn btn-primary">Deregister</button>
+                                        </a>
+                                    <% } %>
                                   <% } else { %>
                                     <% if(user.cpi >= jobs[i].cpiCriteria) { %>
                                         <% const curDate = new Date() %>
