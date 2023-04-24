@@ -43,16 +43,20 @@
                     <a href="/profile"><span class="fa-solid fa-user mr-3"></span> Profile</a>
                 </li>
                 <% if (company.isVerified==false) { %>
-                    <li>
-                        <a href="/update"><span class="fa-solid fa-user-pen mr-3 notif"></span> Edit Profile</a>
+                    <li class="active">
+                        <a href="/update"><span class="fa-solid fa-user-pen mr-3"></span> Edit Profile</a>
                     </li>
                     <% } %>
                         <% if (company.isVerified==true) { %>
-                            <li>
+                            <li class="active">
                                 <a href="/postJob"><span class="fa-solid fa-plus mr-3"></span> Add Job</a>
                             </li>
                             <% } %>
-                                <li>
+                                <li class="active">
+                                    <a href="/updatePassword"><span class="fa fa-cloud-upload mr-3 "></span> Update
+                                        Password</a>
+                                </li>
+                                <li class="active">
                                     <a href="/logout"><span class="fa fa-sign-out mr-3"></span> Sign Out</a>
                                 </li>
             </ul>
@@ -129,12 +133,10 @@
 
                                         <div class="btn1" style="text-align: center; width: 100%;margin-left: 0;">
                                             <% if (jobs[i].isVerified==false) { %>
-                                                <a style="text-decoration: none;"
-                                                            href="/updateJob/<%= jobs[i]._id %>">
-                                                <button type="submit" class="button2">Edit Job </button> </a>
-                                                <a style="text-decoration: none;"
-                                                    href="/deleteJob/<%= jobs[i]._id %>">
-                                                <button type="submit" class="button1">Delete Job</button> </a>
+                                                <a style="text-decoration: none;" href="/updateJob/<%= jobs[i]._id %>">
+                                                    <button type="submit" class="button2">Edit Job </button> </a>
+                                                <a style="text-decoration: none;" href="/deleteJob/<%= jobs[i]._id %>">
+                                                    <button type="submit" class="button1">Delete Job</button> </a>
                                                 <% } %>
                                                     <% if (jobs[i].isVerified==true) { %>
                                                         <a style="text-decoration: none;"
