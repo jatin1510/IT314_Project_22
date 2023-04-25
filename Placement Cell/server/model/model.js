@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const validator = require('validator');
 
 const studentSchema = new Schema({
     // verify all negative numbers
@@ -55,6 +54,7 @@ const jobSchema = new Schema({
     startDate: { type: Date, default: new Date() },
     endDate: { type: Date, default: new Date() },
     isVerified: { type: Boolean, default: false },
+    isRejected: {type: Boolean, default: false},
 });
 
 const studentsRegistredSchema = new Schema({

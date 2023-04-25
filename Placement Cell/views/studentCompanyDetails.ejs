@@ -26,7 +26,7 @@
                     <button type="button" id="sidebarCollapse" class="btn btn-primary">
                     </button>
                 </div>
-                <div class="img bg-wrap text-center py-4" style="background-image: url(/images/bg_1.jpg);">
+                <div class="img bg-wrap text-center py-4">
                     <div class="user-logo">
                         <div class="img" style="background-image: url(/images/logo.jpg);"></div>
                         <h3><%= user.firstName %> <%= user.lastName %></h3>
@@ -64,7 +64,7 @@
                     <table class="table table-hover filter">
                         <tr>
                             <td>CPI
-                                <select name="cpi" id="Criteria">
+                                <select style="width: 100px;" name="cpi" id="Criteria">
                                     <option value="Any">Any</option>
                                     <option value="9">Above 9</option>
                                     <option value="8">Above 8</option>
@@ -73,16 +73,25 @@
                                     <option value="5">Above 5</option>
                                 </select>
                             </td>
+                            
                             <td>Location
-                                <select name="location" id="Company_Name">
+                                <select style="width: 100px;" name="location" id="Company_Name">
                                     <option value="Any">Any</option>
                                     <% for(var i=0; i<location.length; i++) {%> 
                                         <option value="<%= location[i] %>"><%= location[i] %></option>
                                     <% }%> 
                                 </select>
                             </td>
+                            <td>Branch
+                                <select style="width: 100px;" name="branch" id="Company_Name">
+                                    <option value="Any">Any</option>
+                                    <option value="B.Tech">B.Tech</option>
+                                    <option value="M.Tech">M.Tech</option>
+                                    <option value="MSc">MSc</option>
+                                </select>
+                            </td>
                             <td>CTC
-                                <select name="ctc" id="CTC">
+                                <select style="width: 100px;" name="ctc" id="CTC">
                                     <option value="Any">Any</option>
                                     <option value="50">Above 50 LPA</option>
                                     <option value="40">Above 40 LPA</option>
@@ -93,7 +102,7 @@
                                 </select>
                             </td>
                             <td>Job Title
-                                <select name="jobTitle" id="Compant_Name">
+                                <select style="width: 100px;" name="jobTitle" id="Compant_Name">
                                     <option value="Any">Any</option>
                                     <% for(var i=0; i<titles.length; i++) {%> 
                                         <option value="<%= titles[i] %>"><%= titles[i] %></option>
@@ -139,7 +148,10 @@
                               <td>
                                 <% if(registered[i] == 1) { %>
                                     <% const curDate = new Date() %>
-                                    <% if(jobs[i].startDate <= curDate && curDate <= jobs[i].endDate ) {%>
+                                        <% const date1 = new Date(jobs[i].startDate.getTime() + jobs[i].startDate.getTimezoneOffset() * 60000) %>
+                                        <% const date2 = new Date(jobs[i].endDate.getTime() + jobs[i].endDate.getTimezoneOffset() * 60000) %>
+                                        <% if( date1.getTime() <= curDate.getTime() && curDate.getTime()  <= date2.getTime() && user.isPlaced == false) {%>
+
                                         <a class="debug" href="/deregisterStudentInJob/<%= jobs[i]._id %>">
                                             <button style="background-color: red;" type="button " class=" btn btn-primary">Deregister</button>
                                         </a>
@@ -151,18 +163,21 @@
                                   <% } else { %>
                                     <% if(user.cpi >= jobs[i].cpiCriteria) { %>
                                         <% const curDate = new Date() %>
-                                        <% if(jobs[i].startDate <= curDate && curDate <= jobs[i].endDate ) {%>
+                                        <% const date1 = new Date(jobs[i].startDate.getTime() + jobs[i].startDate.getTimezoneOffset() * 60000) %>
+                                        <% const date2 = new Date(jobs[i].endDate.getTime() + jobs[i].endDate.getTimezoneOffset() * 60000) %>
+                                        
+                                        <% if( date1.getTime() <= curDate.getTime() && curDate.getTime()  <= date2.getTime() && user.isPlaced == false) {%>
                                             <a href="/registerStudentInJob/<%= jobs[i]._id %>">
-                                                <button style="background: green;" type="button " class="btn btn-primary">Register</button>
+                                                <button  style="background: green; width: 108px;" type="button " class="btn btn-primary">Register</button>
                                             </a>
                                         <% } else { %>
                                             <a class="disabled">
-                                                <button style="background: orange;" type="button" disabled class="btn btn-primary">Register</button>
+                                                <button style="background: orange;width: 108px;" type="button" disabled class="btn btn-primary">Register</button>
                                             </a>
                                         <% } %>
                                     <% } else { %>
                                         <a class="disabled">
-                                            <button style="background: rgb(133, 178, 133);" type="button" disabled class="btn btn-primary">Register</button>
+                                            <button style="background: rgb(133, 178, 133);width: 108px;" type="button" disabled class="btn btn-primary">Register</button>
                                         </a>
                                     <% } %>
                                 <% } %>

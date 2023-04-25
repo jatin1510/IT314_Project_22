@@ -1,3 +1,7 @@
+*{
+    margin: 0;
+    padding: 0;
+}
 .home,a{
     box-sizing:border-box;
     color:white;
@@ -54,7 +58,7 @@ p{
     font-size: 20px;
 }
 .spc{
-    background-image: url("../images/spc.png");
+    background-image: url("../images/spc.jpg");
     background-position: center;
     background-size:cover;
     width:100%;
@@ -77,4 +81,14 @@ button{
 button:hover{
     background-color: rgb(105, 182, 250) ;
     border: 8px solid aliceblue;
+}
+
+.container{
+    margin: 10px;
+    padding: 10px;
+}
+
+.container p{
+    text-align: justify;
+  text-justify: inter-word;
 }

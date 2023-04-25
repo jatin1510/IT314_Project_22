@@ -26,7 +26,7 @@
         <button type="button" id="sidebarCollapse" class="btn btn-primary">
         </button>
       </div>
-      <div class="img bg-wrap text-center py-4" style="background-image: url(../assets/images/bg_1.jpg);">
+      <div class="img bg-wrap text-center py-4" >
         <div class="user-logo">
           <div class="img" style="background-image: url(/images/logo.jpg);"></div>
           <h3><%= student.firstName %> <%= student.lastName %></h3>
@@ -63,13 +63,18 @@
 
       <div class="userimage">
         <h2 class="mb-4">Welcome, <%= student.firstName %> <%= student.lastName %> </h2>
-        <div><img src="/images/logo.jpg" alt="Student-image" id="photo"> </div>
       </div>
       <% if(student.isRejected) {%>
       <h5 style="text-align:center; color: red;">Your are rejected by the admin </h5>
       <%} else { %>
         <% if (student.isVerified) { %>
-          <h5 style="text-align:center; color: green;">Your profile is verified </h5>
+          <% if (student.isPlaced) { %>
+            <h5 style="text-align:center; color: green;">Hurrah 🥳! You are placed. You will be contacted soon. </h5>
+          <% } else { %>
+            <h5 style="text-align:center; color: green;">Your profile is verified </h5>
+          <% } %>
+
+
           <% }else {%>
             <h5 style="text-align:center; color: red;">Your profile is not verified </h5>
           <% } %>

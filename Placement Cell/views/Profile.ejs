@@ -32,10 +32,10 @@
                 <button type="button" id="sidebarCollapse" class="btn btn-primary">
                 </button>
             </div>
-            <div class="img bg-wrap text-center py-4" style="background-image: url(/images/bg_1.jpg);">
+            <div class="img bg-wrap text-center py-4">
                 <div class="user-logo">
-                    <div class="img" style="background-image: url(/images/logo.jpg);"></div>
-
+                    <div class="img" style="background-image: url(/images/company.png);"></div>
+                    <h3><%= company.companyName %></h3>
                 </div>
             </div>
             <ul class="list-unstyled components mb-5">
@@ -43,20 +43,20 @@
                     <a href="/profile"><span class="fa-solid fa-user mr-3"></span> Profile</a>
                 </li>
                 <% if (company.isVerified==false) { %>
-                    <li class="active">
+                    <li>
                         <a href="/update"><span class="fa-solid fa-user-pen mr-3"></span> Edit Profile</a>
                     </li>
                     <% } %>
                         <% if (company.isVerified==true) { %>
-                            <li class="active">
+                            <li>
                                 <a href="/postJob"><span class="fa-solid fa-plus mr-3"></span> Add Job</a>
                             </li>
                             <% } %>
-                                <li class="active">
+                                <li >
                                     <a href="/updatePassword"><span class="fa fa-cloud-upload mr-3 "></span> Update
                                         Password</a>
                                 </li>
-                                <li class="active">
+                                <li>
                                     <a href="/logout"><span class="fa fa-sign-out mr-3"></span> Sign Out</a>
                                 </li>
             </ul>
@@ -67,8 +67,6 @@
         <div id="content" class="p-4 p-md-5 pt-5">
 
             <div class="userimage">
-                <h2 class="mb-4">Welcome, <%= company.companyName %>
-                </h2>
             </div>
 
             <div class="box">
@@ -130,11 +128,17 @@
                                 <div id="collapse<%= i + 1 %>" class="accordion-collapse collapse"
                                     aria-labelledby="heading<%= i + 1 %>" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
+                                        <% if (jobs[i].isRejected==true) { %>
+                                            <h5 style="text-align:center; color: red;">Your job is rejected. You can delete it. </h5>
+                                        <% } %>
 
                                         <div class="btn1" style="text-align: center; width: 100%;margin-left: 0;">
                                             <% if (jobs[i].isVerified==false) { %>
+                                                <% if (jobs[i].isRejected==false) { %>
+
                                                 <a style="text-decoration: none;" href="/updateJob/<%= jobs[i]._id %>">
                                                     <button type="submit" class="button2">Edit Job </button> </a>
+                                                <% } %>
                                                 <a style="text-decoration: none;" href="/deleteJob/<%= jobs[i]._id %>">
                                                     <button type="submit" class="button1">Delete Job</button> </a>
                                                 <% } %>

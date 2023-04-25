@@ -29,8 +29,3 @@ exports.viewCompany = (req, res) =>
 {
     res.render('studentCompanyDetails');
 };
-
-exports.postJobPage = (req, res) =>
-{
-    res.render('companyPostJob');
-}

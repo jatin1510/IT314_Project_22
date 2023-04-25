@@ -89,21 +89,22 @@ route.get('/deregisterStudentInJob/:id', authorization, controller.deregisterStu
 route.get('/showcompany/:id', authorization, controller.showCompany)
 route.post('/filter', authorizationStudentAndAdmin, controller.filter)
 
-route.get('/postJob', services.postJobPage);
+route.get('/postJob', authorization, controller.postJobPage);
 route.post('/saveJob', authorization, controller.postJob);
 route.get('/registredStudentsInJob/:id', authorization, controller.registredStudentsInJob);
 route.get('/updateJob/:id', authorization, controller.updateJob);
 route.get('/deleteJob/:id', authorization, controller.deleteJob);
 route.post('/updateJobPost/:id', authorization, controller.updateJobPost);
 
-route.get('/unverifiedstudents' , authorizationAdmin  , controller.verifystudent);
-route.get('/unverifiedjobs' , authorizationAdmin  , controller.verifyjob);
-route.get('/unverifiedcompany' , authorizationAdmin  , controller.verifycompany);
-route.get('/adminInterviewSchedule' , authorizationAdmin  , controller.adminInterviewSchedule);
-route.get('/datasheet' , authorizationAdmin  , controller.datasheet);
-route.get('/adminhome' , authorizationAdmin  , controller.adminhome);
-route.get('/adminStudents' , authorizationAdmin  , controller.adminStudents);
-route.get('/adminJobs' , authorizationAdmin  , controller.adminJobs);
-route.get('/adminCompany' , authorizationAdmin  , controller.adminCompany);
+route.get('/unverifiedstudents', authorizationAdmin, controller.verifystudent);
+route.get('/unverifiedjobs', authorizationAdmin, controller.verifyjob);
+route.get('/unverifiedcompany', authorizationAdmin, controller.verifycompany);
+route.get('/unplaced/:id', authorizationAdmin, controller.unplacedstudent);
+route.get('/adminInterviewSchedule', authorizationAdmin, controller.adminInterviewSchedule);
+route.get('/datasheet', authorizationAdmin, controller.datasheet);
+route.get('/adminhome', authorizationAdmin, controller.adminhome);
+route.get('/adminStudents', authorizationAdmin, controller.adminStudents);
+route.get('/adminJobs', authorizationAdmin, controller.adminJobs);
+route.get('/adminCompany', authorizationAdmin, controller.adminCompany);
 
 module.exports = route;
