@@ -995,14 +995,28 @@ exports.postJob = async (req, res) => {
         res.status(400).render('error', { message: 'Content can not be empty!' });
         return;
     }
+    // console.log(req.body);
     const comp = await company.findById(req.id).exec();
+    // let arr = [req.body.btechict, req.body.btechictcs, req.body.btechmnc, req.body.mtech, req.body.msc];
+    let arr = [];
+    if(req.body.btechictcs)
+        arr.push(req.body.btechictcs);
+    if(req.body.btechict)
+        arr.push(req.body.btechict);
+    if(req.body.btechmnc)
+        arr.push(req.body.btechmnc);
+    if(req.body.mtech)
+        arr.push(req.body.mtech);
+    if(req.body.msc)
+        arr.push(req.body.msc);
+    console.log(arr);
     // new student
     const user = await new job({
         comp: req.id,
         companyName: comp.companyName,
         jobName: req.body.jobName,
         postingLocation: req.body.postingLocation,
-        ugCriteria: req.body.ugCriteria,
+        ugCriteria: arr,
         cpiCriteria: req.body.cpiCriteria,
         ctc: req.body.ctc,
         description: req.body.description,
@@ -1187,9 +1201,22 @@ exports.updateJob = async (req, res) => {
 
 exports.updateJobPost = async (req, res) => {
     const id = req.params.id;
-    const object = req.body;
-    console.log(object);
-    await job.findByIdAndUpdate(id, object, { useFindAndModify: false })
+    // console.log(req.body);
+    let arr = [];
+    if(req.body.btechictcs)
+        arr.push(req.body.btechictcs);
+    if(req.body.btechict)
+        arr.push(req.body.btechict);
+    if(req.body.btechmnc)
+        arr.push(req.body.btechmnc);
+    if(req.body.mtech)
+        arr.push(req.body.mtech);
+    if(req.body.msc)
+        arr.push(req.body.msc);
+    // console.log(arr);
+    const sendObject = {jobName : req.body.jobName, postingLocation : req.body.postingLocation, cpiCriteria : req.body.cpiCriteria, ctc : req.body.ctc, ugCriteria : arr, description : req.body.description};
+    // console.log(sendObject);
+    await job.findByIdAndUpdate(id, sendObject, { useFindAndModify: false })
         .then(async (data) => {
             if (!data) {
                 res.status(404).render('error', { message: "Cannot update job with id " + id });

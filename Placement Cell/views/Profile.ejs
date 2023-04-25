@@ -187,7 +187,10 @@
                                                 <td>Open For </td>
                                                 <td>:</td>
                                                 <td>
-                                                    <%= jobs[i].ugCriteria %>
+                                                    <% for(var j=0; j<jobs[i].ugCriteria.length; j++){ %>
+                                                            <%= jobs[i].ugCriteria[j] %>
+                                                            <br>
+                                                    <% } %>
                                                 </td>
                                             </tr>
 

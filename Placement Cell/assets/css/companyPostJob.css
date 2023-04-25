@@ -135,7 +135,13 @@ form {
     display: none;
 }
 
-
+.form-group input[type="checkbox"] {
+    width : 20px;
+    height : 20px;
+}
+.form-group label {
+    font-size: medium;
+}
 
 .file.has-name{
     margin-left: 6.5em;
