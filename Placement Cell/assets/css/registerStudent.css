@@ -51,12 +51,13 @@ form {
     font-weight: 400;
 }
 
-.form-group [type="text"] {
+.form-group [type="text"] ,
+.form-group [type="tel"], 
+.form-group [type="url"] {
     height: 2.2em;
     width: 100%;
     font-size: 15px;
     margin-top: 0%;
-
 }
 
 .form-group [type="text"]:hover {

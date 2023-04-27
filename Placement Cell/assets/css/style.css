@@ -11806,9 +11806,9 @@ h5,
 }
 
 #sidebar.active .btn.btn-primary:before {
-  content: "\f053";
+  content: "\f054";
   font-family: "FontAwesome";
-  right: 2px !important;
+  left: 2px !important;
 }
 
 #sidebar.active .btn.btn-primary:after {
@@ -11940,8 +11940,8 @@ h5,
 }
 
 #sidebar .custom-menu .btn.btn-primary:after {
-  content: "\f054";
-  left: 2px;
+  content: "\f053";
+  right: 2px;
 }
 
 .bg-wrap {

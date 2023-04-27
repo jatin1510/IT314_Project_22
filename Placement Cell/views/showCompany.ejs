@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Student Profile</title>
+  <title>Company Details</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -40,6 +40,10 @@
           <li>
             <a href="/updatePassword"><span class="fa fa-cloud-upload mr-3 "></span> Update Password</a>
           </li>
+          <li>
+            <a href="/updateResume"><span class="fa fa-cloud-upload mr-3"></span> Update
+              Resume</a>
+          </li>
           <% if(user.isVerified == false) {%>
           <li>
             <a href="/update"><span class="fa fa-pencil-square-o mr-3"></span>Edit Profile</a>
@@ -62,7 +66,6 @@
     <div id="Profile" class="p-4 p-md-5 pt-5">
       <div class="userimage">
         <h2 class="mb-4"> Job Details, <%= job.companyName %> </h2>
-        <div><img src="/images/logo.jpg" alt="Student-image" id="photo"> </div>
       </div>
       <table class="table">
         <tr>

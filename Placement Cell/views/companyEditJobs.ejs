@@ -26,18 +26,21 @@
       <div class="img bg-wrap text-center py-4">
         <div class="user-logo">
           <div class="img" style="background-image: url(/images/company.png);"></div>
-          <h3>HR NAME</h3>
+          <h3> <%= job.jobName %> </h3>
         </div>
       </div>
       <ul class="list-unstyled components mb-5">
-        <li class="active">
+        <li>
           <a href="/profile"><span class="fa-solid fa-user mr-3"></span> Profile</a>
         </li>
         <li class="active">
-          <a href="/update"><span class="fa-solid fa-user-pen mr-3 notif"></span> Edit Profile</a>
+          <a href="/postJob"><span class="fa-solid fa-plus mr-3"></span> Add Job</a>
         </li>
-
-        <li class="active">
+        <li>
+          <a href="/updatePassword"><span class="fa fa-cloud-upload mr-3"></span> Update
+              Password</a>
+        </li >
+        <li>
           <a href="/logout"><span class="fa fa-sign-out mr-3"></span> Sign Out</a>
         </li>
       </ul>
@@ -72,27 +75,48 @@
           <label for="cpiCriteria" class="label-1"> Minimum Needed CPI </label>
 
           <div class="form-group">
-            <input type="text" name="cpiCriteria" id="browser" autocomplete="off" value="<%= job.cpiCriteria %>" required>
+            <input type="text" min="0" max="10" step="0.01" name="cpiCriteria" id="browser" autocomplete="off" value="<%= job.cpiCriteria %>" required>
 
           </div>
 
 
-          <label for="ctc" class="label-1"> CTC </label>
+          <label for="ctc" class="label-1"> CTC (LPA)</label>
 
           <div class="form-group">
-            <input type="text" name="ctc" id="browser" autocomplete="off" value="<%= job.ctc %>" required>
+            <input type="text" name="ctc" min="0" step="0.01" id="browser" autocomplete="off" value="<%= job.ctc %>" required>
 
 
           </div>
 
-          <label for="ctc" class="label-1"> Open For </label>
+          <label for="openfor" class="label-1"> Open For </label>
 
           <div class="form-group">
-            <input type="checkbox" name="btech" id="btech" value="B.Tech">
+            <% let flag1 = false; %>
+            <% for(let i=0; i < job.ugCriteria.length; i++){ %>
+              <% if(job.ugCriteria[i] === "B.Tech") flag1 = true;%>
+              <% } %>
+            <input type="checkbox" <% if(flag1) {%> 
+              checked
+              <% } %>
+              name="btech" id="btech" value="B.Tech">
             <label for="btech">  B.Tech</label><br>
-            <input type="checkbox" name="mtech" id="mtech" value="M.Tech">
-            <label for="mtech">  M.Tech</label><br>
-            <input type="checkbox" name="msc" id="msc" value="MSc">
+
+            <% let flag2 = false; %>
+            <% for(let i=0; i < job.ugCriteria.length; i++){ %>
+              <% if(job.ugCriteria[i] === "M.Tech") flag2 = true;%>
+              <% } %>
+            <input type="checkbox" <% if(flag2) {%> 
+              checked
+              <% } %> name="mtech" id="mtech" value="M.Tech">
+            <label for="mtech"> M.Tech</label><br>
+
+            <% let flag3 = false; %>
+            <% for(let i=0; i < job.ugCriteria.length; i++){ %>
+              <% if(job.ugCriteria[i] === "MSc") flag3 = true;%>
+              <% } %>
+            <input type="checkbox" <% if(flag3) {%> 
+              checked
+              <% } %> name="msc" id="msc" value="MSc">
             <label for="msc">  MSc </label><br>
           </div>
 

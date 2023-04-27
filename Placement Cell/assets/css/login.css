@@ -202,3 +202,7 @@ input[type="submit"]:hover {
   font-size: 18px;
   font-weight: bold;
 }
+
+.myclass:hover{
+  background-color: #247cab;
+}

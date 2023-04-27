@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Register Company</title>
+  <title>Company Registration</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -46,7 +46,7 @@
         <form action="#add_company_submit" method="POST">
 
           <div class="title1">
-            <a> CompanyRegistration </a>
+            <a> Company Registration </a>
 
           </div>
 
@@ -69,7 +69,7 @@
           <label for="email" class="label-1"> Email</label>
 
           <div class="form-group">
-            <input type="email" name="email" id="browser" autocomplete="off" required>
+            <input pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" type="email" name="email" id="browser" autocomplete="off" required>
 
           </div>
 
@@ -87,7 +87,7 @@
 
           <div class="form-group">
 
-            <input type="tel" name="contactNumber" id="browser"  pattern="[1-9]{5}-[0-9]{5}" autocomplete="off" placeholder="99999-99999" required>
+            <input type="tel" name="contactNumber" id="browser"  pattern="[1-9]{1}[0-9]{4}-[0-9]{5}" autocomplete="off" placeholder="99999-99999" required>
 
 
           </div>
@@ -96,26 +96,26 @@
           <label for="password" class="label-1"> Password </label>
 
           <div class="form-group">
-            <input type="password" name="password" id="pass1" autocomplete="off" onkeyup="return validate()" required>
+            <input pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" type="password" name="password" id="pass1" autocomplete="off" onkeyup="return validate()" required>
 
           </div>
 
           <div class="form-group2" class="label-1">
             <ul>
               <li id="length">
-                Your password must contain at least 8 characters.
+                Your password contain atleast 8 characters.
               </li>
               <li id="number">
-                Your password atleast one number.
+                Your password contain atleast one number.
               </li>
               <li id="upper">
-                Your password atleast one uppercase.
+                Your password contain atleast one uppercase.
               </li>
               <li id="lower">
-                Your password atleast one lowercsae.
+                Your password contain atleast one lowercsae.
               </li>
               <li id="special">
-                Your password atleast one special characters.
+                Your password contain atleast one special characters.
               </li>
             </ul>
           </div>
@@ -123,7 +123,7 @@
           <label for="confirmPassword" class="label-1"> Password confirmation </label>
 
           <div class="form-group">
-            <input type="password" name="confirmPassword" id="pass2" autocomplete="off" oninput="return confirm()" required>
+            <input pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" type="password" name="confirmPassword" id="pass2" autocomplete="off" oninput="return confirm()" required>
           </div>
           <p id="incorrectMsg">Password do not match!</p>
           <div class="btns">

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Sidebar 09</title>
+    <title>Verify Company</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -58,7 +58,7 @@
                     <a href="/unverifiedstudents"><span class="fa fa-check mr-3 notif"></span> Verify Students</a>
                 </li>
                 <li>
-                    <a href="/adminInterviewSchedule"><span class="fa fa-edit mr-3"></span> Interview schedule</a>
+                    <a href="/adminInterviewSchedule"><span class="fa fa-edit mr-3"></span> Schedule Jobs</a>
                 </li>
                 <li>
                     <a href="/unverifiedjobs"><span class="fa fa-briefcase mr-3"></span> Verify Jobs</a>
@@ -108,13 +108,11 @@
                 <tbody>
 
                     <% for(let i=0;i<record.length;i++) {%>
-                         
                         <tr>
-                        
                           <td> <%= record[i].companyName %></td>
                           <td> <%= record[i].email %> </td>
                           <td> <%= record[i].hrName %> </td>
-                          <td> <%= record[i].website %> </td>
+                          <td> <a target="_blank" href="<%= record[i].website %>"> Click Here </a></td>
                           <td> <%= record[i].contactNumber %> </td>
                           <td> <a href="/verifyCompany/<%= record[i]._id%>" ><button class="accept">Accept</button> </a>
                             <td><a href="/rejectCompany/<%= record[i]._id%>" > <button class="reject">Reject</button> </a> </td>

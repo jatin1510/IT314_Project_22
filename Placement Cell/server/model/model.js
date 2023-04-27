@@ -32,6 +32,7 @@ const companySchema = new Schema({
     contactNumber: { type: String, required: true },
     password: { type: String, required: true },
     isVerified: { type: Boolean, default: false },
+    isRejected: { type: Boolean, default: false },
 });
 
 const adminSchema = new Schema({
@@ -51,13 +52,18 @@ const jobSchema = new Schema({
     cpiCriteria: { type: Number, require: true },
     ctc: { type: mongoose.Number, require: true },
     description: { type: String, require: true },
-    startDate: { type: Date, default: new Date() },
-    endDate: { type: Date, default: new Date() },
+    startDate: { type: Date, default: new Date(0, 0, 0, 0, 0, 0, 0) },
+    endDate: { type: Date, default: new Date(0, 0, 0, 0, 0, 0, 0) },
     isVerified: { type: Boolean, default: false },
-    isRejected: {type: Boolean, default: false},
+    isRejected: { type: Boolean, default: false },
 });
 
 const studentsRegistredSchema = new Schema({
+    job: { type: mongoose.Schema.Types.ObjectId, ref: 'job' },
+    student: { type: mongoose.Schema.Types.ObjectId, ref: 'student' },
+});
+
+const studentPlacedSchema = new Schema({
     job: { type: mongoose.Schema.Types.ObjectId, ref: 'job' },
     student: { type: mongoose.Schema.Types.ObjectId, ref: 'student' },
 });
@@ -67,5 +73,6 @@ const company = mongoose.model('Company', companySchema);
 const admin = mongoose.model('Admin', adminSchema);
 const job = mongoose.model('Job', jobSchema);
 const studentJob = mongoose.model('StudentJob', studentsRegistredSchema);
+const studentPlaced = mongoose.model('StudentPlaced', studentPlacedSchema);
 
-module.exports = { student, company, admin, job, studentJob };
+module.exports = { student, company, admin, job, studentJob, studentPlaced };

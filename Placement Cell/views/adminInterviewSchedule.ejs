@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Interview schedule</title>
+  <title>Schedule Jobs</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -18,7 +18,7 @@
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/adminInterviewschedule.css">
+  <link rel="stylesheet" href="/css/adminInterview.css">
 </head>
 
 <body>
@@ -50,7 +50,7 @@
           <a href="/unverifiedstudents"><span class="fa fa-check mr-3 notif"></span> Verify Students</a>
         </li>
         <li class="active">
-          <a href="/adminInterviewSchedule"><span class="fa fa-edit mr-3"></span> Interview schedule </a>
+          <a href="/adminInterviewSchedule"><span class="fa fa-edit mr-3"></span> Schedule Jobs </a>
         </li>
         <li>
           <a href="/unverifiedjobs"><span class="fa fa-briefcase mr-3"></span> Verify Jobs</a>
@@ -81,7 +81,7 @@
 
     <!-- Page Content  -->
     <div id="content" class="p-4 p-md-5 pt-5">
-      <h2 class="mb-4">Interview schedule</h2>
+      <h2 class="mb-4">Schedule Jobs</h2>
       <table>
         <thead>
           <tr>
@@ -111,11 +111,8 @@
                       <input required type="date" id="datepicker" name="endDate" min="2023-04-11" max="2024-04-11" value="<%= new Date(record[i].endDate).toISOString().substring(0, 10) %>">
         
                     </td>
-                    <td> <button type="Submit"> Submit</button></td>
-      
+                    <td> <button type="Submit"> Notify Students</button></td>
                   </form>
-                  
-    
                 </tr>
               <%   } %>
 

@@ -54,7 +54,10 @@ form {
     font-weight: 400;
 }
 
-.form-group [type="text"]{
+.form-group [type="text"],
+.form-group [type="tel"],
+.form-group [type="url"],
+.form-group [type="email"]{
     height: 2.2em;
     width: 100%;
     font-size: 1.5em;

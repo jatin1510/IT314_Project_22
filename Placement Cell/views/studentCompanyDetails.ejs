@@ -3,7 +3,7 @@
     <html lang="en">
 
     <head>
-        <title>Filter Company</title>
+        <title>Company Details</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -40,8 +40,16 @@
                         <li>
                           <a href="/updatePassword"><span class="fa fa-cloud-upload mr-3 "></span> Update Password</a>
                         </li>
+                        <li>
+                            <a href="/updateResume"><span class="fa fa-cloud-upload mr-3"></span> Update
+                              Resume</a>
+                          </li>
                         <% if(user.isVerified == false) {%>
                         <li>
+                            <li>
+                                <a href="/updateResume"><span class="fa fa-cloud-upload mr-3"></span> Update
+                                  Resume</a>
+                              </li>
                           <a href="/update"><span class="fa fa-pencil-square-o mr-3"></span>Edit Profile</a>
                         </li>
                         <% }%>
@@ -136,7 +144,7 @@
                               <td> 
                                 <% for(var j=0; j<jobs[i].ugCriteria.length; j++) {%> 
                                 <%= jobs[i].ugCriteria[j] %>
-                                <% if(j != jobs[i].ugCriteria.length - 1) {%>,<% } %> 
+                                <% if(j != jobs[i].ugCriteria.length - 1) {%>,<%}%> 
                                <% } %> 
                               </td>
                               <td><%= jobs[i].jobName %> </td>
@@ -148,36 +156,63 @@
                               <td>
                                 <% if(registered[i] == 1) { %>
                                     <% const curDate = new Date() %>
-                                        <% const date1 = new Date(jobs[i].startDate.getTime() + jobs[i].startDate.getTimezoneOffset() * 60000) %>
-                                        <% const date2 = new Date(jobs[i].endDate.getTime() + jobs[i].endDate.getTimezoneOffset() * 60000) %>
-                                        <% if( date1.getTime() <= curDate.getTime() && curDate.getTime()  <= date2.getTime() && user.isPlaced == false) {%>
+                                    <% const date1 = new Date(jobs[i].startDate.getTime() + jobs[i].startDate.getTimezoneOffset() * 60000) %>
 
+                                    <% const date2 = new Date(jobs[i].endDate.getTime() + jobs[i].endDate.getTimezoneOffset() * 60000) %>
+
+                                    <% if( date1.getTime() <= curDate.getTime() && curDate.getTime()  <= date2.getTime() && user.isPlaced == false) {%>
                                         <a class="debug" href="/deregisterStudentInJob/<%= jobs[i]._id %>">
-                                            <button style="background-color: red;" type="button " class=" btn btn-primary">Deregister</button>
+                                        <button style="background-color: red;width: 120px;" type="button " class=" btn btn-primary">Deregister</button>
                                         </a>
                                     <% } else { %>
                                         <a class="disabled">
-                                            <button style="background: orange;" type="button" disabled class="btn btn-primary">Deregister</button>
+                                            <button style="background: orange;width: 120px;" type="button" disabled class="btn btn-primary">Deregister</button>
                                         </a>
                                     <% } %>
-                                  <% } else { %>
+                                <% } else { %>
                                     <% if(user.cpi >= jobs[i].cpiCriteria) { %>
                                         <% const curDate = new Date() %>
+
                                         <% const date1 = new Date(jobs[i].startDate.getTime() + jobs[i].startDate.getTimezoneOffset() * 60000) %>
+
                                         <% const date2 = new Date(jobs[i].endDate.getTime() + jobs[i].endDate.getTimezoneOffset() * 60000) %>
                                         
                                         <% if( date1.getTime() <= curDate.getTime() && curDate.getTime()  <= date2.getTime() && user.isPlaced == false) {%>
-                                            <a href="/registerStudentInJob/<%= jobs[i]._id %>">
-                                                <button  style="background: green; width: 108px;" type="button " class="btn btn-primary">Register</button>
-                                            </a>
+                                            <% let flag = false %>
+                                            <% for(let j = 0; j < jobs[i].ugCriteria.length; j++){ %>
+                                                <% if(user.branch === jobs[i].ugCriteria[j]) {%>
+                                                    <% flag = true; %>
+                                                <% }%>
+                                            <% } %>
+                                            <% if(flag) {%>
+                                                <a href="/registerStudentInJob/<%= jobs[i]._id %>">
+                                                    <button  style="background: green; width: 120px;" type="button " class="btn btn-primary">Register</button>
+                                                </a>
+                                            <% }else{%>
+                                                <a class="disabled">
+                                                    <button style="background: orange;width: 120px;" type="button" disabled class="btn btn-primary">Branch</button>
+                                                </a>
+                                            <% }%>
                                         <% } else { %>
-                                            <a class="disabled">
-                                                <button style="background: orange;width: 108px;" type="button" disabled class="btn btn-primary">Register</button>
-                                            </a>
+                                            <% let flag = false %>
+                                            <% for(let j = 0; j < jobs[i].ugCriteria.length; j++){ %>
+                                                <% if(user.branch === jobs[i].ugCriteria[j]) {%>
+                                                    <% flag = true; %>
+                                                <% }%>
+                                            <% } %>
+                                            <% if(flag) {%>
+                                                <a class="disabled">
+                                                    <button style="background: orange;width: 120px;" type="button" disabled class="btn btn-primary">Not Started</button>
+                                                </a>
+                                            <% }else{%>
+                                                <a class="disabled">
+                                                    <button style="background: orange;width: 120px;" type="button" disabled class="btn btn-primary">Branch</button>
+                                                </a>
+                                            <% }%>
                                         <% } %>
                                     <% } else { %>
                                         <a class="disabled">
-                                            <button style="background: rgb(133, 178, 133);width: 108px;" type="button" disabled class="btn btn-primary">Register</button>
+                                            <button style="background: rgb(133, 178, 133);width: 120px;" type="button" disabled class="btn btn-primary">CPI</button>
                                         </a>
                                     <% } %>
                                 <% } %>

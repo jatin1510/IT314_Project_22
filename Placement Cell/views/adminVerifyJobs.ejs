@@ -47,8 +47,7 @@
           <a href="/unverifiedstudents"><i class="fa fa-check mr-3" aria-hidden="true"></i> Verify Students</a>
         </li>
         <li>
-          <a href="/adminInterviewSchedule"><i class="fa fa-pencil-square-o mr-3" aria-hidden="true"></i> Interview
-            schedule</a>
+          <a href="/adminInterviewSchedule"><i class="fa fa-pencil-square-o mr-3" aria-hidden="true"></i> Schedule Jobs</a>
         </li>
         <li class="active">
           <a href="/unverifiedjobs"><i class="fa fa-briefcase mr-3" aria-hidden="true"></i> Verify Jobs</a>
@@ -108,7 +107,7 @@
                 <%= record[i].cpiCriteria %>
               </td>
               <td>
-                <%= record[i].ctc %>
+                <%= record[i].ctc %> LPA
               </td>
               <td> <a href="/verifyJob/<%= record[i]._id%>"><button class="btn1 accept">Accept</button> </a>
               <td><a href="/rejectJob/<%= record[i]._id%>"> <button class="btn1 reject">Reject</button> </a> </td>

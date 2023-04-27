@@ -51,6 +51,10 @@
           <li>
             <a href="/updatePassword"><span class="fa fa-cloud-upload mr-3 "></span> Update Password</a>
           </li>
+          <li>
+            <a href="/updateResume"><span class="fa fa-cloud-upload mr-3"></span> Update
+              Resume</a>
+          </li>
           <% if(student.isVerified == false) {%>
           <li class="active">
             <a href="/update"><span class="fa fa-pencil-square-o mr-3"></span>Edit Profile</a>
@@ -73,14 +77,9 @@
       <div class="userimage">
         <h2 class="mb-4">Welcome, <%= student.firstName %> <%= student.lastName %> </h2>
       </div>
-      <form action="/updateStudent" method="POST">
+      <form onsubmit="return checkForm();" action="/updateStudent" method="POST">
 
         <table class="table table-hover">
-          <tr>
-            <td> Email Address </td>
-            <td>:</td>
-            <td> <input style="width: 100%;" name="email" type="email" value="<%= student.email %>" placeholder="Enter your Student Id"> </td>
-          </tr>
           <tr>
             <td>First Name </td>
             <td>:</td>
@@ -99,68 +98,82 @@
           <tr>
             <td>Date Of Birth</td>
             <td>:</td>
-            <td><input type="date" name="dob" value="<%= student.dob %>" placeholder="<%= new Date(student.dob).toDateString() %>"></td>
+            <td><input type="date" name="dob" value="<%= new Date(student.dob).toISOString().substring(0, 10) %>" placeholder="<%= new Date(student.dob).toDateString() %>"></td>
           </tr>
           <tr>
             <td>Gender</td>
             <td>:</td>
-            <td> <input type="text" name="gender" value="<%= student.gender %>" placeholder="Enter your Last Name"> </td>
+            <td> 
+              <!-- <input name="branch" type="text" value="<%= student.branch %>" placeholder="Enter Total Backlogs">  -->
+                        <select name="gender" id="role">
+                            <option <% if(student.gender === "Male") { %>
+                              selected
+                              <% } %>
+                               value="Male">Male</option>
+                            <option <% if(student.gender === "Female") { %>
+                              selected
+                              <% } %>
+                            value="Female">Female </option>
+                            <option <% if(student.gender === "Other") { %>
+                              selected
+                              <% } %> value="Other">Other</option>
+                        </select>
+            </td>
           </tr>
           <tr>
             <td>Mobile Number</td>
             <td>:</td>
-            <td> <input type="tel" name="mobileNumber" value="<%= student.mobileNumber %>" pattern="[1-9]{5}-[0-9]{5}" placeholder="Enter your Mobile Nnumber"> </td>
+            <td> <input type="tel" name="mobileNumber" value="<%= student.mobileNumber %>" pattern="[1-9]{1}[0-9]{4}-[0-9]{5}" placeholder="Enter your Mobile Nnumber"> </td>
           </tr>
           <tr>
             <td>Alternative Mobile Number</td>
             <td>:</td>
-            <td> <input type="tel" name="alternateMobileNumber" value="<%= student.alternateMobileNumber %>" pattern="[1-9]{5}-[0-9]{5}" placeholder="Enter your Mobile Nnumber"> </td>
+            <td> <input type="tel" name="alternateMobileNumber" value="<%= student.alternateMobileNumber %>" pattern="[1-9]{1}[0-9]{4}-[0-9]{5}" placeholder="Enter your Mobile Nnumber"> </td>
           </tr>
           <tr>
             <td>10th Percentage</td>
             <td>:</td>
-            <td><input name="tenthPercetange" type="number" min="1" max="100" step="0.01" value="<%= student.tenthPercentage %>" placeholder="Enter 10th Percentage"></td>
+            <td><input name="tenthPercentage" type="number" min="0" max="100" step="0.01" value="<%= student.tenthPercentage %>" placeholder="Enter 10th Percentage"></td>
           </tr>
           <tr>
             <td>12th Percentage</td>
             <td>:</td>
-            <td><input name="twelfthPercentage" type="number" min="1" max="100" step="0.01" value="<%= student.twelfthPercentage %>" placeholder="Enter 12th Percentage"></td>
+            <td><input name="twelfthPercentage" type="number" min="0" max="100" step="0.01" value="<%= student.twelfthPercentage %>" placeholder="Enter 12th Percentage"></td>
           </tr>
           <tr>
             <td>CPI</td>
             <td>:</td>
-            <td> <input name="cpi" type="number" min="1" max="100" step="0.01" value="<%= student.cpi %>" placeholder="Enter CPI"> </td>
+            <td> <input name="cpi" type="number" min="0" max="100" step="0.01" value="<%= student.cpi %>" placeholder="Enter CPI"> </td>
           </tr>
           <tr>
             <td>Active Backlogs</td>
             <td>:</td>
-            <td> <input  name="activeBacklog" type="number" value="<%= student.activeBacklog %>" placeholder="Enter Current Backlogs"> </td>
+            <td> <input min="0" name="activeBacklog" id="activeBacklog" type="number" value="<%= student.activeBacklog %>" placeholder="Enter Current Backlogs"> </td>
           </tr>
           <tr>
             <td>Total Backlogs</td>
             <td>:</td>
-            <td> <input name="totalBacklog" type="number" value="<%= student.totalBacklog %>" placeholder="Enter Total Backlogs"> </td>
+            <td> <input min="0" name="totalBacklog" id="totalBacklog" type="number" value="<%= student.totalBacklog %>" placeholder="Enter Total Backlogs"> </td>
           </tr>
           <tr>
             <td>Branch</td>
             <td>:</td>
-            <td> <input name="branch" type="text" value="<%= student.branch %>" placeholder="Enter Total Backlogs"> </td>
+            <td> 
+                        <select name="branch" id="role">
+                            <option <% if(student.branch === "B.Tech") { %>
+                              selected
+                              <% } %>
+                               value="B.Tech">B.Tech</option>
+                            <option <% if(student.branch === "M.Tech") { %>
+                              selected
+                              <% } %>
+                            value="M.Tech">M.Tech </option>
+                            <option <% if(student.branch === "M.Sc") { %>
+                              selected
+                              <% } %> value="MSc">MSc</option>
+                        </select>
+            </td>
           </tr>
-          <tr>
-            <td>Resume</td>
-            <td>:</td>
-            <td> <input name="resume" type="text" value="<%= student.resume %>" placeholder="Enter Total Backlogs"> </td>
-          </tr>
-          <!-- <tr>
-            <td>Changes password</td>
-            <td>:</td>
-            <td> <input type="password" value="" placeholder="Enter New password" required> </td>
-          </tr>
-          <tr>
-            <td>Confirm password</td>
-            <td>:</td>
-            <td> <input type="password" value="" placeholder="Re Enter password" required> </td>
-          </tr> -->
         </table>
 
         <!-- <input type="submit" name="Save"> -->
@@ -173,6 +186,24 @@
   <script src="/js/popper.js"></script>
   <script src="/js/main.js"></script>
   <script src="/js/bootstrap.min.js"></script>
+  <script>
+    function checkForm()
+    {
+      var active=document.getElementById("activeBacklog").value;
+      var total=document.getElementById("totalBacklog").value;
+
+      console.log(parseInt(active), parseInt(total));
+      
+      if(parseInt(active) <= parseInt(total))
+      {
+        return true;
+      }
+      else{
+        alert("Active backlog cannot be greater than total backlog.");
+        return false;
+      }
+    }
+  </script>
 </body>
 
 </html>

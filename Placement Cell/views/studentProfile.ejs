@@ -40,6 +40,10 @@
           <li>
             <a href="/updatePassword"><span class="fa fa-cloud-upload mr-3 "></span> Update Password</a>
           </li>
+          <li>
+            <a href="/updateResume"><span class="fa fa-cloud-upload mr-3"></span> Update
+              Resume</a>
+          </li>
           <% if(student.isVerified == false) {%>
           <li>
             <a href="/update"><span class="fa fa-pencil-square-o mr-3"></span>Edit Profile</a>
@@ -154,7 +158,7 @@
         <tr>
           <td>Resume</td>
           <td>:</td>
-          <td><a href="<%= student.resume %>" target="_blank"><button type="button" class="button">View Your Resume</button></a></td>
+          <td><a href="<%= student.resume %>" target="_blank"><button type="button" class="button" style="padding: 5px;">View Your Resume</button></a></td>
         </tr>
       </table>
 

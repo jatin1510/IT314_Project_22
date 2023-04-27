@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title> registered Student list </title>
+  <title> Applied Student List </title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -55,14 +55,14 @@
         <li class="active">
           <a href="/profile"><span class="fa-solid fa-user mr-3"></span> Profile</a>
         </li>
-        <li class="active">
+        <li>
           <a href="/postJob"><span class="fa-solid fa-plus mr-3"></span> Add Job</a>
         </li>
-        <li class="active">
+        <li>
           <a href="/updatePassword"><span class="fa fa-cloud-upload mr-3 "></span> Update
               Password</a>
         </li>
-        <li class="active">
+        <li>
           <a href="/logout"><span class="fa fa-sign-out mr-3"></span> Sign Out</a>
         </li>
       </ul>
@@ -91,35 +91,35 @@
 
                   <table class="table table-hover">
                     <tr>
-                      <td>Gender</td>
+                      <td> Gender </td>
                       <td>:</td>
                       <td>
                         <%= students[i].gender %>
                       </td>
                     </tr>
                     <tr>
-                      <td>10_th Percentages</td>
+                      <td> 10th Percentages </td>
                       <td>:</td>
                       <td>
                         <%= students[i].tenthPercentage %>
                       </td>
                     </tr>
                     <tr>
-                      <td> 12_th Percentages </td>
+                      <td> 12th Percentages </td>
                       <td>:</td>
                       <td>
                         <%= students[i].twelfthPercentage %>
                       </td>
                     </tr>
                     <tr>
-                      <td>Current CPI </td>
+                      <td> Current CPI </td>
                       <td>:</td>
                       <td>
                         <%= students[i].cpi %>
                       </td>
                     </tr>
                     <tr>
-                      <td>Current Backlogs </td>
+                      <td> Current Backlogs </td>
                       <td>:</td>
                       <td>
                         <%= students[i].activeBacklog %>
@@ -146,9 +146,7 @@
                         <a target="_blank" href="<%= students[i].resume %>">View Resume</a>
                       </td>
                     </tr>
-
                   </table>
-
                 </div>
               </div>
             </div>

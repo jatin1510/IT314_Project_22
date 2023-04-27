@@ -47,7 +47,7 @@
                 <h2>Login</h2>
                 <form action="/profile" id="login-form" method="POST">
                     <p>
-                        <input type="text" id="email" name="email"
+                        <input pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" type="email" id="email" name="email"
                             placeholder="Enter your email" required>
                         <i class="validation"><span></span><span></span></i>
                     </p>

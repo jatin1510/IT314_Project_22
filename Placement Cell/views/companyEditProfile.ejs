@@ -68,19 +68,14 @@
             <input type="text" name="hrName" id="browser" autocomplete="off" value="<%= company.hrName %>" required>
           </div>
 
-          <label for="email" class="label-1"> Email</label>
-          <div class="form-group">
-            <input type="text" name="email" id="browser" autocomplete="off" value="<%= company.email %>" required>
-          </div>
-
           <label for="website" class="label-1"> Website </label>
           <div class="form-group">
-            <input type="text" name="website" id="browser" autocomplete="off" value="<%= company.website %>" required>
+            <input type="url" name="website" id="browser" autocomplete="off" value="<%= company.website %>" required>
           </div>
 
           <label for="contact" class="label-1"> Contact No. </label>
           <div class="form-group">
-            <input type="tel" pattern="[1-9]{5}-[0-9]{5}" name="contactNumber" id="browser" autocomplete="off" value="<%= company.contactNumber %>" required>
+            <input type="tel" pattern="[1-9]{1}[0-9]{4}-[0-9]{5}" name="contactNumber" id="browser" autocomplete="off" value="<%= company.contactNumber %>" required>
           </div>
 
           <div class="btns">

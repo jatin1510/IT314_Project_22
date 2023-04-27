@@ -53,7 +53,8 @@ form {
     font-weight: 400;
 }
 
-.form-group [type="text"]{
+.form-group [type="text"],
+.form-group [type="number"]{
     height: 2.2em;
     width: 100%;
     font-size: 1.5em;
