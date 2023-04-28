@@ -60,12 +60,12 @@ const jobSchema = new Schema({
 
 const studentsRegistredSchema = new Schema({
     job: { type: mongoose.Schema.Types.ObjectId, ref: 'job' },
-    student: { type: mongoose.Schema.Types.ObjectId, ref: 'student' },
+    student: { type: mongoose.Schema.Types.ObjectId, ref: 'student'},
 });
 
 const studentPlacedSchema = new Schema({
     job: { type: mongoose.Schema.Types.ObjectId, ref: 'job' },
-    student: { type: mongoose.Schema.Types.ObjectId, ref: 'student' },
+    student: { type: mongoose.Schema.Types.ObjectId, ref: 'student', unique: true },
 });
 
 const student = mongoose.model('Student', studentSchema);

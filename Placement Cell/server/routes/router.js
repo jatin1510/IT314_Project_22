@@ -100,6 +100,8 @@ route.get('/registredStudentsInJob/:id', authorization, controller.registredStud
 route.get('/updateJob/:id', authorization, controller.updateJob);
 route.get('/deleteJob/:id', authorization, controller.deleteJob);
 route.post('/updateJobPost/:id', authorization, controller.updateJobPost);
+route.get('/hireStudent/:jobId/:studentId', authorization, controller.hireStudent);
+route.get('/unhireStudent/:jobId/:studentId', authorization, controller.unhireStudent);
 
 route.get('/unverifiedstudents', authorizationAdmin, controller.verifystudent);
 route.get('/unverifiedjobs', authorizationAdmin, controller.verifyjob);

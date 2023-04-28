@@ -108,9 +108,11 @@
                                 data-bs-target="#collapse<%= i + 1 %>" aria-expanded="false"
                                 aria-controls="collapse<%= i + 1 %>">
                                 <div style="font-weight: bold;"  class="header">
-                                    <%= students[i].firstName %>
-                                        <%= students[i].lastName %>
-
+                                    <%= students[i].student.firstName %>
+                                        <%= students[i].student.lastName %>
+                                        <% if(students[i].student.isPlaced == true) { %>
+                                            (Placed)
+                                            <% } %>
                                 </div>
                             </button>
                         </h2>
@@ -121,77 +123,73 @@
 
                                 <table class="table table-hover">
                                     <tr>
+                                        <td>Email</td>
+                                        <td>:</td>
+                                        <td>
+                                            <%= students[i].student.email %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>DOB</td>
+                                        <td>:</td>
+                                        <td>
+                                            <%= new Date(students[i].student.dob).toDateString() %>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td>Gender</td>
                                         <td>:</td>
                                         <td>
-                                            <%= students[i].gender %>
+                                            <%= students[i].student.gender %>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>10th Percentages</td>
                                         <td>:</td>
                                         <td>
-                                            <%= students[i].tenthPercentage %>
+                                            <%= students[i].student.tenthPercentage %>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td> 12th Percentages </td>
                                         <td>:</td>
                                         <td>
-                                            <%= students[i].twelfthPercentage %>
+                                            <%= students[i].student.twelfthPercentage %>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Current CPI </td>
                                         <td>:</td>
                                         <td>
-                                            <%= students[i].cpi %>
+                                            <%= students[i].student.cpi %>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Current Backlogs </td>
                                         <td>:</td>
                                         <td>
-                                            <%= students[i].activeBacklog %>
+                                            <%= students[i].student.activeBacklog %>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td> Total Backlogs </td>
                                         <td>:</td>
                                         <td>
-                                            <%= students[i].totalBacklog %>
+                                            <%= students[i].student.totalBacklog %>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td> Branch </td>
                                         <td>:</td>
                                         <td>
-                                            <%= students[i].branch %>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Placed ?</td>
-                                        <td>:</td>
-                                        <td>
-                                           <% if(students[i].isVerified== false && students[i].isRejected== false) { %>
-                                            <a href="/unverifiedstudents"> <button class="placed" > Verification Pending </button> </a>
-                                            <% } else if(students[i].isRejected== true) { %>
-                                                <a > <button class="placed" >  Out Of Drive </button> </a>
-                                            <% } else if(students[i].isPlaced == true) { %>
-                                                <a > <button class="placed" > Already Placed </button> </a>
-                                                <% } else {%>
-                                                    <a href="/unplaced/<%= students[i]._id%>"   > <button class="unplaced" > Place </button> </a> 
-
-                                            <% } %>
-
-
+                                            <%= students[i].student.branch %>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Verified ?</td>
                                         <td>:</td>
                                         <td>
-                                            <% if(students[i].isVerified==true){ %>
+                                            <% if(students[i].student.isVerified==true){ %>
                                                 YES
                                                 <% } else { %>
                                                     NO
@@ -202,7 +200,7 @@
                                         <td>Rejected ?</td>
                                         <td>:</td>
                                         <td>
-                                            <% if(students[i].isRejected==true){ %>
+                                            <% if(students[i].student.isRejected==true){ %>
                                                 YES
                                                 <% } else { %>
                                                     NO
@@ -210,10 +208,21 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td>Placement Status</td>
+                                        <td>:</td>
+                                        <td>
+                                           <% if(students[i].student.isPlaced==true) { %>
+                                                Student is Placed at <%= students[i].companyNameSend %> as <%= students[i].jobNameSend %>.
+                                                <% } else { %>
+                                                    Student is not placed yet.
+                                                    <% } %>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td> Resume </td>
                                         <td>:</td>
                                         <td>
-                                            <a target="_blank"   href="<%= students[i].resume %>">View Resume</a>
+                                            <a target="_blank" href="<%= students[i].student.resume %>">View Resume</a>
                                         </td>
                                     </tr>
 

@@ -59,6 +59,9 @@
             <a> Edit Job : </a>
 
           </div>
+          <% if(message) { %>
+            <h3 style="color: red"> <%= message %> </h3>
+              <% } %>
           <label for="jobName" class="label-1"> Job Name </label>
 
           <div class="form-group">
@@ -75,7 +78,7 @@
           <label for="cpiCriteria" class="label-1"> Minimum Needed CPI </label>
 
           <div class="form-group">
-            <input type="text" min="0" max="10" step="0.01" name="cpiCriteria" id="browser" autocomplete="off" value="<%= job.cpiCriteria %>" required>
+            <input type="number" min="0" max="10" step="0.01" name="cpiCriteria" id="browser" autocomplete="off" value="<%= job.cpiCriteria %>" required>
 
           </div>
 
@@ -83,7 +86,7 @@
           <label for="ctc" class="label-1"> CTC (LPA)</label>
 
           <div class="form-group">
-            <input type="text" name="ctc" min="0" step="0.01" id="browser" autocomplete="off" value="<%= job.ctc %>" required>
+            <input type="number" name="ctc" min="0" step="0.01" id="browser" autocomplete="off" value="<%= job.ctc %>" required>
 
 
           </div>

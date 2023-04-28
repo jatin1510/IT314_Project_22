@@ -172,14 +172,20 @@ exports.alreadyLoggedIn = async (req, res) =>
 
     if (role == "Student") {
         await student.findById(_id)
-            .then((data) =>
+            .then(async (data) =>
             {
                 if (!data) {
                     res
                         .status(404)
                         .render('error', { message: `Not found user with email: ${email} ` });
                 } else {
-                    res.render('studentProfile', { student: data });
+                    const link = await studentPlaced.findOne({ student: data._id });
+                    let jobData = null;
+                    if (link) {
+                        jobData = await job.findById(link.job);
+                    }
+                    const sendData = { student: data, job: jobData };
+                    res.render('studentProfile', { student: sendData });
                 }
             })
             .catch((err) =>
@@ -279,6 +285,13 @@ exports.registerStudent = async (req, res) =>
         res
             .status(400)
             .render('error', { message: 'Content can not be empty!' });
+        return;
+    }
+
+    if (req.body.password !== req.body.confirmPassword) {
+        res
+            .status(500)
+            .render('error', { message: 'Password do not match!!' });
         return;
     }
 
@@ -692,8 +705,8 @@ exports.studentUpdatePassword = async (req, res) =>
             await bcrypt.hash(newP, saltRounds)
                 .then(async (hashedPassword) =>
                 {
-                    console.log(old);
-                    console.log(newP, hashedPassword);
+                    // console.log(old);
+                    // console.log(newP, hashedPassword);
                     await student.findByIdAndUpdate(id, { password: hashedPassword })
                         .then(async (data) =>
                         {
@@ -734,7 +747,7 @@ exports.companyUpdatePassword = async (req, res) =>
         return;
     }
 
-    console.log(req.body);
+    // console.log(req.body);
     const old = req.body.password;
     const newP = req.body.newPassword;
     const newCP = req.body.newConfirmPassword;
@@ -797,7 +810,7 @@ exports.adminUpdatePassword = async (req, res) =>
         return;
     }
 
-    console.log(req.body);
+    // console.log(req.body);
     const old = req.body.password;
     const newP = req.body.newPassword;
     const newCP = req.body.newConfirmPassword;
@@ -1038,7 +1051,7 @@ exports.sendMail = async (req, res) =>
 exports.verifyStudent = async (req, res) =>
 {
     const id = req.params.id;
-    console.log(id);
+    // console.log(id);
     if (id) {
         await student.findByIdAndUpdate(id, { isVerified: true }, { useFindAndModify: false })
             .then(async (data) =>
@@ -1134,7 +1147,7 @@ exports.postJob = async (req, res) =>
     if (arr.length == 0) {
         res
             .status(404)
-            .render('companyPostJob', { message: 'Please Enter Branch', name : comp.companyName});
+            .render('companyPostJob', { message: 'Please Enter Branch', name: comp.companyName });
         return;
     }
     // new student
@@ -1210,7 +1223,7 @@ exports.registredStudentsInJob = async (req, res) =>
                         }
                         const companyName = await job.findById(jobID);
                         // console.log(arrayOfStudents);
-                        res.render('companyStudentList', { students: arrayOfStudents, name: companyName.companyName });
+                        res.render('companyStudentList', { students: arrayOfStudents, name: companyName.companyName, jobId: jobID });
                     })
                     .catch((err) =>
                     {
@@ -1354,7 +1367,7 @@ exports.updateJob = async (req, res) =>
         return;
     }
     const jobObject = await job.findById(jobID);
-    res.render('companyEditJobs', { job: jobObject });
+    res.render('companyEditJobs', { job: jobObject, message: null });
 }
 
 exports.updateJobPost = async (req, res) =>
@@ -1370,6 +1383,14 @@ exports.updateJobPost = async (req, res) =>
 
     if (req.body.msc)
         arr.push(req.body.msc);
+
+    if (arr.length == 0) {
+        const jobb = await job.findById(id);
+        res
+            .status(404)
+            .render('companyEditJobs', { message: 'Please Enter Branch', job: jobb });
+        return;
+    }
     // console.log(arr);
 
     const sendObject = {
@@ -1446,7 +1467,7 @@ exports.viewCompany = async (req, res) =>
         res.render('studentCompanyDetails', { jobs: data, registered: registered, user: user, location: uniqueLocations, titles: uniquejobTitles });
     }
     else {
-        res.render('error', {message: 'You have not access to the company list'});
+        res.render('error', { message: 'You have not access to the company list' });
     }
 }
 
@@ -1624,7 +1645,7 @@ exports.verifyjob = async (req, res) =>
 exports.rejectStudent = async (req, res) =>
 {
     const id = req.params.id;
-    console.log(id);
+    // console.log(id);
     if (id) {
         await student.findByIdAndUpdate(id, { isRejected: true }, { useFindAndModify: false })
             .then(async (data) =>
@@ -1702,7 +1723,24 @@ exports.adminStudents = async (req, res) =>
     }
 
     const data = await student.find({}).exec();
-    res.render('adminStudents', { students: data, isSuperAdmin: flag });
+    let sendData = [];
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].isPlaced != true && data[i].isVarified == true && data[i].isRejected == false) {
+
+        }
+        else {
+            const link = await studentPlaced.findOne({ student: data[i]._id });
+            // console.log(link);
+            if (!link) {
+                sendData.push({ student: data[i], jobNameSend: "Not Placed", companyNameSend: "Not Placed" });
+                continue;
+            }
+            const jobData = await job.findById(link.job);
+            // console.log(jobData);
+            sendData.push({ student: data[i], jobNameSend: jobData.jobName, companyNameSend: jobData.companyName });
+        }
+    }
+    res.render('adminStudents', { students: sendData, isSuperAdmin: flag });
 
 }
 
@@ -1771,8 +1809,8 @@ exports.unplacedstudent = async (req, res) =>
         await student.findByIdAndUpdate(id, { isPlaced: true }, { useFindAndModify: false })
             .then(async (data) =>
             {
-                const std = await studentJob.find({student : id}).exec();
-                for(let i = 0; i < std.length; i++) {
+                const std = await studentJob.find({ student: id }).exec();
+                for (let i = 0; i < std.length; i++) {
                     await studentJob.findByIdAndDelete(std[i]._id);
                 }
                 res.redirect("/adminStudents");
@@ -1795,7 +1833,7 @@ exports.unplacedstudent = async (req, res) =>
 exports.postJobPage = async (req, res) =>
 {
     const comp = await company.findById(req.id).exec();
-    res.render('companyPostJob', { name: comp.companyName, message : "" });
+    res.render('companyPostJob', { name: comp.companyName, message: "" });
 }
 
 exports.updateResumeHelper = async (req, res) =>
@@ -1815,3 +1853,38 @@ exports.updateResumeHelper = async (req, res) =>
         });
 };
 
+exports.hireStudent = async (req, res) =>
+{
+    const user = new studentPlaced({
+        job: req.params.jobId,
+        student: req.params.studentId,
+    });
+
+    // student schema isPlaced = true;
+    await student.findByIdAndUpdate(req.params.studentId, { isPlaced: true }, { useFindAndModify: false });
+
+    // save studentPlaced schema
+    await user
+        .save(user)
+        .then((data) =>
+        {
+            res.redirect(`/registredStudentsInJob/${req.params.jobId}`);
+        })
+        .catch((err) =>
+        {
+            res.status(500).render('error', { message: 'Student is already placed' });
+        });
+
+    const jobID = req.params.jobId;
+};
+
+exports.unhireStudent = async (req, res) =>
+{
+
+    await studentPlaced.findOneAndDelete({ job: req.params.jobId, student: req.params.studentId });
+    // student schema isPlaced = true;
+    await student.findByIdAndUpdate(req.params.studentId, { isPlaced: false }, { useFindAndModify: false });
+
+    // save studentPlaced schema
+    res.redirect(`/registredStudentsInJob/${req.params.jobId}`);
+};
